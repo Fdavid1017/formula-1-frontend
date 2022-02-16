@@ -136,8 +136,6 @@ export default {
 
   .show-more-btn {
     @include button;
-
-    margin-top: 25px;
   }
 
   .next-race-countdown {

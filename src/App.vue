@@ -5,14 +5,17 @@
     <v-main>
       <router-view />
     </v-main>
+
+    <my-footer />
   </v-app>
 </template>
 
 <script>
 import Navbar from "@/components/navbar";
+import MyFooter from "@/components/my-footer";
 export default {
   name: "App",
-  components: { Navbar },
+  components: { MyFooter, Navbar },
   data: () => ({
     //
   }),

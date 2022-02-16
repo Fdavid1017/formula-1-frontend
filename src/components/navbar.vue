@@ -11,7 +11,7 @@
                 max-height="65"
                 max-width="65"
                 src="@/assets/logo.svg"
-              ></v-img>
+              />
             </router-link>
           </v-toolbar-title>
         </v-col>
