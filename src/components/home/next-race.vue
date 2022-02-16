@@ -1,34 +1,49 @@
 <template>
   <v-container class="next-race">
     <v-row>
-      <v-col cols="6" class="d-flex align-center">
+      <v-col class="d-flex align-center justify-center" cols="12" lg="6">
         <div class="next-race-countdown">
-          <h2 class="">Hungary</h2>
+          <h2 class="">{{ nextRace === null ? "" : nextRace["raceName"] }}</h2>
           <v-row justify="center">
-            <v-col cols="3">
-              <div class="time">{{ days }}</div>
-              <div class="time-label">day{{ days > 1 ? "s" : "" }}</div>
+            <v-col cols="6" md="3">
+              <div class="time">{{ timeRemaining.days }}</div>
+              <div class="time-label">
+                day{{ timeRemaining.days > 1 ? "s" : "" }}
+              </div>
             </v-col>
-            <v-col cols="3">
-              <div class="time">{{ hours }}</div>
-              <div class="time-label">hour{{ hours > 1 ? "s" : "" }}</div>
+            <v-col cols="6" md="3">
+              <div class="time">{{ timeRemaining.hours }}</div>
+              <div class="time-label">
+                hour{{ timeRemaining.hours > 1 ? "s" : "" }}
+              </div>
             </v-col>
-            <v-col cols="3">
-              <div class="time">{{ minutes }}</div>
-              <div class="time-label">minute{{ minutes > 1 ? "s" : "" }}</div>
+            <v-col cols="6" md="3">
+              <div class="time">{{ timeRemaining.minutes }}</div>
+              <div class="time-label">
+                minute{{ timeRemaining.minutes > 1 ? "s" : "" }}
+              </div>
             </v-col>
-            <v-col cols="3">
-              <div class="time">{{ secs }}</div>
-              <div class="time-label">second{{ secs > 1 ? "s" : "" }}</div>
+            <v-col cols="6" md="3">
+              <div class="time">{{ timeRemaining.seconds }}</div>
+              <div class="time-label">
+                second{{ timeRemaining.seconds > 1 ? "s" : "" }}
+              </div>
             </v-col>
           </v-row>
         </div>
       </v-col>
-      <v-col class="d-flex align-end flex-column justify-center" cols="6">
-        <p class="text-end">
+      <v-col
+        class="d-flex align-end flex-column justify-center"
+        cols="12"
+        lg="6"
+      >
+        <p class="text-center text-lg-end">
           Get informations about the upcoming and past races.
         </p>
-        <router-link class="show-more-btn" to="/">Show more</router-link>
+
+        <div class="d-flex align-center justify-center justify-lg-end fill-width">
+          <router-link class="show-more-btn" to="/">Show more</router-link>
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -41,26 +56,66 @@ export default {
   name: "next-race",
   data: () => ({
     nextRace: null,
+    timeRemaining: {
+      total: 0,
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    },
   }),
   async mounted() {
     getCurrentSchedule().then((result) => {
-     result.forEach((item)=>{
+      const today = new Date();
+      let next = null;
 
-     })
+      result.forEach((item) => {
+        const date = new Date(`${item["date"]} ${item["time"]}`);
+        if (date > today) {
+          next = item;
+          return;
+        }
+      });
+
+      if (next === null) {
+        next = result.pop();
+      }
+
+      this.nextRace = next;
+      this.setTimeRemaining();
+      this.countDownTimeOut();
     });
   },
   computed: {
-    days() {
-      return 2;
+    nextRaceDate() {
+      if (this.nextRace === null) {
+        return new Date();
+      }
+
+      return new Date(`${this.nextRace["date"]} ${this.nextRace["time"]}`);
     },
-    hours() {
-      return 2;
+  },
+  methods: {
+    setTimeRemaining() {
+      const total = this.nextRaceDate - new Date();
+      const seconds = Math.floor((total / 1000) % 60);
+      const minutes = Math.floor((total / 1000 / 60) % 60);
+      const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+      const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+      this.timeRemaining = {
+        total,
+        days,
+        hours,
+        minutes,
+        seconds,
+      };
     },
-    minutes() {
-      return 1;
-    },
-    secs() {
-      return 2;
+    countDownTimeOut() {
+      setTimeout(() => {
+        this.setTimeRemaining();
+        this.countDownTimeOut();
+      }, 1000);
     },
   },
 };
@@ -68,8 +123,12 @@ export default {
 
 <style lang="scss" scoped>
 .next-race {
-  margin-top: 150px;
+  margin-top: 450px;
   margin-bottom: 75px;
+
+  @include media-breakpoint-up(md) {
+    margin-top: 100px;
+  }
 
   p {
     @include home-panel-text(black);
@@ -79,16 +138,16 @@ export default {
     @include button;
 
     margin-top: 25px;
-    float: right;
   }
 
   .next-race-countdown {
     background: $f1-red;
     color: white;
     padding: 10px;
-    width: 100%;
     text-align: center;
     border-radius: 5px;
+    width: 100%;
+    max-width: 569px;
 
     h2 {
       font-weight: 600;

@@ -40,6 +40,7 @@ export default {
 .hero {
   height: 250px;
   position: relative;
+  overflow-x: clip;
 
   @include media-breakpoint-up(sm) {
     height: 350px;
@@ -133,6 +134,7 @@ export default {
       width: 100%;
       right: 0;
       top: 55%;
+      object-fit: cover;
 
       @include media-breakpoint-up(md) {
         height: calc(100% - 1px);

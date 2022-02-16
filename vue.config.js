@@ -6,6 +6,7 @@ module.exports = {
         additionalData: `
         @import "~@/scss/variables.scss";
         @import "~@/scss/mixins.scss";
+        @import "~@/scss/global.scss";
         @import "~@/fonts/fonts.scss";
         `,
       },
