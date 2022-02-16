@@ -1,0 +1,29 @@
+@mixin home-panel-text($color) {
+  color: $color;
+  font-family: Poppins;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 49px;
+}
+
+@mixin button {
+  font-family: Poppins;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 49px;
+  text-align: center !important;
+  display: inline;
+  padding: 10px 25px;
+  color: white;
+  background-color: $f1-red;
+  border: 1px solid $f1-red;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $f1-red;
+    background-color: white;
+  }
+}
