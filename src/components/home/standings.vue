@@ -61,7 +61,7 @@ export default {
 .standings {
   background-color: $dark-blue;
   padding-top: 175px;
-  padding-bottom: 275px;
+  padding-bottom: 30%;
   position: relative;
   z-index: 1;
 

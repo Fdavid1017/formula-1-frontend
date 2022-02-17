@@ -160,7 +160,7 @@ export default {
       left: 50%;
       transform: translateX(-50%) skew(10deg);
       filter: grayscale(100%);
-      transition: all 0.3s ease;
+      transition: all 0.3s ease-out;
     }
 
     .overlay {
@@ -171,7 +171,7 @@ export default {
       left: 0;
       background-color: rgba(0, 0, 0, 0.25);
       opacity: 0;
-      transition: all 0.3s ease;
+      transition: all 0.3s ease-out;
 
       div {
         transform: skew(10deg);

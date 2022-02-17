@@ -1,5 +1,5 @@
 <template>
-  <v-container class="telemetry">
+  <v-container ref="telemetryPanel" class="telemetry">
     <div class="inner relative">
       <v-row>
         <v-col cols="12" sm="8">
@@ -12,11 +12,15 @@
         </v-col>
       </v-row>
 
-      <div class="car-parallax d-none d-sm-block">
+      <div
+        class="car-parallax d-none d-sm-block"
+        :style="{ height: `${carContainerHeight}px` }"
+      >
         <img
           class="parallax-car"
           src="@/assets/images/alphine-top.png"
           alt="Alphine"
+          :style="{ maxHeight: `${standingsHeight * 0.75}px` }"
         />
       </div>
 
@@ -25,6 +29,7 @@
         class="d-block d-sm-none mobile-image mx-auto mt-10"
         alt="Alphine"
       />
+      <img class="telemetry-dots" src="@/assets/images/dots-pattern.svg" />
     </div>
   </v-container>
 </template>
@@ -32,6 +37,34 @@
 <script>
 export default {
   name: "telemetry",
+  props: {
+    standingsHeight: {
+      type: Number,
+      default: 0,
+    },
+  },
+  data: () => ({
+    telemetryHeight: 0,
+  }),
+  mounted() {
+    this.setHeroTextHeight();
+  },
+  created() {
+    window.addEventListener("resize", this.setHeroTextHeight);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.setHeroTextHeight);
+  },
+  methods: {
+    setHeroTextHeight() {
+      this.telemetryHeight = this.$refs.telemetryPanel.clientHeight;
+    },
+  },
+  computed: {
+    carContainerHeight() {
+      return this.telemetryHeight + this.standingsHeight - 20;
+    },
+  },
 };
 </script>
 
@@ -54,8 +87,8 @@ export default {
     .car-parallax {
       position: absolute;
       right: 0;
-      top: -100%;
-      height: 200%;
+      bottom: 0;
+      z-index: 1;
 
       .parallax-car {
         position: sticky;
@@ -67,6 +100,12 @@ export default {
 
     .mobile-image {
       width: 85%;
+    }
+
+    .telemetry-dots {
+      position: absolute;
+      bottom: 0;
+      right: 0;
     }
   }
 }

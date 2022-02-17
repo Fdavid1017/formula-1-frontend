@@ -58,7 +58,7 @@ export default {
 <style lang="scss" scoped>
 .news-panel {
   background-color: $dark-blue;
-  padding: 40px;
+  padding: 40px 0;
   min-height: 540px;
 
   .text {

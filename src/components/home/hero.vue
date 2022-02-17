@@ -4,11 +4,11 @@
       <v-row class="mt-10 mt-md-0s">
         <v-col cols="12" md="9">
           <div class="text text-center text-md-start">
-            <div class="">
+            <div class="mb-5 mb-md-13">
               get informations about the
               <span class="primary--text">fastest</span> sport on the world.
             </div>
-            <div class="">ANYWHERE. ANYTIME.</div>
+            <div>ANYWHERE. ANYTIME.</div>
           </div>
         </v-col>
       </v-row>

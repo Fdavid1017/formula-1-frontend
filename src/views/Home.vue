@@ -2,8 +2,10 @@
   <div>
     <hero />
     <next-race />
-    <standings />
-    <telemetry />
+    <div ref="standingsPanel" class="standings-panel">
+      <standings />
+    </div>
+    <telemetry :standings-height="standingsHeight" />
     <news-panel />
   </div>
 </template>
@@ -18,7 +20,29 @@ import NewsPanel from "@/components/home/news-panel";
 export default {
   name: "Home",
   components: { NewsPanel, Telemetry, Standings, NextRace, Hero },
+  data: () => ({
+    standingsHeight: 0,
+  }),
+  mounted() {
+    this.setHeroTextHeight();
+  },
+  created() {
+    window.addEventListener("resize", this.setHeroTextHeight);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.setHeroTextHeight);
+  },
+  methods: {
+    setHeroTextHeight() {
+      this.standingsHeight = this.$refs.standingsPanel.clientHeight;
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.standings-panel {
+  position: relative;
+  z-index: 2;
+}
+</style>
