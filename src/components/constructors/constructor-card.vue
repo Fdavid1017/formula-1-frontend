@@ -11,6 +11,38 @@
         <div class="name-second-part">
           {{ nameSecondPart }}
         </div>
+
+        <div class="d-flex mt-3 constructor-infos">
+          <div class="">
+            <div
+              class="card-info-title"
+              :style="{ color: team.color.tertiary }"
+            >
+              Wins
+            </div>
+            <div
+              class="card-info-data"
+              :style="{ color: team.color.secondary }"
+            >
+              {{ team.wins }}
+            </div>
+          </div>
+
+          <div class="ml-5">
+            <div
+              class="card-info-title"
+              :style="{ color: team.color.tertiary }"
+            >
+              Points
+            </div>
+            <div
+              class="card-info-data"
+              :style="{ color: team.color.secondary }"
+            >
+              {{ team.points }}
+            </div>
+          </div>
+        </div>
       </div>
 
       <constructors-card-background
@@ -67,9 +99,9 @@ export default {
   },
   computed: {
     nameSecondPart() {
-      const splited = this.team.nameExtended.fullName.split("$team");
-      const firstPart = splited[0];
-      const secondPart = splited[1];
+      const splitted = this.team.nameExtended.fullName.split("$team");
+      const firstPart = splitted[0];
+      const secondPart = splitted[1];
 
       if (secondPart) {
         return secondPart;
@@ -120,6 +152,23 @@ export default {
       letter-spacing: 1.2px;
       text-shadow: 0 2px 11px rgba(0, 0, 0, 0.2);
     }
+
+    .constructor-infos {
+      width: 0;
+      overflow: hidden;
+      transition: 0.3s all ease-out;
+
+      .card-info-title {
+        text-transform: uppercase;
+        font-size: 22px;
+        font-weight: bold;
+      }
+
+      .card-info-data {
+        font-weight: 500;
+        font-size: 18px;
+      }
+    }
   }
 
   .car-image {
@@ -143,6 +192,10 @@ export default {
   &:hover {
     .car-image {
       right: 0;
+    }
+
+    .constructor-infos {
+      width: 100%;
     }
   }
 }
