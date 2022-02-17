@@ -1,5 +1,7 @@
 <template>
   <v-container class="my-15">
+    <grid-switch-button />
+
     <v-row>
       <v-col
         v-for="team in constructors"
@@ -16,10 +18,11 @@
 <script>
 import { getConstructors } from "@/services/constructors-service";
 import ConstructorCard from "@/components/constructors/constructor-card";
+import GridSwitchButton from "@/components/grid-switch-button";
 
 export default {
   name: "Constructors",
-  components: { ConstructorCard },
+  components: { GridSwitchButton, ConstructorCard },
   data: () => ({
     constructors: [],
   }),
