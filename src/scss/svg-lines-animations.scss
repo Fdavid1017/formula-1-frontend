@@ -1,0 +1,14 @@
+.move-diagonal-2 {
+  transform-origin: top right;
+  animation: diagonal 10s linear infinite;
+}
+
+
+@keyframes diagonal {
+  0% {
+    transform: translateX(-51em) translateY(73.3333315em);
+  }
+  100% {
+    transform: translateX(51em) translateY(-73.3333315em);
+  }
+}

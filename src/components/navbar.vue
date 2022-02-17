@@ -25,7 +25,7 @@
           <router-link to="/"> Drivers</router-link>
         </v-col>
         <v-col class="d-none d-md-block" cols="2">
-          <router-link to="/"> Constructors</router-link>
+          <router-link to="/constructors"> Constructors</router-link>
         </v-col>
         <v-col class="d-none d-md-block" cols="2">
           <router-link to="/"> Standings</router-link>
@@ -41,19 +41,29 @@
       <v-list dense nav>
         <v-list-item-group active-class="primary--text text--accent-4">
           <v-list-item>
-            <v-list-item-title>Schedule</v-list-item-title>
+            <v-list-item-title>
+              <router-link to="/"> Schedule</router-link>
+            </v-list-item-title>
           </v-list-item>
           <v-list-item>
-            <v-list-item-title>News</v-list-item-title>
+            <v-list-item-title>
+              <router-link to="/"> News</router-link>
+            </v-list-item-title>
           </v-list-item>
           <v-list-item>
-            <v-list-item-title>Drivers</v-list-item-title>
+            <v-list-item-title>
+              <router-link to="/"> Drivers</router-link>
+            </v-list-item-title>
           </v-list-item>
           <v-list-item>
-            <v-list-item-title>Constructors</v-list-item-title>
+            <v-list-item-title>
+              <router-link to="/constructors"> Constructors</router-link>
+            </v-list-item-title>
           </v-list-item>
           <v-list-item>
-            <v-list-item-title>Standings</v-list-item-title>
+            <v-list-item-title>
+              <router-link to="/"> Standings</router-link>
+            </v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -77,7 +87,7 @@ export default {
 .navbar {
   font-family: Formula1;
 
-  .active {
+  .router-link-exact-active {
     &:after {
       width: 100% !important;
     }
