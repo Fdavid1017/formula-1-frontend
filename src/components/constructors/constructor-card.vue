@@ -1,20 +1,39 @@
 <template>
-  <div class="constructor-card relative">
-    <div class="card-content">
-      <h2 :style="{ color: team.color.primary }">
-        {{ this.team.nameExtended.shortName }}
-      </h2>
-      <div class="name-second-part">
-        {{ nameSecondPart }}
+  <router-link
+    :to="`constructors/${team.Constructor.constructorId}`"
+    class="constructor-card d-block relative"
+  >
+    <div class="inner px-4">
+      <div class="card-content">
+        <h2 :style="{ color: team.color.primary }">
+          {{ this.team.nameExtended.shortName }}
+        </h2>
+        <div class="name-second-part">
+          {{ nameSecondPart }}
+        </div>
       </div>
+
+      <constructors-card-background
+        :primary="team.color.primary"
+        :secondary="team.color.secondary"
+        :tertiary="team.color.tertiary"
+        class="card-background"
+      />
     </div>
 
-    <constructors-card-background class="card-background" :primary="team.color.primary" :secondary="team.color.secondary" :tertiary="team.color.tertiary"/>
-  </div>
+    <img
+      class="car-image"
+      :src="
+        require(`@/assets/images/cars/${team.Constructor.constructorId}.png`)
+      "
+      alt="Car"
+    />
+  </router-link>
 </template>
 
 <script>
 import ConstructorsCardBackground from "@/components/constructors/constructors-card-background";
+
 export default {
   name: "constructor-card",
   components: { ConstructorsCardBackground },
@@ -67,7 +86,18 @@ export default {
   background-color: white;
   box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
   height: 100%;
-  overflow: hidden;
+  width: 100%;
+  min-height: 270px;
+  cursor: pointer;
+
+  .inner {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 
   .card-content {
     position: relative;
@@ -92,12 +122,28 @@ export default {
     }
   }
 
+  .car-image {
+    width: 85%;
+    position: absolute;
+    z-index: 2;
+    right: -4%;
+    bottom: 0;
+    filter: drop-shadow(2px 1px 11px rgba(0, 0, 0, 0.47));
+    transition: 0.3s all ease-out;
+  }
+
   .card-background {
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
+    left: -20%;
+    top: -43%;
+    width: 130%;
     transform: rotate(-35deg);
+  }
+
+  &:hover {
+    .car-image {
+      right: 0;
+    }
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="">
+  <v-container class="my-15">
     <v-row>
       <v-col
         v-for="team in constructors"
