@@ -41,7 +41,9 @@
           Get informations about the upcoming and past races.
         </p>
 
-        <div class="d-flex align-center justify-center justify-lg-end fill-width">
+        <div
+          class="d-flex align-center justify-center justify-lg-end fill-width"
+        >
           <router-link class="show-more-btn" to="/">Show more</router-link>
         </div>
       </v-col>
@@ -123,12 +125,8 @@ export default {
 
 <style lang="scss" scoped>
 .next-race {
-  margin-top: 450px;
+  margin-top: 100px;
   margin-bottom: 75px;
-
-  @include media-breakpoint-up(md) {
-    margin-top: 100px;
-  }
 
   p {
     @include home-panel-text(black);

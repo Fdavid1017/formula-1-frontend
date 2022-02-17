@@ -1,21 +1,21 @@
 <template>
   <div class="hero">
-    <v-container class="fill-height d-flex align-center">
-      <v-row>
+    <v-container ref="heroText" class="fill-height d-flex align-center">
+      <v-row class="mt-10 mt-md-0s">
         <v-col cols="12" md="9">
           <div class="text text-center text-md-start">
-            get informations about the
-            <span class="primary--text">fastest</span> sport on the world.
-            <br />
-            <br />
-            ANYWHERE. ANYTIME.
+            <div class="">
+              get informations about the
+              <span class="primary--text">fastest</span> sport on the world.
+            </div>
+            <div class="">ANYWHERE. ANYTIME.</div>
           </div>
         </v-col>
       </v-row>
     </v-container>
 
-    <div class="background">
-      <v-row class="fill-height pa-0 ma-0">
+    <div :style="{ marginTop: `-${heroHeight}px` }" class="background">
+      <v-row :style="{ height: `${heroHeight + 50}px` }" class="pa-0 ma-0">
         <v-col class="pa-0 ma-0" cols="12" md="9">
           <div class="gradient">
             <div />
@@ -33,21 +33,44 @@
 <script>
 export default {
   name: "hero",
+  data: () => ({
+    heroHeight: 0,
+  }),
+  mounted() {
+    this.setHeroTextHeight();
+  },
+  created() {
+    window.addEventListener("resize", this.setHeroTextHeight);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.setHeroTextHeight);
+  },
+  methods: {
+    setHeroTextHeight() {
+      this.heroHeight = this.$refs.heroText.clientHeight;
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .hero {
-  height: 250px;
+  $height: 250px;
+  $height-sm: 350px;
+  $height-md: 550px;
+
+  min-height: $height;
   position: relative;
   overflow-x: clip;
 
   @include media-breakpoint-up(sm) {
-    height: 350px;
+    min-height: $height-sm;
   }
 
   @include media-breakpoint-up(md) {
-    height: 550px;
+    .container {
+      min-height: $height-md;
+    }
   }
 
   .text {
@@ -70,12 +93,23 @@ export default {
   }
 
   .background {
-    position: absolute;
-    left: 0;
-    top: 0;
+    position: relative;
     width: 100%;
-    height: 100%;
+    min-height: $height;
     z-index: 0;
+
+    @include media-breakpoint-up(sm) {
+      min-height: $height-sm;
+    }
+
+    @include media-breakpoint-up(md) {
+      min-height: $height-md;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 0 !important;
+    }
 
     .gradient {
       position: relative;
@@ -130,16 +164,16 @@ export default {
     }
 
     img {
-      position: absolute;
-      width: 100%;
-      right: 0;
-      top: 55%;
+      margin-top: -25%;
       object-fit: cover;
+      max-width: 100%;
 
       @include media-breakpoint-up(md) {
         height: calc(100% - 1px);
+        position: absolute;
         right: -55px;
         top: 0;
+        margin: 0 !important;
       }
     }
   }
