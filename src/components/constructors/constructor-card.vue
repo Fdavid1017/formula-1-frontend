@@ -9,7 +9,7 @@
           {{ this.team.nameExtended.shortName }}
         </h2>
         <div class="name-second-part">
-          {{ nameSecondPart }}
+          {{ getConstructorNameSecondPart(team.nameExtended.fullName) }}
         </div>
 
         <div class="d-flex mt-3 constructor-infos">
@@ -65,6 +65,7 @@
 
 <script>
 import ConstructorsCardBackground from "@/components/constructors/constructors-card-background";
+import getConstructorNameSecondPart from "@/helpers/getConstructorNameSecondPart";
 
 export default {
   name: "constructor-card",
@@ -97,18 +98,8 @@ export default {
       },
     },
   },
-  computed: {
-    nameSecondPart() {
-      const splitted = this.team.nameExtended.fullName.split("$team");
-      const firstPart = splitted[0];
-      const secondPart = splitted[1];
-
-      if (secondPart) {
-        return secondPart;
-      }
-
-      return firstPart;
-    },
+  methods: {
+    getConstructorNameSecondPart,
   },
 };
 </script>

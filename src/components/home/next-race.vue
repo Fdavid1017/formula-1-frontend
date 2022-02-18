@@ -6,30 +6,26 @@
           <h2 class="">{{ nextRace === null ? "" : nextRace["raceName"] }}</h2>
           <v-row justify="center">
             <v-col cols="6" md="3">
-              <div class="time">{{ timeRemaining.days }}</div>
-              <div class="time-label">
-                day{{ timeRemaining.days > 1 ? "s" : "" }}
-              </div>
+              <div class="time">{{ Math.abs(timeRemaining.days) }}</div>
+              <div class="time-label">days</div>
             </v-col>
             <v-col cols="6" md="3">
-              <div class="time">{{ timeRemaining.hours }}</div>
-              <div class="time-label">
-                hour{{ timeRemaining.hours > 1 ? "s" : "" }}
-              </div>
+              <div class="time">{{ Math.abs(timeRemaining.hours) }}</div>
+              <div class="time-label">hours</div>
             </v-col>
             <v-col cols="6" md="3">
-              <div class="time">{{ timeRemaining.minutes }}</div>
-              <div class="time-label">
-                minute{{ timeRemaining.minutes > 1 ? "s" : "" }}
-              </div>
+              <div class="time">{{ Math.abs(timeRemaining.minutes) }}</div>
+              <div class="time-label">minutes</div>
             </v-col>
             <v-col cols="6" md="3">
-              <div class="time">{{ timeRemaining.seconds }}</div>
-              <div class="time-label">
-                second{{ timeRemaining.seconds > 1 ? "s" : "" }}
-              </div>
+              <div class="time">{{ Math.abs(timeRemaining.seconds) }}</div>
+              <div class="time-label">seconds</div>
             </v-col>
           </v-row>
+
+          <div v-if="new Date() > nextRaceDate" class="text-center time-label">
+            AGO
+          </div>
         </div>
       </v-col>
       <v-col
