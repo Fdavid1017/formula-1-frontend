@@ -3,7 +3,7 @@
 
   <v-container v-else class="constructor-details pa-0" fluid>
     <v-row class="my-0 mx-3 content-row">
-      <v-col class="d-flex align-end" cols="1">
+      <v-col class="d-flex align-end" cols="12" md="1" order="first">
         <div class="constructor-name">
           <h2 :style="{ color: team.color.primary }">
             {{ this.team.nameExtended.shortName }}
@@ -13,23 +13,20 @@
           </div>
         </div>
       </v-col>
-      <v-col class="d-flex align-end justify-center pb-0" cols="9">
-        <div class="driver-codes">
-          <div :style="{ color: team.color.primary }">
-            {{ team.drivers[0].code }}
-          </div>
-          <div :style="{ color: team.color.primary }">
-            {{ team.drivers[1].code }}
-          </div>
-        </div>
-
+      <v-col
+        class="d-flex align-end justify-center pb-0 background-container"
+        cols="12"
+        md="9"
+        order="last"
+        order-md="first"
+      >
         <constructor-details-background
           :primary="team.color.primary"
           :secondary="team.color.secondary"
           :tertiary="team.color.tertiary"
         />
       </v-col>
-      <v-col class="d-flex align-end justify-end" cols="2">
+      <v-col class="d-flex align-end justify-end" cols="12" md="2">
         <div class="stats">
           <div class="stat-item">
             <div :style="{ color: team.color.tertiary }" class="stat-title">
@@ -63,7 +60,7 @@
 
     <div class="bottom relative">
       <v-row justify="center">
-        <v-col class="pa-0 relative" cols="7">
+        <v-col class="pa-0 relative" cols="10" md="7">
           <router-link to="/">
             <img
               :alt="`${team.Constructor.name} Car`"
@@ -168,6 +165,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~vuetify/src/styles/settings/_variables";
+
 .constructor-details {
   $floor-height: 115px;
   min-height: 93vh;
@@ -183,6 +182,12 @@ export default {
     max-height: 70vh;
     position: relative;
     z-index: 10;
+
+    @media #{map-get($display-breakpoints, 'sm-and-down')} {
+      transform: unset;
+      writing-mode: unset;
+      text-orientation: unset;
+    }
 
     h2,
     .name-second-part {
@@ -219,10 +224,30 @@ export default {
   .stats {
     text-align: right;
 
+    @media #{map-get($display-breakpoints, 'sm-and-down')} {
+      display: flex;
+      width: 100%;
+      text-align: left;
+      align-items: start;
+      justify-content: space-between;
+    }
+
+    @media #{map-get($display-breakpoints, 'xs-only')} {
+      display: block;
+      width: 100%;
+      text-align: left;
+      //align-items: start;
+      //justify-content: space-between;
+    }
+
     .stat-item {
       text-transform: uppercase;
       margin-top: 50px;
       filter: drop-shadow(2px 0px 11px rgba(0, 0, 0, 0.2));
+
+      @media #{map-get($display-breakpoints, 'sm-and-down')} {
+        margin-top: 0;
+      }
 
       .stat-title {
         font-size: 30px;
@@ -233,6 +258,12 @@ export default {
         font-weight: 900;
         font-size: 70px;
       }
+    }
+  }
+
+  .background-container {
+    @media #{map-get($display-breakpoints, 'sm-and-down')} {
+      margin-top: -10%;
     }
   }
 
