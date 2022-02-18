@@ -2,7 +2,7 @@
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    viewBox="100 0 1000 650"
+    viewBox="100 0 1000 627"
   >
     <defs>
       <clipPath id="a" transform="translate(-266.62 -17.66)">
@@ -13,22 +13,22 @@
       </clipPath>
     </defs>
     <path
-      class="b"
+      :style="{ fill: tertiary }"
       d="M858.49,299.82l-26-24L430.82,615.67Z"
       transform="translate(-350 -17.66)"
     />
     <path
-      class="c"
+      :style="{ fill: secondary }"
       d="M661.15,354.6,558.84,332.8l-42.76,15.65Z"
       transform="translate(-266.62 -75)"
     />
     <path
-      class="f"
+      :style="{ fill: secondary }"
       d="M1268.48,405.46l97.62-37.56,27.3-36.46Z"
-      transform="translate(-266.62 -17.66)"
+      transform="translate(-300 -150)"
     />
     <rect
-      class="b"
+      :style="{ fill: tertiary }"
       x="1035.43"
       y="349.87"
       width="242.51"
@@ -37,7 +37,7 @@
     />
     <g class="e">
       <rect
-        class="f"
+        class="fill-white"
         x="341.54"
         y="199.85"
         width="740.23"
@@ -45,7 +45,7 @@
         transform="translate(-315.34 848.8) rotate(-60.96)"
       />
       <rect
-        class="g"
+        :style="{ fill: primary }"
         x="615.63"
         y="336.55"
         width="900.87"
@@ -53,7 +53,7 @@
         transform="translate(-395.94 965.88) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="1037.88"
         y="354.69"
         width="373.23"
@@ -61,7 +61,7 @@
         transform="translate(-137.22 991.17) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="1048.75"
         y="355.67"
         width="373.23"
@@ -69,7 +69,7 @@
         transform="translate(-134.48 999.43) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="1033.65"
         y="343.37"
         width="373.23"
@@ -77,7 +77,7 @@
         transform="translate(-130.28 984.47) rotate(-47.01)"
       />
       <rect
-        class="g"
+        :style="{ fill: primary }"
         x="212.18"
         y="648.19"
         width="373.23"
@@ -85,7 +85,7 @@
         transform="translate(-614.58 480.56) rotate(-47.01)"
       />
       <rect
-        class="g"
+        :style="{ fill: primary }"
         x="223.04"
         y="649.17"
         width="373.23"
@@ -93,7 +93,7 @@
         transform="translate(-611.84 488.82) rotate(-47.01)"
       />
       <rect
-        class="g"
+        :style="{ fill: primary }"
         x="207.95"
         y="636.87"
         width="373.23"
@@ -101,7 +101,7 @@
         transform="translate(-607.64 473.87) rotate(-47.01)"
       />
       <rect
-        class="g"
+        :style="{ fill: primary }"
         x="629.25"
         y="368.17"
         width="373.23"
@@ -109,7 +109,7 @@
         transform="translate(-278.22 697.06) rotate(-47.01)"
       />
       <rect
-        class="g"
+        :style="{ fill: primary }"
         x="603.66"
         y="412.24"
         width="373.23"
@@ -117,7 +117,7 @@
         transform="translate(-318.48 692.31) rotate(-47.01)"
       />
       <rect
-        class="g"
+        :style="{ fill: primary }"
         x="622.64"
         y="354.51"
         width="373.23"
@@ -125,7 +125,7 @@
         transform="translate(-270.42 687.91) rotate(-47.01)"
       />
       <rect
-        class="g"
+        :style="{ fill: primary }"
         x="406.49"
         y="431.42"
         width="202.82"
@@ -133,7 +133,7 @@
         transform="translate(-421.92 491.67) rotate(-47.01)"
       />
       <rect
-        class="g"
+        :style="{ fill: primary }"
         x="412.32"
         y="438.43"
         width="202.82"
@@ -141,7 +141,7 @@
         transform="translate(-425.19 498.16) rotate(-47.01)"
       />
       <rect
-        class="g"
+        :style="{ fill: primary }"
         x="497.85"
         y="362.4"
         width="202.82"
@@ -149,7 +149,7 @@
         transform="translate(-342.37 536.54) rotate(-47.01)"
       />
       <rect
-        class="g"
+        :style="{ fill: primary }"
         x="613.35"
         y="446.45"
         width="50.61"
@@ -157,7 +157,7 @@
         transform="translate(-390.5 591.74) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="771.65"
         y="465.31"
         width="544.25"
@@ -165,7 +165,7 @@
         transform="translate(-275.62 894.17) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="932.02"
         y="389.56"
         width="113.77"
@@ -173,7 +173,7 @@
         transform="translate(-238.44 830.27) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="951.23"
         y="408.02"
         width="63.31"
@@ -181,7 +181,7 @@
         transform="translate(-253.86 831.73) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="903.1"
         y="433.81"
         width="133.83"
@@ -189,7 +189,7 @@
         transform="translate(-276.82 830.53) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="959.6"
         y="469.66"
         width="373.23"
@@ -197,7 +197,7 @@
         transform="translate(-247.63 971.1) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="495.95"
         y="472.81"
         width="528.75"
@@ -205,7 +205,7 @@
         transform="translate(-379.34 694.09) rotate(-47.09)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="909.92"
         y="644.92"
         width="176.68"
@@ -213,7 +213,7 @@
         transform="translate(-421.49 918.01) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="919.98"
         y="644.92"
         width="176.68"
@@ -221,7 +221,7 @@
         transform="translate(-418.29 925.37) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="931.72"
         y="644.92"
         width="176.68"
@@ -229,7 +229,7 @@
         transform="translate(-414.55 933.96) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="1094.27"
         y="590.05"
         width="289.77"
@@ -237,7 +237,7 @@
         transform="translate(-306.18 1077.41) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="1100.81"
         y="602.92"
         width="289.77"
@@ -245,7 +245,7 @@
         transform="translate(-312.54 1085.85) rotate(-47.01)"
       />
       <rect
-        class="f"
+        class="fill-white"
         x="1085.85"
         y="581.66"
         width="289.77"
@@ -283,20 +283,11 @@ svg {
   filter: drop-shadow(10px -10px 15px rgba(0, 0, 0, 0.15));
 }
 
-.b {
-  fill: red;
-}
-.c {
-  fill: #ff0;
-}
-
 .e {
   clip-path: url(#a);
 }
-.f {
+
+.fill-white {
   fill: #f7f7f7;
-}
-.g {
-  fill: #00d2be;
 }
 </style>

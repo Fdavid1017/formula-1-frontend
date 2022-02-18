@@ -1,6 +1,7 @@
 <template>
   <loading-indicator v-if="isLoading" />
-  <v-container v-else class="constructor-details relative">
+
+  <div v-else class="constructor-details">
     <div class="constructor-name">
       <h2 :style="{ color: team.color.primary }">
         {{ this.team.nameExtended.shortName }}
@@ -9,47 +10,54 @@
         {{ getConstructorNameSecondPart(team.nameExtended.fullName) }}
       </div>
     </div>
-
-    <div class="content fill-width">
-      <div class="fill-width d-flex justify-center">
+    <v-container class="relative content">
+      <div class="fill-width d-flex flex-column justify-center align-center">
         <constructor-details-background
-          style="width: 80%; margin-left: -220px"
           :primary="team.color.primary"
           :secondary="team.color.secondary"
           :tertiary="team.color.tertiary"
+          style="width: 80%;"
         />
+
+        <div class="car-container d-flex justify-center">
+          <img
+            alt="Car"
+            class="car"
+            src="@/assets/images/cars/mercedes.png"
+          />
+        </div>
       </div>
-    </div>
+    </v-container>
 
     <div class="stats">
       <div class="stat-item">
-        <div class="stat-title" :style="{ color: team.color.tertiary }">
+        <div :style="{ color: team.color.tertiary }" class="stat-title">
           wins
         </div>
-        <div class="stat-value" :style="{ color: team.color.primary }">
+        <div :style="{ color: team.color.primary }" class="stat-value">
           {{ team.wins }}
         </div>
       </div>
 
       <div class="stat-item">
-        <div class="stat-title" :style="{ color: team.color.tertiary }">
+        <div :style="{ color: team.color.tertiary }" class="stat-title">
           points
         </div>
-        <div class="stat-value" :style="{ color: team.color.primary }">
+        <div :style="{ color: team.color.primary }" class="stat-value">
           {{ team.points }}
         </div>
       </div>
 
       <div class="stat-item">
-        <div class="stat-title" :style="{ color: team.color.tertiary }">
+        <div :style="{ color: team.color.tertiary }" class="stat-title">
           standing
         </div>
-        <div class="stat-value" :style="{ color: team.color.primary }">
+        <div :style="{ color: team.color.primary }" class="stat-value">
           {{ team.position }}
         </div>
       </div>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -106,13 +114,17 @@ export default {
 
 <style lang="scss" scoped>
 .constructor-details {
+  $side-offset: 20px;
+
   min-height: 93vh;
 
   .constructor-name {
     transform: rotate(-90deg);
     position: absolute;
-    bottom: 340px;
-    left: -411px;
+    bottom: 0;
+    left: $side-offset;
+    transform-origin: top left;
+    z-index: 5;
   }
 
   h2,
@@ -135,7 +147,9 @@ export default {
   .stats {
     width: fit-content;
     position: absolute;
-    right: 0;
+    z-index: 5;
+    right: $side-offset;
+    top: 0;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -143,6 +157,7 @@ export default {
 
     .stat-item {
       text-transform: uppercase;
+      filter: drop-shadow(2px 0px 11px rgba(0, 0, 0, 0.2));
 
       .stat-title {
         font-size: 30px;
@@ -156,6 +171,17 @@ export default {
         line-height: 150px;
       }
     }
+  }
+
+  .content{
+    margin-left: -10%;
+  }
+
+  .car-container {
+    width: 100vw;
+    background: #ffffff;
+    box-shadow: 0px -3px 41px rgb(0 0 0 / 19%);
+    min-height: 115px;
   }
 }
 </style>
