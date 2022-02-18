@@ -29,7 +29,7 @@
           :tertiary="team.color.tertiary"
         />
       </v-col>
-      <v-col class="d-flex align-end" cols="2">
+      <v-col class="d-flex align-end justify-end" cols="2">
         <div class="stats">
           <div class="stat-item">
             <div :style="{ color: team.color.tertiary }" class="stat-title">
@@ -276,6 +276,7 @@ export default {
           rgba(0, 0, 0, 0.1),
           rgba(0, 0, 0, 0)
         );
+        pointer-events: none;
       }
     }
 
