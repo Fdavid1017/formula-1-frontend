@@ -1,8 +1,3 @@
-//.move-2 {
-//  transform-origin: top center;
-//  animation: move 2s linear infinite;
-//}
-
 $times: 12;
 
 %move-styles {
@@ -13,7 +8,11 @@ $times: 12;
   @for $i from 1 through $times {
     .move-#{$i}-s {
       @extend %move-styles;
-      animation: move $i + s linear infinite;
+      animation: move $i + s linear infinite alternateł;
+    }
+    .move-reverse-#{$i}-s {
+      @extend %move-styles;
+      animation: move-reverse $i + s linear infinite alternate;
     }
   }
 }
@@ -26,5 +25,14 @@ $times: 12;
   }
   100% {
     transform: translateX(100%);
+  }
+}
+
+@keyframes move-reverse {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
   }
 }

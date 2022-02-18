@@ -6,7 +6,7 @@
     xmlns="http://www.w3.org/2000/svg"
   >
     <rect
-      class="move-4-s"
+      class="move-reverse-4-s"
       :style="{ fill: primary }"
       height="3"
       width="180"
@@ -22,7 +22,7 @@
       y="175.6369"
     />
     <rect
-      class="move-5-s"
+      class="move-reverse-5-s"
       :style="{ fill: primary }"
       height="4.6216"
       width="107.1345"
@@ -30,7 +30,7 @@
       y="251.4465"
     />
     <rect
-      class="move-6-s"
+      class="move-reverse-6-s"
       :style="{ fill: secondary }"
       height="4.4103"
       width="180"
@@ -54,7 +54,7 @@
       y="263.6369"
     />
     <rect
-      class="move-2-s"
+      class="move-reverse-2-s"
       :style="{ fill: primary }"
       height="3"
       width="48.3628"

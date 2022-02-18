@@ -277,7 +277,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "src/scss/svg-lines-animations";
 
 svg {
   filter: drop-shadow(10px -10px 15px rgba(0, 0, 0, 0.15));
@@ -289,5 +288,33 @@ svg {
 
 .fill-white {
   fill: #f7f7f7;
+}
+
+$times: 12;
+
+%move-styles {
+  transform-origin: top center;
+}
+
+@mixin details-move-x-list {
+  @for $i from 1 through $times {
+    .move-diagonal-#{$i}-s {
+      @extend %move-styles;
+      animation: diagonal $i + s linear infinite;
+    }
+  }
+}
+
+@include details-move-x-list;
+
+@keyframes diagonal {
+  0% {
+    //transform: translateX(-68.2em) translateY(73.3333315em);
+    transform: translateX(-100%) rotate(-47.01);
+  }
+  100% {
+    transform: translateX(100%) rotate(-47.01);
+    //transform: translateX(68.2em) translateY(-73.3333315em);
+  }
 }
 </style>

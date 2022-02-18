@@ -3,7 +3,7 @@
 
   <v-container v-else class="constructor-details pa-0" fluid>
     <v-row class="my-0 mx-3 content-row">
-      <v-col class="d-flex align-end" cols="2">
+      <v-col class="d-flex align-end" cols="1">
         <div class="constructor-name">
           <h2 :style="{ color: team.color.primary }">
             {{ this.team.nameExtended.shortName }}
@@ -13,7 +13,16 @@
           </div>
         </div>
       </v-col>
-      <v-col class="d-flex align-end justify-center pb-0" cols="8">
+      <v-col class="d-flex align-end justify-center pb-0" cols="9">
+        <div class="driver-codes">
+          <div :style="{ color: team.color.primary }">
+            {{ team.drivers[0].code }}
+          </div>
+          <div :style="{ color: team.color.primary }">
+            {{ team.drivers[1].code }}
+          </div>
+        </div>
+
         <constructor-details-background
           :primary="team.color.primary"
           :secondary="team.color.secondary"
@@ -54,21 +63,23 @@
 
     <div class="bottom relative">
       <v-row justify="center">
-        <v-col cols="7" class="pa-0 relative">
-          <img
-            class="car-image"
-            :src="
-              require(`@/assets/images/cars/${team.Constructor.constructorId}.png`)
-            "
-            :alt="`${team.Constructor.name} Car`"
-          />
-          <div class="car-reflection-wrapper">
+        <v-col class="pa-0 relative" cols="7">
+          <router-link to="/">
             <img
-              class="car-image-reflection"
+              :alt="`${team.Constructor.name} Car`"
               :src="
                 require(`@/assets/images/cars/${team.Constructor.constructorId}.png`)
               "
+              class="car-image"
+            />
+          </router-link>
+          <div class="car-reflection-wrapper">
+            <img
               :alt="`${team.Constructor.name} Car reflection`"
+              :src="
+                require(`@/assets/images/cars/${team.Constructor.constructorId}.png`)
+              "
+              class="car-image-reflection"
             />
           </div>
           <div class="click-text">
@@ -76,16 +87,24 @@
           </div>
 
           <div class="drivers d-flex align-end justify-space-between">
-            <img
-              class="driver-image"
-              :src="require(`@/assets/images/drivers/${team.drivers[0]}.png`)"
-              :alt="team.drivers[0]"
-            />
-            <img
-              class="driver-image"
-              :src="require(`@/assets/images/drivers/${team.drivers[1]}.png`)"
-              :alt="team.drivers[1]"
-            />
+            <router-link :to="`/drivers/${team.drivers[0].id}`">
+              <img
+                :alt="team.drivers[0]"
+                :src="
+                  require(`@/assets/images/drivers/${team.drivers[0].id}.png`)
+                "
+                class="driver-image"
+              />
+            </router-link>
+            <router-link :to="`/drivers/${team.drivers[1].id}`">
+              <img
+                :alt="team.drivers[1]"
+                :src="
+                  require(`@/assets/images/drivers/${team.drivers[1].id}.png`)
+                "
+                class="driver-image"
+              />
+            </router-link>
           </div>
         </v-col>
       </v-row>
@@ -117,7 +136,10 @@ export default {
         secondary: "",
         tertiary: "",
       },
-      drivers: [],
+      drivers: [
+        { code: "", id: "" },
+        { code: "", id: "" },
+      ],
       nameExtended: {
         fullName: "",
         shortName: "",
@@ -159,6 +181,8 @@ export default {
     writing-mode: vertical-rl;
     text-orientation: mixed;
     max-height: 70vh;
+    position: relative;
+    z-index: 10;
 
     h2,
     .name-second-part {
@@ -176,6 +200,20 @@ export default {
       font-size: 40px;
       line-height: 60px;
     }
+  }
+
+  .driver-codes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    width: 40%;
+    transform: translateX(-50%);
+    font-size: 60px;
+    font-weight: 900;
+    text-transform: uppercase;
   }
 
   .stats {
@@ -205,13 +243,14 @@ export default {
 
     .car-image {
       position: relative;
-      z-index: 1;
+      z-index: 15;
       width: 100%;
       margin-top: -100%;
       filter: drop-shadow(2px 1px 11px rgba(0, 0, 0, 0.47));
       cursor: pointer;
       transform-origin: bottom center;
       transition: all 0.3s ease;
+
       &:hover {
         transform: scale(1.1);
 
@@ -255,10 +294,11 @@ export default {
       bottom: 100%;
 
       .driver-image {
-        width: 45%;
+        width: 100%;
         cursor: pointer;
         transform-origin: bottom center;
         transition: all 0.3s ease;
+
         &:hover {
           transform: scale(1.1);
         }

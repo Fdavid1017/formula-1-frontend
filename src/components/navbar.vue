@@ -85,6 +85,7 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
+  z-index: 999 !important;
   font-family: Formula1;
 
   .router-link-exact-active {
