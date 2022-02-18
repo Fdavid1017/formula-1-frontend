@@ -10,7 +10,16 @@
       </div>
     </div>
 
-    <div class="content">asasasasaa</div>
+    <div class="content fill-width">
+      <div class="fill-width d-flex justify-center">
+        <constructor-details-background
+          style="width: 80%; margin-left: -220px"
+          :primary="team.color.primary"
+          :secondary="team.color.secondary"
+          :tertiary="team.color.tertiary"
+        />
+      </div>
+    </div>
 
     <div class="stats">
       <div class="stat-item">
@@ -47,10 +56,11 @@
 import { getConstructorDetails } from "@/services/constructors-service";
 import LoadingIndicator from "@/components/loading-indicator";
 import getConstructorNameSecondPart from "@/helpers/getConstructorNameSecondPart";
+import ConstructorDetailsBackground from "@/components/constructors/constructor-details-background";
 
 export default {
   name: "Constructor-details",
-  components: { LoadingIndicator },
+  components: { ConstructorDetailsBackground, LoadingIndicator },
   data: () => ({
     isLoading: false,
     constructorId: null,
