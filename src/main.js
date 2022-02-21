@@ -13,6 +13,7 @@ import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
 import { faTwitterSquare } from "@fortawesome/free-brands-svg-icons";
 import { faInstagramSquare } from "@fortawesome/free-brands-svg-icons";
 import { faYoutubeSquare } from "@fortawesome/free-brands-svg-icons";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 Vue.config.productionTip = false;
@@ -24,7 +25,8 @@ library.add(
   faFacebookSquare,
   faTwitterSquare,
   faInstagramSquare,
-  faYoutubeSquare
+  faYoutubeSquare,
+  faChevronLeft
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

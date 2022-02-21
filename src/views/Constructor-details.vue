@@ -1,9 +1,35 @@
 <template>
   <loading-indicator v-if="isLoading" />
 
-  <v-container v-else class="constructor-details pa-0" fluid>
-    <v-row class="my-0 mx-3 content-row">
-      <v-col class="d-flex align-end" cols="12" md="1" order="first">
+  <v-container v-else class="constructor-details pa-0 overflow-hidden" fluid>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <font-awesome-icon
+          class="back-btn"
+          icon="fa-solid fa-chevron-left"
+          size="2x"
+          v-bind="attrs"
+          v-on="on"
+          @click="backClick"
+        />
+      </template>
+      <span>Back</span>
+    </v-tooltip>
+
+    <v-row
+      class="my-0 mx-3 content-row"
+      :class="{ 'flex-nowrap': carDetails.show }"
+    >
+      <v-col
+        class="d-flex align-end constructor-name-col"
+        cols="12"
+        md="2"
+        order="first"
+        :class="{
+          'constructor-name-col-hidden': carDetails.show,
+          'inner-div-overflow-hide': carDetails.show,
+        }"
+      >
         <div class="constructor-name">
           <h2 :style="{ color: team.color.primary }">
             {{ this.team.nameExtended.shortName }}
@@ -14,19 +40,26 @@
         </div>
       </v-col>
       <v-col
-        class="d-flex align-end justify-center pb-0 background-container"
+        class="d-flex align-end justify-center pb-0 background-container col-transition"
         cols="12"
-        md="9"
+        md="8"
         order="last"
         order-md="first"
+        :class="{ 'background-container-full': carDetails.show }"
       >
         <constructor-details-background
           :primary="team.color.primary"
           :secondary="team.color.secondary"
           :tertiary="team.color.tertiary"
+          class="constructor-details-background"
         />
       </v-col>
-      <v-col class="d-flex align-end justify-end" cols="12" md="2">
+      <v-col
+        class="d-flex align-end justify-end col-transition"
+        cols="12"
+        md="2"
+        :class="{ 'inner-div-overflow-hide': carDetails.show }"
+      >
         <div class="stats">
           <div class="stat-item">
             <div :style="{ color: team.color.tertiary }" class="stat-title">
@@ -60,16 +93,27 @@
 
     <div class="bottom relative">
       <v-row justify="center">
-        <v-col class="pa-0 relative" cols="10" md="7">
-          <router-link to="/">
-            <img
-              :alt="`${team.Constructor.name} Car`"
-              :src="
-                require(`@/assets/images/cars/${team.Constructor.constructorId}.png`)
-              "
-              class="car-image"
+        <v-col
+          class="pa-0 relative col-transition"
+          cols="10"
+          md="7"
+          :class="{ 'bottom-container-full': carDetails.show }"
+        >
+          <div v-if="carDetails.show">
+            <div
+              style="top: -23.8%; left: 18.8%"
+              class="hotspot"
+              :style="`--hotspot-color: ${team.color.secondary}`"
             />
-          </router-link>
+          </div>
+          <img
+            :alt="`${team.Constructor.name} Car`"
+            :src="
+              require(`@/assets/images/cars/${team.Constructor.constructorId}.png`)
+            "
+            class="car-image"
+            @click="carDetails.show = true"
+          />
           <div class="car-reflection-wrapper">
             <img
               :alt="`${team.Constructor.name} Car reflection`"
@@ -83,7 +127,10 @@
             Click the car to see more indept informations
           </div>
 
-          <div class="drivers d-flex align-end justify-space-between">
+          <div
+            class="drivers d-flex align-end justify-space-between"
+            v-if="!carDetails.show"
+          >
             <router-link :to="`/drivers/${team.drivers[0].id}`">
               <img
                 :alt="team.drivers[0]"
@@ -146,6 +193,9 @@ export default {
       positionText: "",
       wins: "",
     },
+    carDetails: {
+      show: false,
+    },
   }),
   mounted: function () {
     this.isLoading = true;
@@ -160,6 +210,13 @@ export default {
   },
   methods: {
     getConstructorNameSecondPart,
+    backClick() {
+      if (this.carDetails.show) {
+        this.carDetails.show = false;
+        return;
+      }
+      this.$router.push("/constructors");
+    },
   },
 };
 </script>
@@ -236,8 +293,6 @@ export default {
       display: block;
       width: 100%;
       text-align: left;
-      //align-items: start;
-      //justify-content: space-between;
     }
 
     .stat-item {
@@ -262,6 +317,8 @@ export default {
   }
 
   .background-container {
+    transition: all 0.3s;
+
     @media #{map-get($display-breakpoints, 'sm-and-down')} {
       margin-top: -10%;
     }
@@ -335,6 +392,77 @@ export default {
           transform: scale(1.1);
         }
       }
+    }
+  }
+
+  .constructor-details-background {
+    width: 100%;
+  }
+
+  .background-container-full {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+
+    .constructor-details-background {
+      margin-top: -250px;
+    }
+  }
+
+  .bottom-container-full {
+    width: 90% !important;
+    max-width: 90% !important;
+    flex: 0 0 90% !important;
+
+    .car-image {
+      &:hover {
+        cursor: default;
+        transform: unset;
+
+        & + .car-reflection-wrapper {
+          transform: unset;
+        }
+      }
+    }
+  }
+
+  .constructor-name-col {
+    transition: all 0.3s;
+  }
+
+  .constructor-name-col-hidden {
+    margin-left: -16.6666666667%;
+  }
+
+  .inner-div-overflow-hide {
+    div {
+      width: 100%;
+      overflow: hidden;
+    }
+  }
+
+  .back-btn {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 15;
+    cursor: pointer;
+  }
+
+  .hotspot {
+    $hotspot-size: 17px;
+    position: absolute;
+    z-index: 20;
+    width: $hotspot-size;
+    height: $hotspot-size;
+    background-color: white;
+    border-radius: 50%;
+    border: 4px solid var(--hotspot-color);
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scale(1.2);
     }
   }
 }
