@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Constructors from "@/views/Constructors";
 import ConstructorDetails from "@/views/Constructor-details";
 import PageNotFound from "@/views/Page-not-found";
+import Drivers from "@/views/Drivers";
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,14 @@ const routes = [
     component: ConstructorDetails,
     meta: {
       title: "Constructor",
+    },
+  },
+  {
+    path: "/drivers",
+    name: "Drivers",
+    component: Drivers,
+    meta: {
+      title: "Drivers",
     },
   },
   {

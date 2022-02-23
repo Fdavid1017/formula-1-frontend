@@ -45,7 +45,7 @@
         </div>
       </div>
 
-      <constructors-card-background
+      <card-background
         :primary="team.color.primary"
         :secondary="team.color.secondary"
         :tertiary="team.color.tertiary"
@@ -64,12 +64,12 @@
 </template>
 
 <script>
-import ConstructorsCardBackground from "@/components/constructors/constructors-card-background";
+import CardBackground from "@/components/card-background";
 import getConstructorNameSecondPart from "@/helpers/getConstructorNameSecondPart";
 
 export default {
   name: "constructor-card",
-  components: { ConstructorsCardBackground },
+  components: { CardBackground },
   props: {
     team: {
       type: Object,

@@ -10,6 +10,7 @@
       :text="item.text"
       :title="item.title"
       :top="item.top"
+      :position="item.position"
       @input="itemStateChange(index)"
     />
   </div>

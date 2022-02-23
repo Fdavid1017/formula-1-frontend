@@ -22,7 +22,7 @@
           <router-link to="/"> News</router-link>
         </v-col>
         <v-col class="d-none d-md-block" cols="2">
-          <router-link to="/"> Drivers</router-link>
+          <router-link to="/drivers"> Drivers</router-link>
         </v-col>
         <v-col class="d-none d-md-block" cols="2">
           <router-link to="/constructors"> Constructors</router-link>
@@ -52,7 +52,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-title>
-              <router-link to="/"> Drivers</router-link>
+              <router-link to="/drivers"> Drivers</router-link>
             </v-list-item-title>
           </v-list-item>
           <v-list-item>

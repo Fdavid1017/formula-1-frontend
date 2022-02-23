@@ -17,16 +17,16 @@
     </v-tooltip>
 
     <v-row
-      :class="{ 'flex-nowrap': carDetails.show }"
+      :class="{ 'flex-nowrap': showCarDetails }"
       class="my-0 mx-3 content-row"
     >
       <v-col
         :class="{
-          'constructor-name-col-hidden': carDetails.show,
-          'inner-div-overflow-hide': carDetails.show,
+          'constructor-name-col-hidden': showCarDetails,
+          'inner-div-overflow-hide': showCarDetails,
         }"
+        :cols="showCarDetails ? 2 : 12"
         class="d-flex align-end transition"
-        cols="12"
         md="2"
         order="first"
       >
@@ -40,13 +40,32 @@
         </div>
       </v-col>
       <v-col
-        :class="{ 'background-container-full': carDetails.show }"
-        class="d-flex align-end justify-center pb-0 background-container col-transition"
-        cols="12"
+        :class="{
+          'background-container-full': showCarDetails,
+          'justify-space-between': showCarDetails,
+          'justify-end': !showCarDetails,
+        }"
+        :cols="showCarDetails ? 8 : 12"
+        :order="showCarDetails ? 'first' : 'last'"
+        class="d-flex flex-column align-center justify-md-end pb-0 background-container col-transition mt-0"
         md="8"
-        order="last"
         order-md="first"
       >
+        <v-expansion-panels
+          :class="{ 'd-none': !showCarDetails }"
+          class="d-md-none"
+        >
+          <v-expansion-panel v-for="(item, index) in hotspotItems" :key="index">
+            <v-expansion-panel-header>
+              <b>{{ item.title }}</b>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content
+              class="py-2 px-6 text-justify"
+              v-html="item.text"
+            />
+          </v-expansion-panel>
+        </v-expansion-panels>
+
         <constructor-details-background
           :primary="team.color.primary"
           :secondary="team.color.secondary"
@@ -55,9 +74,9 @@
         />
       </v-col>
       <v-col
-        :class="{ 'inner-div-overflow-hide': carDetails.show }"
+        :class="{ 'inner-div-overflow-hide': showCarDetails }"
+        :cols="showCarDetails ? 2 : 12"
         class="d-flex align-end justify-end col-transition"
-        cols="12"
         md="2"
       >
         <div class="stats">
@@ -94,14 +113,17 @@
     <div class="bottom relative">
       <v-row justify="center">
         <v-col
-          :class="{ 'bottom-container-full': carDetails.show }"
+          :class="{ 'bottom-container-full': showCarDetails }"
+          :cols="showCarDetails ? 7 : 10"
           class="pa-0 relative col-transition"
-          cols="10"
           md="7"
         >
-          <div v-if="carDetails.show">
-            <!--     WHEEL     -->
-            <hotspot-group :allow-multiple-open="false" :items="hotspotItems" />
+          <div v-if="showCarDetails">
+            <hotspot-group
+              :allow-multiple-open="false"
+              :items="hotspotItems"
+              class="d-none d-md-block"
+            />
           </div>
           <img
             :alt="`${team.Constructor.name} Car`"
@@ -109,7 +131,7 @@
               require(`@/assets/images/cars/${team.Constructor.constructorId}.png`)
             "
             class="car-image"
-            @click="carDetails.show = true"
+            @click="showCarDetails = true"
           />
           <div class="car-reflection-wrapper">
             <img
@@ -120,12 +142,12 @@
               class="car-image-reflection"
             />
           </div>
-          <div v-if="!carDetails.show" class="click-text">
+          <div v-if="!showCarDetails" class="click-text">
             Click the car to see more indept informations
           </div>
 
           <div
-            v-if="!carDetails.show"
+            v-if="!showCarDetails"
             class="drivers d-flex align-end justify-space-between"
           >
             <router-link :to="`/drivers/${team.drivers[0].id}`">
@@ -195,9 +217,7 @@ export default {
       positionText: "",
       wins: "",
     },
-    carDetails: {
-      show: false,
-    },
+    showCarDetails: false,
   }),
   mounted: function () {
     this.isLoading = true;
@@ -206,6 +226,11 @@ export default {
       .then((response) => {
         this.team = response;
       })
+      .catch((e) => {
+        if (e.response.status === 404) {
+          this.$router.push("/404");
+        }
+      })
       .finally(() => {
         this.isLoading = false;
       });
@@ -213,8 +238,8 @@ export default {
   methods: {
     getConstructorNameSecondPart,
     backClick() {
-      if (this.carDetails.show) {
-        this.carDetails.show = false;
+      if (this.showCarDetails) {
+        this.showCarDetails = false;
         return;
       }
       this.$router.push("/constructors");
@@ -252,6 +277,7 @@ export default {
           secondaryColor: this.team.color.primary,
           left: 3.8,
           top: -13.8,
+          position: "right-align",
           title: "Front wing",
           text: "The front wing’s job is to both generate consistent downforce when running closely behind another car, and ensure that the front wheel wake is well controlled and directed down the car in the least disruptive way.",
         },
@@ -260,8 +286,9 @@ export default {
           secondaryColor: this.team.color.primary,
           left: 90,
           top: -63.8,
+          position: "left-align",
           title: "Rear wing + DRS",
-          text: "The rear wings direct airflow upwards, but they are also designed to send flow outwards, leaving the ‘dirty air’ sitting there for the following car to drive through. The shape and position of the 2022 car’s rear wing creates a rotational airflow that collects the rear wheel wake and rolls it into the flow exiting the diffuser.<br><b>Drs (Drag Reduction System):</b>the DRS opens an adjustable flap on the rear wing of the car, in order to reduce drag, thus giving a pursuing car an overtaking advantage.The device can only be used during a race after two racing laps have been completed, and when the pursuing car enters a designated activation zone defined by the FIA.",
+          text: "The rear wings direct airflow upwards, but they are also designed to send flow outwards, leaving the ‘dirty air’ sitting there for the following car to drive through. The shape and position of the 2022 car’s rear wing creates a rotational airflow that collects the rear wheel wake and rolls it into the flow exiting the diffuser.<br><b style='display: contents'>Drs (Drag Reduction System):</b> the DRS opens an adjustable flap on the rear wing of the car, in order to reduce drag, thus giving a pursuing car an overtaking advantage.The device can only be used during a race after two racing laps have been completed, and when the pursuing car enters a designated activation zone defined by the FIA.",
         },
       ];
     },

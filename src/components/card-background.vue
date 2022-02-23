@@ -82,7 +82,7 @@
 
 <script>
 export default {
-  name: "constructors-card-background",
+  name: "card-background",
   props: {
     primary: {
       type: String,
