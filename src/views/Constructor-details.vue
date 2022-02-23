@@ -9,26 +9,26 @@
           icon="fa-solid fa-chevron-left"
           size="2x"
           v-bind="attrs"
-          v-on="on"
           @click="backClick"
+          v-on="on"
         />
       </template>
       <span>Back</span>
     </v-tooltip>
 
     <v-row
-      class="my-0 mx-3 content-row"
       :class="{ 'flex-nowrap': carDetails.show }"
+      class="my-0 mx-3 content-row"
     >
       <v-col
-        class="d-flex align-end constructor-name-col"
-        cols="12"
-        md="2"
-        order="first"
         :class="{
           'constructor-name-col-hidden': carDetails.show,
           'inner-div-overflow-hide': carDetails.show,
         }"
+        class="d-flex align-end transition"
+        cols="12"
+        md="2"
+        order="first"
       >
         <div class="constructor-name">
           <h2 :style="{ color: team.color.primary }">
@@ -40,12 +40,12 @@
         </div>
       </v-col>
       <v-col
+        :class="{ 'background-container-full': carDetails.show }"
         class="d-flex align-end justify-center pb-0 background-container col-transition"
         cols="12"
         md="8"
         order="last"
         order-md="first"
-        :class="{ 'background-container-full': carDetails.show }"
       >
         <constructor-details-background
           :primary="team.color.primary"
@@ -55,10 +55,10 @@
         />
       </v-col>
       <v-col
+        :class="{ 'inner-div-overflow-hide': carDetails.show }"
         class="d-flex align-end justify-end col-transition"
         cols="12"
         md="2"
-        :class="{ 'inner-div-overflow-hide': carDetails.show }"
       >
         <div class="stats">
           <div class="stat-item">
@@ -94,17 +94,14 @@
     <div class="bottom relative">
       <v-row justify="center">
         <v-col
+          :class="{ 'bottom-container-full': carDetails.show }"
           class="pa-0 relative col-transition"
           cols="10"
           md="7"
-          :class="{ 'bottom-container-full': carDetails.show }"
         >
           <div v-if="carDetails.show">
-            <div
-              style="top: -23.8%; left: 18.8%"
-              class="hotspot"
-              :style="`--hotspot-color: ${team.color.secondary}`"
-            />
+            <!--     WHEEL     -->
+            <hotspot-group :allow-multiple-open="false" :items="hotspotItems" />
           </div>
           <img
             :alt="`${team.Constructor.name} Car`"
@@ -123,13 +120,13 @@
               class="car-image-reflection"
             />
           </div>
-          <div class="click-text">
+          <div v-if="!carDetails.show" class="click-text">
             Click the car to see more indept informations
           </div>
 
           <div
-            class="drivers d-flex align-end justify-space-between"
             v-if="!carDetails.show"
+            class="drivers d-flex align-end justify-space-between"
           >
             <router-link :to="`/drivers/${team.drivers[0].id}`">
               <img
@@ -161,10 +158,15 @@ import { getConstructorDetails } from "@/services/constructors-service";
 import LoadingIndicator from "@/components/loading-indicator";
 import getConstructorNameSecondPart from "@/helpers/getConstructorNameSecondPart";
 import ConstructorDetailsBackground from "@/components/constructors/constructor-details-background";
+import HotspotGroup from "@/components/constructors/hotspot-group";
 
 export default {
   name: "Constructor-details",
-  components: { LoadingIndicator, ConstructorDetailsBackground },
+  components: {
+    HotspotGroup,
+    LoadingIndicator,
+    ConstructorDetailsBackground,
+  },
   data: () => ({
     isLoading: false,
     constructorId: null,
@@ -216,6 +218,52 @@ export default {
         return;
       }
       this.$router.push("/constructors");
+    },
+  },
+  computed: {
+    hotspotItems() {
+      return [
+        {
+          color: this.team.color.secondary,
+          secondaryColor: this.team.color.primary,
+          left: 18.8,
+          top: -23.8,
+          title: "Wheels",
+          text: "F1 introduced the new 18-inch tires in 2022.<br>The new Pirelli compounds and constructions for these 18-inch tyres have been designed with the goal of reducing the amount the tyres overheat when they slide – a primary aspect that should help with closer racing.",
+        },
+        {
+          color: this.team.color.secondary,
+          secondaryColor: this.team.color.primary,
+          left: 41.8,
+          top: -68.8,
+          title: "Halo",
+          text: "The halo is a driver crash-protection system used in open-wheel racing series, which consists of a curved bar placed to protect the driver's head with the help of the HANS device. A HANS device (head and neck support device) are used to reduce the likelihood of head or neck injuries, including the often fatal basilar skull fracture, in the event of a crash.",
+        },
+        {
+          color: this.team.color.secondary,
+          secondaryColor: this.team.color.primary,
+          left: 68.8,
+          top: -54.8,
+          title: "Engine",
+          text: "The formula-1 cars use an 1.6-litre turbo-hybrid units. The power units uses fuel that contains 5.75% bio-components in order to make more sustainable fuel.<br>The cars ar equipped with an 8-speed seami-automatic paddle-shift sequential gearbox.",
+        },
+        {
+          color: this.team.color.secondary,
+          secondaryColor: this.team.color.primary,
+          left: 3.8,
+          top: -13.8,
+          title: "Front wing",
+          text: "The front wing’s job is to both generate consistent downforce when running closely behind another car, and ensure that the front wheel wake is well controlled and directed down the car in the least disruptive way.",
+        },
+        {
+          color: this.team.color.secondary,
+          secondaryColor: this.team.color.primary,
+          left: 90,
+          top: -63.8,
+          title: "Rear wing + DRS",
+          text: "The rear wings direct airflow upwards, but they are also designed to send flow outwards, leaving the ‘dirty air’ sitting there for the following car to drive through. The shape and position of the 2022 car’s rear wing creates a rotational airflow that collects the rear wheel wake and rolls it into the flow exiting the diffuser.<br><b>Drs (Drag Reduction System):</b>the DRS opens an adjustable flap on the rear wing of the car, in order to reduce drag, thus giving a pursuing car an overtaking advantage.The device can only be used during a race after two racing laps have been completed, and when the pursuing car enters a designated activation zone defined by the FIA.",
+        },
+      ];
     },
   },
 };
@@ -426,7 +474,7 @@ export default {
     }
   }
 
-  .constructor-name-col {
+  .col-transition {
     transition: all 0.3s;
   }
 
@@ -447,23 +495,6 @@ export default {
     left: 25px;
     z-index: 15;
     cursor: pointer;
-  }
-
-  .hotspot {
-    $hotspot-size: 17px;
-    position: absolute;
-    z-index: 20;
-    width: $hotspot-size;
-    height: $hotspot-size;
-    background-color: white;
-    border-radius: 50%;
-    border: 4px solid var(--hotspot-color);
-    cursor: pointer;
-    transition: all 0.3s;
-
-    &:hover {
-      transform: scale(1.2);
-    }
   }
 }
 </style>
