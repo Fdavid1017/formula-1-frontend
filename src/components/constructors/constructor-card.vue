@@ -106,12 +106,7 @@ export default {
 
 <style lang="scss" scoped>
 .constructor-card {
-  background-color: white;
-  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
-  height: 100%;
-  width: 100%;
-  min-height: 270px;
-  cursor: pointer;
+  @include card;
 
   .inner {
     width: 100%;
@@ -123,17 +118,6 @@ export default {
   }
 
   .card-content {
-    position: relative;
-    z-index: 1;
-
-    h2 {
-      text-transform: uppercase;
-      font-weight: 900;
-      font-size: 50px;
-      line-height: 75px;
-      text-shadow: 0 2px 11px rgba(0, 0, 0, 0.2);
-    }
-
     .name-second-part {
       font-weight: 900;
       font-size: 30px;
@@ -167,7 +151,7 @@ export default {
     position: absolute;
     z-index: 2;
     right: -4%;
-    bottom: 0;
+    bottom: -3px;
     filter: drop-shadow(2px 1px 11px rgba(0, 0, 0, 0.47));
     transition: 0.3s all ease-out;
   }
