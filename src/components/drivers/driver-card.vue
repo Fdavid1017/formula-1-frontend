@@ -1,9 +1,63 @@
 <template>
-  <router-link class="driver-card d-block relative" to="/">
+  <router-link
+    :to="`/drivers/${driverInfos.driverId}`"
+    class="driver-card d-block relative"
+  >
+    <div class="card-content fill-height px-4">
+      <div class="first-name">
+        {{ driverInfos.givenName }}
+      </div>
+      <h2 :style="{ color: constructorInfos.color.primary }" class="mt-n2">
+        {{ driverInfos.familyName }}
+      </h2>
+
+      <img :alt="'driverInfos.code'" :src="driverImage" class="driver-image" />
+
+      <div class="d-flex mt-3 driver-infos">
+        <div class="">
+          <div
+            :style="{ color: constructorInfos.color.tertiary }"
+            class="card-info-title"
+          >
+            Wins
+          </div>
+          <div
+            :style="{ color: constructorInfos.color.secondary }"
+            class="card-info-data"
+          >
+            {{ driver.wins }}
+          </div>
+        </div>
+
+        <div class="ml-5">
+          <div
+            :style="{ color: constructorInfos.color.tertiary }"
+            class="card-info-title"
+          >
+            Points
+          </div>
+          <div
+            :style="{ color: constructorInfos.color.secondary }"
+            class="card-info-data"
+          >
+            {{ driver.points }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <img
+      :src="
+        require(`@/assets/images/logos/${this.constructorInfos.Constructor.constructorId}.svg`)
+      "
+      alt="Logo"
+      class="constructor-logo"
+    />
+
     <card-background
-      :primary="driver.Constructors.color.primary"
-      :secondary="driver.Constructors.color.secondary"
-      :tertiary="driver.Constructors.color.tertiary"
+      :primary="constructorInfos.color.primary"
+      :secondary="constructorInfos.color.secondary"
+      :tertiary="constructorInfos.color.tertiary"
       class="card-background"
     />
   </router-link>
@@ -25,7 +79,7 @@ export default {
               constructorId: "",
               name: "",
               nationality: "",
-              url: "",
+              url: ""
             },
             color: { primary: "", secondary: "", tertiary: "" },
             drivers: [],
@@ -33,7 +87,7 @@ export default {
             points: "",
             position: "",
             positionText: "",
-            wins: "",
+            wins: ""
           },
           Driver: {
             code: "",
@@ -43,35 +97,136 @@ export default {
             givenName: "",
             nationality: "",
             permanentNumber: "",
-            url: "",
+            url: ""
           },
           points: "",
           position: "",
           positionText: "",
-          wins: "",
+          wins: ""
         };
-      },
-    },
+      }
+    }
   },
+  computed: {
+    constructorInfos() {
+      return this.driver.Constructors;
+    },
+    driverInfos() {
+      return this.driver.Driver;
+    },
+    driverImage() {
+      try {
+        return require(`@/assets/images/drivers/${this.driverInfos.driverId}.png`);
+      } catch (e) {
+        return require(`@/assets/images/drivers/no-driver-image.png`);
+      }
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .driver-card {
-  background-color: white;
-  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
-  height: 100%;
-  width: 100%;
-  min-height: 270px;
-  cursor: pointer;
+  @include card;
   overflow: hidden;
+
+  @media #{map-get($display-breakpoints, 'xs-only')} {
+    min-height: 365px;
+  }
 
   .card-background {
     position: absolute;
-    left: -20%;
-    top: -43%;
-    width: 130%;
+    left: -18%;
+    top: -13%;
+    width: 138%;
     transform: rotate(-35deg);
+    z-index: 0;
+  }
+
+  .card-content {
+    h2 {
+      font-size: 40px;
+    }
+
+    .first-name {
+      font-weight: 700;
+      font-size: 25px;
+      text-transform: uppercase;
+      color: #4b4b4b;
+      letter-spacing: 1.2px;
+      text-shadow: 0 2px 11px rgba(0, 0, 0, 0.2);
+    }
+
+    .driver-image {
+      position: absolute;
+      height: 225px;
+      bottom: 0;
+      right: -14%;
+      transition: 0.2s all ease-out;
+      z-index: 2;
+
+      @media #{map-get($display-breakpoints, 'md-and-down')} {
+        height: 215px;
+      }
+
+      @media #{map-get($display-breakpoints, 'sm-and-down')} {
+        right: -7%;
+      }
+
+      @media #{map-get($display-breakpoints, 'xs-only')} {
+        right: 50%;
+        transform: translateX(50%);
+      }
+    }
+
+    .driver-infos {
+      width: 0;
+      overflow: hidden;
+      transition: 0.3s all ease-out;
+
+      .card-info-title {
+        text-transform: uppercase;
+        font-size: 22px;
+        font-weight: bold;
+      }
+
+      .card-info-data {
+        font-weight: 500;
+        font-size: 18px;
+      }
+    }
+  }
+
+  .constructor-logo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40%;
+    filter: invert(100%);
+    opacity: 0.15;
+    z-index: 1;
+
+    @media #{map-get($display-breakpoints, 'xs-only')} {
+      width: 100%;
+    }
+  }
+
+  &:hover {
+    .driver-image {
+      height: 250px;
+
+      @media #{map-get($display-breakpoints, 'md-and-down')} {
+        height: 240px;
+      }
+
+      @media #{map-get($display-breakpoints, 'xs-only')} {
+        height: 215px;
+      }
+    }
+
+    .driver-infos {
+      width: 100%;
+    }
   }
 }
 </style>

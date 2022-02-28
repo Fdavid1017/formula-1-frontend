@@ -121,11 +121,14 @@ export default {
     .name-second-part {
       font-weight: 900;
       font-size: 30px;
-      line-height: 45px;
       text-transform: uppercase;
       color: #4b4b4b;
       letter-spacing: 1.2px;
       text-shadow: 0 2px 11px rgba(0, 0, 0, 0.2);
+
+      @media #{map-get($display-breakpoints, 'md-and-down')} {
+        font-size: 25px;
+      }
     }
 
     .constructor-infos {
@@ -154,6 +157,11 @@ export default {
     bottom: -3px;
     filter: drop-shadow(2px 1px 11px rgba(0, 0, 0, 0.47));
     transition: 0.3s all ease-out;
+
+
+    @media #{map-get($display-breakpoints, 'md-and-down')} {
+      width: 100%;
+    }
   }
 
   .card-background {

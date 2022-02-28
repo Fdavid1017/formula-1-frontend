@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="my-15">
     <v-row
       v-for="(driverGroups, index) in groupedDrivers"
       :key="index"
@@ -10,7 +10,8 @@
         :key="driver['Driver']['driverId']"
         class="pa-5"
         cols="10"
-        md="4"
+        lg="4"
+        md="6"
       >
         <driver-card :driver="driver" />
       </v-col>
