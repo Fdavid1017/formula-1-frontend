@@ -79,7 +79,7 @@ export default {
               constructorId: "",
               name: "",
               nationality: "",
-              url: ""
+              url: "",
             },
             color: { primary: "", secondary: "", tertiary: "" },
             drivers: [],
@@ -87,7 +87,7 @@ export default {
             points: "",
             position: "",
             positionText: "",
-            wins: ""
+            wins: "",
           },
           Driver: {
             code: "",
@@ -97,15 +97,15 @@ export default {
             givenName: "",
             nationality: "",
             permanentNumber: "",
-            url: ""
+            url: "",
           },
           points: "",
           position: "",
           positionText: "",
-          wins: ""
+          wins: "",
         };
-      }
-    }
+      },
+    },
   },
   computed: {
     constructorInfos() {
@@ -120,8 +120,8 @@ export default {
       } catch (e) {
         return require(`@/assets/images/drivers/no-driver-image.png`);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -144,6 +144,8 @@ export default {
   }
 
   .card-content {
+    z-index: 2;
+
     h2 {
       font-size: 40px;
     }
@@ -163,7 +165,7 @@ export default {
       bottom: 0;
       right: -14%;
       transition: 0.2s all ease-out;
-      z-index: 2;
+      z-index: 10;
 
       @media #{map-get($display-breakpoints, 'md-and-down')} {
         height: 215px;
@@ -205,6 +207,8 @@ export default {
     filter: invert(100%);
     opacity: 0.15;
     z-index: 1;
+    max-height: 90%;
+    aspect-ratio: 1/1;
 
     @media #{map-get($display-breakpoints, 'xs-only')} {
       width: 100%;

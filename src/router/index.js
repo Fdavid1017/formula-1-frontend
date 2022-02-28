@@ -5,6 +5,7 @@ import Constructors from "@/views/Constructors";
 import ConstructorDetails from "@/views/Constructor-details";
 import PageNotFound from "@/views/Page-not-found";
 import Drivers from "@/views/Drivers";
+import News from "@/views/News";
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,14 @@ const routes = [
     component: Drivers,
     meta: {
       title: "Drivers",
+    },
+  },
+  {
+    path: "/news",
+    name: "News",
+    component: News,
+    meta: {
+      title: "News",
     },
   },
   {
