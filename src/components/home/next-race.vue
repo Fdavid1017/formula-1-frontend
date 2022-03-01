@@ -40,7 +40,7 @@
         <div
           class="d-flex align-center justify-center justify-lg-end fill-width"
         >
-          <router-link class="show-more-btn" to="/">Show more</router-link>
+          <router-link class="show-more-btn" to="/schedule">Show more</router-link>
         </div>
       </v-col>
     </v-row>

@@ -16,7 +16,7 @@
           </v-toolbar-title>
         </v-col>
         <v-col class="d-none d-md-block" cols="2">
-          <router-link to="/"> Schedule</router-link>
+          <router-link to="/schedule"> Schedule</router-link>
         </v-col>
         <v-col class="d-none d-md-block" cols="2">
           <router-link to="/news"> News</router-link>
@@ -42,7 +42,7 @@
         <v-list-item-group active-class="primary--text text--accent-4">
           <v-list-item>
             <v-list-item-title>
-              <router-link to="/"> Schedule</router-link>
+              <router-link to="/schedule"> Schedule</router-link>
             </v-list-item-title>
           </v-list-item>
           <v-list-item>

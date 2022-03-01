@@ -8,7 +8,7 @@
           </p>
 
           <div class="d-flex align-start justify-center justify-md-start">
-            <router-link class="show-more-button" to="/">
+            <router-link class="show-more-button" to="/news">
               Show more
             </router-link>
           </div>

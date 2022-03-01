@@ -7,6 +7,7 @@ import PageNotFound from "@/views/Page-not-found";
 import Drivers from "@/views/Drivers";
 import News from "@/views/News";
 import DriverDetails from "@/views/Driver-details";
+import Schedule from "@/views/Schedule";
 
 Vue.use(VueRouter);
 
@@ -57,6 +58,14 @@ const routes = [
     component: News,
     meta: {
       title: "News",
+    },
+  },
+  {
+    path: "/schedule",
+    name: "Schedule",
+    component: Schedule,
+    meta: {
+      title: "Schedule",
     },
   },
   {
