@@ -2,8 +2,8 @@
   <v-container ref="telemetryPanel" class="telemetry">
     <div class="inner relative">
       <v-row>
-        <v-col cols="12" sm="8">
-          <p class="text-center text-sm-start">
+        <v-col cols="12" md="8">
+          <p class="text-center text-md-start">
             <b>Check out the telemetry data from the cars.</b>
             <br />
             See there speed, how much throtle they have applied and many more
@@ -13,21 +13,21 @@
       </v-row>
 
       <div
-        class="car-parallax d-none d-sm-block"
+        class="car-parallax d-none d-md-block"
         :style="{ height: `${carContainerHeight}px` }"
       >
         <img
           class="parallax-car"
-          src="@/assets/images/alphine-top.png"
-          alt="Alphine"
+          src="@/assets/images/aston_martin_top.png"
+          alt="Aston Martin"
           :style="{ maxHeight: `${standingsHeight * 0.75}px` }"
         />
       </div>
 
       <img
-        src="@/assets/images/cars/alpine.png"
-        class="d-block d-sm-none mobile-image mx-auto mt-10"
-        alt="Alphine"
+        src="@/assets/images/cars/aston_martin.png"
+        class="d-block d-md-none mobile-image mx-auto mt-10"
+        alt="Aston Martin"
       />
       <img class="telemetry-dots" src="@/assets/images/dots-pattern.svg" />
     </div>
@@ -74,7 +74,7 @@ export default {
     padding-bottom: 75px;
     padding-top: 75px;
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
       padding-bottom: 140px;
       padding-top: 140px;
     }
@@ -86,7 +86,7 @@ export default {
 
     .car-parallax {
       position: absolute;
-      right: 0;
+      right: 5%;
       bottom: 0;
       z-index: 1;
 
