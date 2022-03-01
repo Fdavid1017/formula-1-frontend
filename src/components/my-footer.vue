@@ -1,78 +1,78 @@
 <template>
-  <v-footer class="footer" padless color="#303C42">
+  <v-footer class="footer" color="#303C42" padless>
     <div class="shadow"></div>
     <v-container>
       <!--Footer icons md-up-->
-      <v-row justify="center" class="d-none d-md-flex">
-        <v-col cols="3" lg="2" class="pt-0">
+      <v-row class="d-none d-md-flex" justify="center">
+        <v-col class="pt-0" cols="3" lg="2">
           <a
+            class="footer-panel"
             href="https://www.facebook.com/Formula1"
             target="_blank"
-            class="footer-panel"
           >
             <img
-              src="@/assets/images/footer/alpha-tauri.png"
               alt="Alpha Tauri"
+              src="@/assets/images/footer/alpha-tauri.png"
             />
             <div class="overlay d-flex justify-center align-center">
               <div>
                 <font-awesome-icon
+                  color="white"
                   icon="fa-brands fa-facebook-square"
                   size="4x"
-                  color="white"
                 />
               </div>
             </div>
           </a>
         </v-col>
 
-        <v-col cols="3" lg="2" class="pt-0">
-          <a href="https://twitter.com/f1" target="_blank" class="footer-panel">
-            <img src="@/assets/images/footer/williams.png" alt="Williams" />
+        <v-col class="pt-0" cols="3" lg="2">
+          <a class="footer-panel" href="https://twitter.com/f1" target="_blank">
+            <img alt="Williams" src="@/assets/images/footer/williams.png" />
             <div class="overlay d-flex justify-center align-center">
               <div>
                 <font-awesome-icon
+                  color="white"
                   icon="fa-brands fa-twitter-square"
                   size="4x"
-                  color="white"
                 />
               </div>
             </div>
           </a>
         </v-col>
 
-        <v-col cols="3" lg="2" class="pt-0">
+        <v-col class="pt-0" cols="3" lg="2">
           <a
+            class="footer-panel"
             href="https://www.instagram.com/f1/"
             target="_blank"
-            class="footer-panel"
           >
-            <img src="@/assets/images/footer/red-bull.png" alt="Red bull" />
+            <img alt="Red bull" src="@/assets/images/footer/red-bull.png" />
             <div class="overlay d-flex justify-center align-center">
               <div>
                 <font-awesome-icon
+                  color="white"
                   icon="fa-brands fa-instagram-square"
                   size="4x"
-                  color="white"
                 />
               </div>
             </div>
           </a>
         </v-col>
 
-        <v-col cols="3" lg="2" class="pt-0">
+        <v-col class="pt-0" cols="3" lg="2">
           <a
+            class="footer-panel"
             href="https://www.youtube.com/F1"
             target="_blank"
-            class="footer-panel"
           >
-            <img src="@/assets/images/footer/ferrari.png" alt="Ferrari" />
+            <img alt="Ferrari" src="@/assets/images/footer/ferrari.png" />
             <div class="overlay d-flex justify-center align-center">
               <div>
                 <font-awesome-icon
+                  color="white"
                   icon="fa-brands fa-youtube-square"
                   size="4x"
-                  color="white"
                 />
               </div>
             </div>
@@ -81,38 +81,40 @@
       </v-row>
 
       <!--Footer icons md-down-->
-      <div class="d-flex align-center justify-center d-md-none">
+      <div
+        class="d-flex align-center justify-space-between justify-sm-center d-md-none pt-4 pb-5"
+      >
         <font-awesome-icon
+          class="mx-1 mx-sm-4"
+          color="white"
           icon="fa-brands fa-facebook-square"
           size="4x"
-          color="white"
-          class="mx-1 mx-sm-4"
         />
 
         <font-awesome-icon
+          class="mx-1 mx-sm-4"
+          color="white"
           icon="fa-brands fa-twitter-square"
           size="4x"
-          color="white"
-          class="mx-1 mx-sm-4"
         />
 
         <font-awesome-icon
+          class="mx-1 mx-sm-4"
+          color="white"
           icon="fa-brands fa-instagram-square"
           size="4x"
-          color="white"
-          class="mx-1 mx-sm-4"
         />
 
         <font-awesome-icon
+          class="mx-1 mx-sm-4"
+          color="white"
           icon="fa-brands fa-youtube-square"
           size="4x"
-          color="white"
-          class="mx-1 mx-sm-4"
         />
       </div>
 
       <div class="bottom">
-        <img src="@/assets/logo-white.svg" alt="Logo" />
+        <img alt="Logo" src="@/assets/logo-white.svg" />
         <v-spacer />
         <div class="">
           © 2003-{{ new Date().getFullYear() }} Formula One World Championship
