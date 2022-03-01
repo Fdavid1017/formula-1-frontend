@@ -12,14 +12,14 @@ export async function getDrivers() {
   return data;
 }
 
-// export async function getConstructorDetails(id) {
-//   let data = null;
-//   await axios({
-//     url: `drivers/${id}`,
-//     method: "GET",
-//   }).then((response) => {
-//     data = response.data;
-//   });
-//
-//   return data;
-// }
+export async function getDriverDetails(id) {
+  let data = null;
+  await axios({
+    url: `driver/${id}`,
+    method: "GET",
+  }).then((response) => {
+    data = response.data;
+  });
+
+  return data;
+}

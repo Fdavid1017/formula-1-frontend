@@ -6,6 +6,7 @@ import ConstructorDetails from "@/views/Constructor-details";
 import PageNotFound from "@/views/Page-not-found";
 import Drivers from "@/views/Drivers";
 import News from "@/views/News";
+import DriverDetails from "@/views/Driver-details";
 
 Vue.use(VueRouter);
 
@@ -43,6 +44,14 @@ const routes = [
     },
   },
   {
+    path: "/drivers/:id",
+    name: "DriverDetails",
+    component: DriverDetails,
+    meta: {
+      title: "Driver",
+    },
+  },
+  {
     path: "/news",
     name: "News",
     component: News,
@@ -70,9 +79,20 @@ const router = new VueRouter({
 export const DEFAULT_TITLE = "Formula-1";
 router.afterEach((to) => {
   Vue.nextTick(() => {
-    document.title =
-      `${to.params.id ? to.params.id : to.meta.title} | ${DEFAULT_TITLE}` ||
-      DEFAULT_TITLE;
+    let title = `${to.meta.title} | ${DEFAULT_TITLE}`;
+
+    if (to.params.id) {
+      const arr = to.params.id.replaceAll("_", " ").split(" ");
+
+      for (let i = 0; i < arr.length; i++) {
+        arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+      }
+
+      const capitalized = arr.join(" ");
+      title = `${capitalized} | ${DEFAULT_TITLE}`;
+    }
+
+    document.title = title;
   });
 });
 
