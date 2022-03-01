@@ -10,6 +10,7 @@ import DriverDetails from "@/views/Driver-details";
 import Schedule from "@/views/Schedule";
 
 import store from "../store";
+import Weekend from "@/views/Weekend";
 
 Vue.use(VueRouter);
 
@@ -68,6 +69,14 @@ const routes = [
     component: Schedule,
     meta: {
       title: "Schedule",
+    },
+  },
+  {
+    path: "/schedule/:round",
+    name: "Weekend",
+    component: Weekend,
+    meta: {
+      title: "Weekend",
     },
   },
   {

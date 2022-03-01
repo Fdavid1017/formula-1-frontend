@@ -1,5 +1,5 @@
 <template>
-  <router-link class="text-decoration-none" to="/">
+  <router-link :to="`/schedule/${weekend.round}`" class="text-decoration-none">
     <div class="schedule-card relative py-5">
       <div class="flag">
         <component :is="flagComponent" />
@@ -76,21 +76,21 @@ export default {
               country: "",
               lat: "",
               locality: "",
-              long: "",
+              long: ""
             },
             circuitId: "",
             circuitName: "",
-            url: "",
+            url: ""
           },
           date: "",
           raceName: "",
           round: "",
           season: "",
           time: "",
-          url: "",
+          url: ""
         };
-      },
-    },
+      }
+    }
   },
   computed: {
     layoutImage() {
@@ -107,7 +107,7 @@ export default {
       start.setDate(start.getDate() - 2);
 
       return `${start.toLocaleString("en-US", {
-        month: "short",
+        month: "short"
       })} ${start.getDate()} - ${race.getDate()}`;
     },
     flagComponent() {
@@ -155,8 +155,8 @@ export default {
       }
 
       return null;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -177,9 +177,9 @@ export default {
     height: 60%;
     background: $dark-blue;
     background: linear-gradient(
-      0deg,
-      rgba(0, 48, 73, 0.75) 0%,
-      rgba(0, 48, 73, 0) 100%
+        0deg,
+        rgba(0, 48, 73, 0.75) 0%,
+        rgba(0, 48, 73, 0) 100%
     );
   }
 
