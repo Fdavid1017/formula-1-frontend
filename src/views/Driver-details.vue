@@ -137,6 +137,12 @@ export default {
   }),
   mounted() {
     this.isLoading = true;
+
+    this.$store.commit("addBackButtonAction", () =>
+      this.$router.push("/drivers")
+    );
+    this.$store.commit("setBackButtonState", true);
+
     this.driverId = this.$route.params.id;
     getDriverDetails(this.driverId)
       .then((response) => {

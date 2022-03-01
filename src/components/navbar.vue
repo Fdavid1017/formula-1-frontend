@@ -2,7 +2,7 @@
   <div>
     <v-app-bar app class="z-top navbar" elevation="2">
       <v-row align="center" class="" justify="space-between">
-        <v-col cols="2">
+        <v-col class="d-flex align-center" cols="2">
           <v-toolbar-title>
             <router-link to="/">
               <v-img
@@ -14,6 +14,21 @@
               />
             </router-link>
           </v-toolbar-title>
+          <div class="back-button ml-5">
+            <v-tooltip v-if="backButtonState" bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <font-awesome-icon
+                  class="back-btn"
+                  icon="fa-solid fa-chevron-left"
+                  size="xl"
+                  v-bind="attrs"
+                  @click="backClick"
+                  v-on="on"
+                />
+              </template>
+              <span>Back</span>
+            </v-tooltip>
+          </div>
         </v-col>
         <v-col class="d-none d-md-block" cols="2">
           <router-link to="/schedule"> Schedule</router-link>
@@ -80,6 +95,16 @@ export default {
   data: () => ({
     drawer: false,
   }),
+  methods: {
+    backClick() {
+      this.$store.commit("backButtonClick");
+    },
+  },
+  computed: {
+    backButtonState() {
+      return this.$store.getters.backButtonState;
+    },
+  },
 };
 </script>
 
@@ -115,6 +140,16 @@ export default {
 
     &:hover:after {
       width: 100%;
+    }
+  }
+
+  .back-btn {
+    cursor: pointer;
+    opacity: 0.75;
+    transition: all 0.2s;
+
+    &:hover {
+      opacity: 1;
     }
   }
 }

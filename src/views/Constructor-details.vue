@@ -2,20 +2,6 @@
   <loading-indicator v-if="isLoading" />
 
   <v-container v-else class="constructor-details pa-0 overflow-hidden" fluid>
-    <v-tooltip bottom>
-      <template v-slot:activator="{ on, attrs }">
-        <font-awesome-icon
-          class="back-btn"
-          icon="fa-solid fa-chevron-left"
-          size="2x"
-          v-bind="attrs"
-          @click="backClick"
-          v-on="on"
-        />
-      </template>
-      <span>Back</span>
-    </v-tooltip>
-
     <v-row
       :class="{ 'flex-nowrap': showCarDetails }"
       class="my-0 mx-3 content-row"
@@ -221,6 +207,10 @@ export default {
   }),
   mounted: function () {
     this.isLoading = true;
+
+    this.$store.commit("addBackButtonAction", this.backClick);
+    this.$store.commit("setBackButtonState", true);
+
     this.constructorId = this.$route.params.id;
     getConstructorDetails(this.constructorId)
       .then((response) => {
@@ -514,14 +504,6 @@ export default {
       width: 100%;
       overflow: hidden;
     }
-  }
-
-  .back-btn {
-    position: absolute;
-    top: 25px;
-    left: 25px;
-    z-index: 15;
-    cursor: pointer;
   }
 }
 </style>

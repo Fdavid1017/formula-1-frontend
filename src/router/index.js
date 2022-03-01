@@ -9,6 +9,8 @@ import News from "@/views/News";
 import DriverDetails from "@/views/Driver-details";
 import Schedule from "@/views/Schedule";
 
+import store from "../store";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -46,7 +48,7 @@ const routes = [
   },
   {
     path: "/drivers/:id",
-    name: "DriverDetails",
+    name: "Driver",
     component: DriverDetails,
     meta: {
       title: "Driver",
@@ -86,6 +88,12 @@ const router = new VueRouter({
 });
 
 export const DEFAULT_TITLE = "Formula-1";
+router.beforeEach((to, from, next) => {
+  store.commit("setBackButtonState", false);
+  store.commit("addBackButtonAction", null);
+  next();
+});
+
 router.afterEach((to) => {
   Vue.nextTick(() => {
     let title = `${to.meta.title} | ${DEFAULT_TITLE}`;
