@@ -1,5 +1,6 @@
 <template>
-  <v-container class="my-15">
+  <loading-indicator v-if="isLoading" />
+  <v-container v-else class="my-15">
     <v-row
       v-for="(driverGroups, index) in groupedDrivers"
       :key="index"
@@ -22,17 +23,24 @@
 <script>
 import { getDrivers } from "@/services/drivers-service";
 import DriverCard from "@/components/drivers/driver-card";
+import LoadingIndicator from "@/components/loading-indicator";
 
 export default {
   name: "Drivers",
-  components: { DriverCard },
+  components: { LoadingIndicator, DriverCard },
   data: () => ({
     drivers: [],
+    isLoading: false,
   }),
   mounted() {
-    getDrivers().then((response) => {
-      this.drivers = response;
-    });
+    this.isLoading = true;
+    getDrivers()
+      .then((response) => {
+        this.drivers = response;
+      })
+      .finally(() => {
+        this.isLoading = false;
+      });
   },
   computed: {
     groupedDrivers() {

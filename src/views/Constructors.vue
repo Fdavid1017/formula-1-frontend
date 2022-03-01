@@ -1,5 +1,6 @@
 <template>
-  <v-container class="my-15">
+  <loading-indicator v-if="isLoading" />
+  <v-container v-else class="my-15">
     <v-row justify="center">
       <v-col
         v-for="team in constructors"
@@ -17,17 +18,24 @@
 <script>
 import { getConstructors } from "@/services/constructors-service";
 import ConstructorCard from "@/components/constructors/constructor-card";
+import LoadingIndicator from "@/components/loading-indicator";
 
 export default {
   name: "Constructors",
-  components: { ConstructorCard },
+  components: { LoadingIndicator, ConstructorCard },
   data: () => ({
     constructors: [],
+    isLoading: false,
   }),
   mounted() {
-    getConstructors().then((response) => {
-      this.constructors = response;
-    });
+    this.isLoading = true;
+    getConstructors()
+      .then((response) => {
+        this.constructors = response;
+      })
+      .finally(() => {
+        this.isLoading = false;
+      });
   },
 };
 </script>
