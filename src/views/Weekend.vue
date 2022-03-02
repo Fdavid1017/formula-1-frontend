@@ -28,7 +28,7 @@
 
 <script>
 import { getScheduledRoundInformation } from "@/services/schedule-service";
-import CircuitInfos from "@/components/schedule/circuit-infos";
+import CircuitInfos from "@/components/schedule/weekend/circuit-infos";
 import LoadingIndicator from "@/components/loading-indicator";
 import ScheduleItem from "@/classes/ScheduleItem";
 
