@@ -1,8 +1,9 @@
 <template>
   <loading-indicator v-if="isLoading" />
   <div v-else class="weekend pb-16">
-    <div class="text-center text-h4">Banner position</div>
-    <v-card :elevation="5">
+    <weekend-banner :schedule="schedule" />
+
+    <v-card :elevation="5" class="mt-n2 rounded-t-0">
       <v-tabs v-model="tabs" centered>
         <v-tab>Free practice 1</v-tab>
         <v-tab>Free practice 2</v-tab>
@@ -31,15 +32,16 @@ import { getScheduledRoundInformation } from "@/services/schedule-service";
 import CircuitInfos from "@/components/schedule/weekend/circuit-infos";
 import LoadingIndicator from "@/components/loading-indicator";
 import ScheduleItem from "@/classes/ScheduleItem";
+import WeekendBanner from "@/components/schedule/weekend/weekend-banner";
 
 export default {
   name: "Weekend",
-  components: { LoadingIndicator, CircuitInfos },
+  components: { WeekendBanner, LoadingIndicator, CircuitInfos },
   data: () => ({
     isLoading: false,
     round: null,
     schedule: new ScheduleItem(),
-    tabs: 5,
+    tabs: 5
   }),
   mounted() {
     this.isLoading = true;
@@ -62,7 +64,7 @@ export default {
       .finally(() => {
         this.isLoading = false;
       });
-  },
+  }
 };
 </script>
 

@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <v-row class="mt-5">
+    <v-row class="mt-10">
       <v-col cols="8">
         <img
           :alt="schedule.circuit.circuitName"
