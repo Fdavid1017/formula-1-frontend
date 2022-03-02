@@ -112,18 +112,18 @@
             />
           </div>
           <img
-            :alt="`${team.Constructor.name} Car`"
+            :alt="`${team.team.name} Car`"
             :src="
-              require(`@/assets/images/cars/${team.Constructor.constructorId}.png`)
+              require(`@/assets/images/cars/${team.team.constructorId}.png`)
             "
             class="car-image"
             @click="showCarDetails = true"
           />
           <div class="car-reflection-wrapper">
             <img
-              :alt="`${team.Constructor.name} Car reflection`"
+              :alt="`${team.team.name} Car reflection`"
               :src="
-                require(`@/assets/images/cars/${team.Constructor.constructorId}.png`)
+                require(`@/assets/images/cars/${team.team.constructorId}.png`)
               "
               class="car-image-reflection"
             />
@@ -167,6 +167,7 @@ import LoadingIndicator from "@/components/loading-indicator";
 import getConstructorNameSecondPart from "@/helpers/getConstructorNameSecondPart";
 import ConstructorDetailsBackground from "@/components/constructors/constructor-details-background";
 import HotspotGroup from "@/components/constructors/hotspot-group";
+import Constructor from "@/classes/Constructor";
 
 export default {
   name: "Constructor-details",
@@ -178,31 +179,7 @@ export default {
   data: () => ({
     isLoading: false,
     constructorId: null,
-    team: {
-      Constructor: {
-        constructorId: "",
-        name: "",
-        nationality: "",
-        url: "",
-      },
-      color: {
-        primary: "",
-        secondary: "",
-        tertiary: "",
-      },
-      drivers: [
-        { code: "", id: "" },
-        { code: "", id: "" },
-      ],
-      nameExtended: {
-        fullName: "",
-        shortName: "",
-      },
-      points: "",
-      position: "",
-      positionText: "",
-      wins: "",
-    },
+    team: new Constructor(),
     showCarDetails: false,
   }),
   mounted: function () {

@@ -5,6 +5,7 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import FlagIcon from "vue-flag-icon";
 
 //Font awesome
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -21,6 +22,7 @@ Vue.config.productionTip = false;
 
 axios.defaults.baseURL = "http://127.0.0.1:5000/api/";
 Vue.use(VueAxios, axios);
+Vue.use(FlagIcon);
 library.add(
   faLaptop,
   faFacebookSquare,

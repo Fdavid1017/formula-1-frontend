@@ -1,25 +1,32 @@
 import axios from "axios";
+import ScheduleItem from "@/classes/ScheduleItem";
 
 export async function getCurrentSchedule() {
   let data = null;
   await axios({
     url: `current-schedule`,
-    method: "GET"
+    method: "GET",
   }).then((response) => {
     data = response.data;
   });
 
-  return data;
+  const schedule = [];
+
+  data.forEach((item) => {
+    schedule.push(new ScheduleItem(item));
+  });
+
+  return schedule;
 }
 
 export async function getScheduledRoundInformation(round) {
   let data = null;
   await axios({
     url: `schedule/${round}`,
-    method: "GET"
+    method: "GET",
   }).then((response) => {
     data = response.data;
   });
 
-  return data;
+  return new ScheduleItem(data);
 }

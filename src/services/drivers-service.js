@@ -1,4 +1,5 @@
 import axios from "axios";
+import Driver from "@/classes/Driver";
 
 export async function getDrivers() {
   let data = null;
@@ -9,7 +10,13 @@ export async function getDrivers() {
     data = response.data;
   });
 
-  return data;
+  const drivers = [];
+
+  data.forEach((item) => {
+    drivers.push(new Driver(item));
+  });
+
+  return drivers;
 }
 
 export async function getDriverDetails(id) {

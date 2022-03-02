@@ -4,7 +4,7 @@
     <v-row justify="center">
       <v-col
         v-for="team in constructors"
-        :key="team['Constructor']['constructorId']"
+        :key="team.team.constructorId"
         class="pa-5"
         cols="10"
         md="6"
@@ -19,12 +19,13 @@
 import { getConstructors } from "@/services/constructors-service";
 import ConstructorCard from "@/components/constructors/constructor-card";
 import LoadingIndicator from "@/components/loading-indicator";
+import Constructor from "@/classes/Constructor";
 
 export default {
   name: "Constructors",
   components: { LoadingIndicator, ConstructorCard },
   data: () => ({
-    constructors: [],
+    constructors: Array[Constructor],
     isLoading: false,
   }),
   mounted() {

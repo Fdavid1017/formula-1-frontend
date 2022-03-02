@@ -1,4 +1,5 @@
 import axios from "axios";
+import Constructor from "@/classes/Constructor";
 
 export async function getConstructors() {
   let data = null;
@@ -9,7 +10,13 @@ export async function getConstructors() {
     data = response.data;
   });
 
-  return data;
+  const constructors = [];
+
+  data.forEach((item) => {
+    constructors.push(new Constructor(item));
+  });
+
+  return constructors;
 }
 
 export async function getConstructorDetails(id) {
@@ -21,5 +28,5 @@ export async function getConstructorDetails(id) {
     data = response.data;
   });
 
-  return data;
+  return new Constructor(data);
 }

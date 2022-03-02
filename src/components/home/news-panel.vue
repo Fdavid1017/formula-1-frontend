@@ -14,7 +14,7 @@
           </div>
         </v-col>
 
-        <v-col cols="12" md="5" lg="4" offset-md="1" offset-lg="2">
+        <v-col cols="12" lg="4" md="5" offset-lg="2" offset-md="1">
           <Tweet
             v-if="tweetId"
             :id="tweetId"
@@ -48,8 +48,8 @@ export default {
   }),
   mounted() {
     getNews(1).then((response) => {
-      const latestNews = response["data"][0];
-      this.tweetId = latestNews["id"];
+      const latestNews = response.data[0];
+      this.tweetId = latestNews.id;
     });
   },
 };

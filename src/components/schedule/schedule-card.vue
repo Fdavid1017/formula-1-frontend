@@ -8,14 +8,14 @@
       <div class="base d-flex flex-column align-center">
         <div class="circuit-layout-container">
           <img
-            :alt="weekend.Circuit.circuitName"
+            :alt="weekend.circuit.circuitName"
             :src="layoutImage"
             class="circuit-layout-image"
           />
         </div>
 
         <h2>
-          {{ weekend.Circuit.Location.country }}
+          {{ weekend.circuit.location.country }}
         </h2>
 
         <div class="date mt-5">
@@ -25,9 +25,9 @@
 
       <div class="overlay">
         <img
-          :alt="weekend.Circuit.circuitName"
+          :alt="weekend.circuit.circuitName"
           :src="
-            require(`@/assets/images/circuit-photos/${this.weekend.Circuit.circuitId}.jpg`)
+            require(`@/assets/images/circuit-photos/${this.weekend.circuit.circuitId}.jpg`)
           "
           class="circuit-photo"
         />
@@ -63,41 +63,24 @@ import SpainFlag from "../flags/spain-flag";
 import UaeFlag from "../flags/uae-flag";
 import UkFlag from "../flags/uk-flag";
 import UsaFlag from "../flags/usa-flag";
+import ScheduleItem from "@/classes/ScheduleItem";
 
 export default {
   name: "schedule-card",
   props: {
     weekend: {
-      type: Object,
+      type: ScheduleItem,
       default() {
-        return {
-          Circuit: {
-            Location: {
-              country: "",
-              lat: "",
-              locality: "",
-              long: ""
-            },
-            circuitId: "",
-            circuitName: "",
-            url: ""
-          },
-          date: "",
-          raceName: "",
-          round: "",
-          season: "",
-          time: "",
-          url: ""
-        };
-      }
-    }
+        return new ScheduleItem();
+      },
+    },
   },
   computed: {
     layoutImage() {
       try {
-        return require(`@/assets/images/circuit-layout-minimal/${this.weekend.Circuit.circuitId}.png`);
+        return require(`@/assets/images/circuit-layout-minimal/${this.weekend.circuit.circuitId}.png`);
       } catch (e) {
-        console.log(this.weekend.Circuit.circuitId);
+        console.log(this.weekend.circuit.circuitId);
         return null;
       }
     },
@@ -107,11 +90,11 @@ export default {
       start.setDate(start.getDate() - 2);
 
       return `${start.toLocaleString("en-US", {
-        month: "short"
+        month: "short",
       })} ${start.getDate()} - ${race.getDate()}`;
     },
     flagComponent() {
-      switch (this.weekend.Circuit.Location.country.toLowerCase()) {
+      switch (this.weekend.circuit.location.country.toLowerCase()) {
         case "bahrain":
           return BahrainFlag;
         case "italy":
@@ -155,8 +138,8 @@ export default {
       }
 
       return null;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -177,9 +160,9 @@ export default {
     height: 60%;
     background: $dark-blue;
     background: linear-gradient(
-        0deg,
-        rgba(0, 48, 73, 0.75) 0%,
-        rgba(0, 48, 73, 0) 100%
+      0deg,
+      rgba(0, 48, 73, 0.75) 0%,
+      rgba(0, 48, 73, 0) 100%
     );
   }
 

@@ -1,6 +1,6 @@
 <template>
   <router-link
-    :to="`constructors/${team.Constructor.constructorId}`"
+    :to="`constructors/${team.team.constructorId}`"
     class="constructor-card d-block relative"
   >
     <div class="inner px-4">
@@ -15,14 +15,14 @@
         <div class="d-flex mt-3 constructor-infos">
           <div class="">
             <div
-              class="card-info-title"
               :style="{ color: team.color.tertiary }"
+              class="card-info-title"
             >
               Wins
             </div>
             <div
-              class="card-info-data"
               :style="{ color: team.color.secondary }"
+              class="card-info-data"
             >
               {{ team.wins }}
             </div>
@@ -30,14 +30,14 @@
 
           <div class="ml-5">
             <div
-              class="card-info-title"
               :style="{ color: team.color.tertiary }"
+              class="card-info-title"
             >
               Points
             </div>
             <div
-              class="card-info-data"
               :style="{ color: team.color.secondary }"
+              class="card-info-data"
             >
               {{ team.points }}
             </div>
@@ -54,11 +54,11 @@
     </div>
 
     <img
-      class="car-image"
       :src="
-        require(`@/assets/images/cars/${team.Constructor.constructorId}.png`)
+        require(`@/assets/images/cars/${team.team.constructorId}.png`)
       "
       alt="Car"
+      class="car-image"
     />
   </router-link>
 </template>
@@ -66,35 +66,16 @@
 <script>
 import CardBackground from "@/components/card-background";
 import getConstructorNameSecondPart from "@/helpers/getConstructorNameSecondPart";
+import Constructor from "@/classes/Constructor";
 
 export default {
   name: "constructor-card",
   components: { CardBackground },
   props: {
     team: {
-      type: Object,
+      type: Constructor,
       default() {
-        return {
-          Constructor: {
-            constructorId: "",
-            name: "",
-            nationality: "",
-            url: "",
-          },
-          color: {
-            primary: "",
-            secondary: "",
-            tertiary: "",
-          },
-          points: "",
-          position: "",
-          positionText: "",
-          wins: "",
-          nameExtended: {
-            shortName: "",
-            fullName: "",
-          },
-        };
+        return new Constructor();
       },
     },
   },
@@ -157,7 +138,6 @@ export default {
     bottom: -3px;
     filter: drop-shadow(2px 1px 11px rgba(0, 0, 0, 0.47));
     transition: 0.3s all ease-out;
-
 
     @media #{map-get($display-breakpoints, 'md-and-down')} {
       width: 100%;

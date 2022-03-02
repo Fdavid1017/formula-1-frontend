@@ -20,7 +20,7 @@
       <v-tab-item>Qualifying</v-tab-item>
       <v-tab-item>Race</v-tab-item>
       <v-tab-item>
-        <circuit-infos :circuit="schedule.circuit" />
+        <circuit-infos :schedule="schedule" />
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -30,6 +30,7 @@
 import { getScheduledRoundInformation } from "@/services/schedule-service";
 import CircuitInfos from "@/components/schedule/circuit-infos";
 import LoadingIndicator from "@/components/loading-indicator";
+import ScheduleItem from "@/classes/ScheduleItem";
 
 export default {
   name: "Weekend",
@@ -37,16 +38,8 @@ export default {
   data: () => ({
     isLoading: false,
     round: null,
-    schedule: {
-      Circuit: {},
-      date: "",
-      raceName: "",
-      round: "",
-      season: "",
-      time: "",
-      url: "",
-    },
-    tabs: null,
+    schedule: new ScheduleItem(),
+    tabs: 5,
   }),
   mounted() {
     this.isLoading = true;

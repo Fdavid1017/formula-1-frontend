@@ -8,7 +8,7 @@
     >
       <v-col
         v-for="driver in driverGroups"
-        :key="driver['Driver']['driverId']"
+        :key="driver.driver.driverId"
         class="pa-5"
         cols="10"
         lg="4"
@@ -24,12 +24,13 @@
 import { getDrivers } from "@/services/drivers-service";
 import DriverCard from "@/components/drivers/driver-card";
 import LoadingIndicator from "@/components/loading-indicator";
+import Driver from "@/classes/Driver";
 
 export default {
   name: "Drivers",
   components: { LoadingIndicator, DriverCard },
   data: () => ({
-    drivers: [],
+    drivers: Array[Driver],
     isLoading: false,
   }),
   mounted() {
@@ -44,10 +45,13 @@ export default {
   },
   computed: {
     groupedDrivers() {
+      if (!this.drivers) {
+        return [];
+      }
+
       return this.drivers.reduce(function (r, a) {
-        r[a.Constructors.Constructor.constructorId] =
-          r[a.Constructors.Constructor.constructorId] || [];
-        r[a.Constructors.Constructor.constructorId].push(a);
+        r[a.team.team.constructorId] = r[a.team.team.constructorId] || [];
+        r[a.team.team.constructorId].push(a);
         return r;
       }, Object.create(null));
     },

@@ -1,9 +1,11 @@
 <template>
-  <v-container>
+  <v-container class="circuit-infos">
     <div class="d-flex align-center">
-      <div class="flag">flag</div>
-      <div class="">
-        <div class="">gp name</div>
+      <div class="flag">
+        <flag :iso="countryCode" />
+      </div>
+      <div class="ml-3">
+        <div class="">{{ countryCode }}</div>
         <div class="">circuit name</div>
       </div>
     </div>
@@ -23,63 +25,38 @@
 </template>
 
 <script>
+import getCountryCode from "@/helpers/countryCodes";
+import ScheduleItem from "@/classes/ScheduleItem";
+
 export default {
   name: "circuit-infos",
   props: {
-    circuit: {
-      type: Object,
+    schedule: {
+      type: ScheduleItem,
       default() {
-        return {
-          Location: {
-            country: "",
-            lat: "",
-            locality: "",
-            long: ""
-          },
-          circuitId: "",
-          circuitName: "",
-          details: {
-            circuit_id: "",
-            first_gp: 2020,
-            gjson_map: "",
-            image_name: "",
-            length: 0,
-            map: {
-              bbox: [],
-              features: [
-                {
-                  bbox: [],
-                  geometry: {
-                    coordinates: [],
-                    type: ""
-                  },
-                  properties: {
-                    Location: "",
-                    Name: "",
-                    altitude: 0,
-                    firstgp: 2020,
-                    id: "",
-                    length: 0,
-                    opened: 0
-                  },
-                  type: ""
-                }
-              ],
-              name: "",
-              type: ""
-            },
-            number_of_laps: 0,
-            primary_color: "",
-            race_distance: 0,
-            secondary: "",
-            tertiary: ""
-          },
-          url: ""
-        };
-      }
-    }
-  }
+        return new ScheduleItem();
+      },
+    },
+  },
+  computed: {
+    circuit() {
+      return this.schedule.circuit;
+    },
+    countryCode() {
+      return getCountryCode(this.circuit.location.country);
+    },
+  },
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.circuit-infos {
+  .flag {
+    font-size: 50px;
+    border-radius: 5px;
+    overflow: hidden;
+    line-height: 20px;
+    box-shadow: 0 2px 11px rgba(0, 0, 0, 0.2);
+  }
+}
+</style>

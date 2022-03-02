@@ -19,13 +19,14 @@
 import LoadingIndicator from "@/components/loading-indicator";
 import { getCurrentSchedule } from "@/services/schedule-service";
 import ScheduleCard from "@/components/schedule/schedule-card";
+import ScheduleItem from "@/classes/ScheduleItem";
 
 export default {
   name: "Schedule",
   components: { ScheduleCard, LoadingIndicator },
   data: () => ({
     isLoading: false,
-    schedule: [],
+    schedule: Array[ScheduleItem],
   }),
   mounted() {
     this.isLoading = true;

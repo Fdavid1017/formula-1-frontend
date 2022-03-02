@@ -48,7 +48,7 @@
 
     <img
       :src="
-        require(`@/assets/images/logos/${this.constructorInfos.Constructor.constructorId}.svg`)
+        require(`@/assets/images/logos/${this.constructorInfos.team.constructorId}.svg`)
       "
       alt="Logo"
       class="constructor-logo"
@@ -65,54 +65,25 @@
 
 <script>
 import CardBackground from "@/components/card-background";
+import Driver from "@/classes/Driver";
 
 export default {
   name: "driver-card",
   components: { CardBackground },
   props: {
     driver: {
-      type: Object,
+      type: Driver,
       default() {
-        return {
-          Constructors: {
-            Constructor: {
-              constructorId: "",
-              name: "",
-              nationality: "",
-              url: "",
-            },
-            color: { primary: "", secondary: "", tertiary: "" },
-            drivers: [],
-            nameExtended: { fullName: "", shortName: "" },
-            points: "",
-            position: "",
-            positionText: "",
-            wins: "",
-          },
-          Driver: {
-            code: "",
-            dateOfBirth: "",
-            driverId: "",
-            familyName: "",
-            givenName: "",
-            nationality: "",
-            permanentNumber: "",
-            url: "",
-          },
-          points: "",
-          position: "",
-          positionText: "",
-          wins: "",
-        };
+        return new Driver();
       },
     },
   },
   computed: {
     constructorInfos() {
-      return this.driver.Constructors;
+      return this.driver.team;
     },
     driverInfos() {
-      return this.driver.Driver;
+      return this.driver.driver;
     },
     driverImage() {
       try {
