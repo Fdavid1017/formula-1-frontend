@@ -105,7 +105,7 @@ export default {
       text-transform: uppercase;
       color: #4b4b4b;
       letter-spacing: 1.2px;
-      text-shadow: 0 2px 11px rgba(0, 0, 0, 0.2);
+      text-shadow: $base-shadow;
 
       @media #{map-get($display-breakpoints, 'md-and-down')} {
         font-size: 25px;

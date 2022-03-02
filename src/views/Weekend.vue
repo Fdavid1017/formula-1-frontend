@@ -1,6 +1,6 @@
 <template>
   <loading-indicator v-if="isLoading" />
-  <div v-else class="weekend">
+  <div v-else class="weekend pb-16">
     <div class="text-center text-h4">Banner position</div>
     <v-card :elevation="5">
       <v-tabs v-model="tabs" centered>
@@ -43,6 +43,12 @@ export default {
   }),
   mounted() {
     this.isLoading = true;
+
+    this.$store.commit("addBackButtonAction", () =>
+      this.$router.push("/schedule")
+    );
+    this.$store.commit("setBackButtonState", true);
+
     this.round = this.$route.params.round;
     getScheduledRoundInformation(this.round)
       .then((response) => {

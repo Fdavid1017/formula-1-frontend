@@ -292,7 +292,7 @@ export default {
     .name-second-part {
       font-weight: 900;
       text-transform: uppercase;
-      text-shadow: 0 2px 11px rgba(0, 0, 0, 0.2);
+      text-shadow: $base-shadow;
     }
 
     h2 {
