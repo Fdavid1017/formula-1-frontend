@@ -11,16 +11,16 @@
     </div>
 
     <v-row class="mt-10">
-      <v-col cols="8">
+      <v-col cols="12" md="8">
         <img
           :alt="schedule.circuit.circuitName"
           :src="circuitDetailedImage"
           class="circuit-detailed-image"
         />
       </v-col>
-      <v-col cols="4">
+      <v-col cols="12" md="4">
         <v-row>
-          <v-col cols="6">
+          <v-col cols="12" sm="6">
             <div class="gp-info-item">
               <div class="gp-info-item-title">First<br />Grand Prix</div>
               <div class="gp-info-item-value">
@@ -35,7 +35,7 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" sm="6">
             <div class="gp-info-item">
               <div class="gp-info-item-title">Number Of<br />Laps</div>
               <div class="gp-info-item-value">
@@ -52,16 +52,42 @@
           </v-col>
         </v-row>
 
+        <div class="d-none d-lg-block">
+          <sector-time-display
+            :sector-number="1"
+            :sector-time="sectorTimes.sector1"
+            class="my-5"
+          />
+          <sector-time-display
+            :sector-number="2"
+            :sector-time="sectorTimes.sector2"
+            class="my-5"
+          />
+          <sector-time-display
+            :sector-number="3"
+            :sector-time="sectorTimes.sector3"
+            class="my-5"
+          />
+        </div>
+      </v-col>
+    </v-row>
+
+    <v-row justify="space-between" class="d-flex d-lg-none">
+      <v-col cols="12" sm="4">
         <sector-time-display
           :sector-number="1"
           :sector-time="sectorTimes.sector1"
           class="my-5"
         />
+      </v-col>
+      <v-col cols="12" sm="4">
         <sector-time-display
           :sector-number="2"
           :sector-time="sectorTimes.sector2"
           class="my-5"
         />
+      </v-col>
+      <v-col cols="12" sm="4">
         <sector-time-display
           :sector-number="3"
           :sector-time="sectorTimes.sector3"
