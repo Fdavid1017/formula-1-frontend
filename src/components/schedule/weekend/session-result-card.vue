@@ -123,9 +123,7 @@
             <div class="details-item-title">Tire used:</div>
             <img
               :alt="result.compound.toLowerCase()"
-              :src="
-                require(`@/assets/images/tires/${result.compound.toLowerCase()}.svg`)
-              "
+              :src="compoundImage"
               class="tire-used-image ml-5"
             />
           </div>
@@ -169,6 +167,13 @@ export default {
     },
     driverImage() {
       return getDriverImage(this.result.driverId);
+    },
+    compoundImage() {
+      try {
+        return require(`@/assets/images/tires/${this.result.compound.toLowerCase()}.svg`);
+      } catch (e) {
+        return null;
+      }
     },
   },
 };

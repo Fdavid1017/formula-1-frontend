@@ -8,6 +8,7 @@ export default class SessionResult {
       this.time = new Timing();
       this.driverNumber = 0;
       this.lapTime = new Timing();
+      this.lapTimeBase = 0;
       this.lapNumber = 0;
       this.stint = 0;
       this.sector1Time = new Timing();
@@ -27,9 +28,11 @@ export default class SessionResult {
       this.team = "";
       this.driverCode = "";
       this.trackStatus = 1;
-      this.lapTimeDelta = 0;
+      this.lapTimeDelta = new Timing();
+      this.lapTimeDeltaBase = 0;
       this.fullName = "";
       this.driverId = "";
+      this.color = "";
 
       return;
     }
@@ -38,6 +41,7 @@ export default class SessionResult {
     this.time = msToTime(item.Time);
     this.driverNumber = parseInt(item.DriverNumber);
     this.lapTime = msToTime(item.LapTime);
+    this.lapTimeBase = item.LapTime;
     this.lapNumber = item.LapNumber;
     this.stint = item.Stint;
     this.sector1Time = msToTime(item.Sector1Time);
@@ -58,7 +62,9 @@ export default class SessionResult {
     this.driverCode = item.Driver;
     this.trackStatus = parseInt(item.TrackStatus);
     this.lapTimeDelta = msToTime(item.LapTimeDelta);
+    this.lapTimeDeltaBase = item.LapTimeDelta;
     this.fullName = item.DriverFullName;
     this.driverId = item.DriverId;
+    this.color = item.Color;
   }
 }

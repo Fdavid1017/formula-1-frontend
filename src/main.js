@@ -8,6 +8,7 @@ import VueAxios from "vue-axios";
 import FlagIcon from "vue-flag-icon";
 import { LMap, LMarker, LTileLayer } from "vue2-leaflet";
 import "leaflet/dist/leaflet.css";
+import VueApexCharts from "vue-apexcharts";
 
 //Font awesome
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -25,6 +26,8 @@ Vue.config.productionTip = false;
 axios.defaults.baseURL = "http://127.0.0.1:5000/api/";
 Vue.use(VueAxios, axios);
 Vue.use(FlagIcon);
+Vue.use(VueApexCharts);
+Vue.component("apexchart", VueApexCharts);
 
 library.add(
   faLaptop,

@@ -48,6 +48,7 @@ export async function getSessionResults(gp, session) {
       LapTimeDelta: data.LapTimeDelta[key],
       DriverFullName: data.DriverFullName[key],
       DriverId: data.DriverId[key],
+      Color: data.Color[key],
     };
 
     results.push(new SessionResult(item));
