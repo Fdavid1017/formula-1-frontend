@@ -1,24 +1,28 @@
 <template>
-  <div :style="{ 'border-color': borderColor }" class="sector-time fill-width">
-    <div class="d-flex align-center justify-space-between">
+  <div :style="{ 'border-color': sectorColor }" class="sector-time fill-width">
+    <div
+      class="d-flex flex-row flex-sm-column flex-md-row align-center align-sm-start align-md-center justify-space-between"
+    >
       <div class="d-flex align-center">
         <div class="sector-number d-flex justify-center align-center">
           {{ sectorNumber }}
         </div>
 
         <div class="driver-code ml-3">
-          {{ sectorTime.driverCode }}
+          {{ isLoading ? `Sector ${sectorNumber}` : sectorTime.driverCode }}
         </div>
       </div>
 
-      <div class="session-name mr-3">
+      <div v-if="!isLoading" class="session-name mr-3 mr-sm-0 mr-md-3">
         {{ sessionName }}
       </div>
     </div>
 
     <div class="text-center time">
-      {{ sectorTime.time }}
+      {{ isLoading ? "Loading" : sectorTime.time }}
     </div>
+
+    <v-progress-linear v-if="isLoading" :color="sectorColor" indeterminate />
   </div>
 </template>
 
@@ -38,9 +42,15 @@ export default {
         return new SectorTime();
       },
     },
+    isLoading: {
+      type: Boolean,
+      default() {
+        return true;
+      },
+    },
   },
   computed: {
-    borderColor() {
+    sectorColor() {
       switch (this.sectorNumber) {
         case 1:
           return "#b41619";
@@ -96,6 +106,12 @@ export default {
 
   .session-name {
     font-size: 17px;
+    text-align: right;
+
+    @media #{map-get($display-breakpoints, 'sm-only')} {
+      width: 100%;
+      text-align: center;
+    }
   }
 
   &:hover {

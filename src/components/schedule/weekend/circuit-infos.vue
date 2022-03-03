@@ -1,6 +1,8 @@
 <template>
   <v-container class="circuit-infos">
-    <div class="d-flex align-center">
+    <div
+      class="d-flex flex-column flex-sm-row align-center text-center text-sm-left"
+    >
       <div class="flag">
         <flag :iso="countryCode" />
       </div>
@@ -21,14 +23,14 @@
       <v-col cols="12" md="4">
         <v-row>
           <v-col cols="12" sm="6">
-            <div class="gp-info-item">
+            <div class="gp-info-item text-center text-sm-left">
               <div class="gp-info-item-title">First<br />Grand Prix</div>
               <div class="gp-info-item-value">
                 {{ schedule.circuit.details.firstGp }}
               </div>
             </div>
 
-            <div class="gp-info-item">
+            <div class="gp-info-item text-center text-sm-left">
               <div class="gp-info-item-title">Circuit<br />Length</div>
               <div class="gp-info-item-value">
                 {{ schedule.circuit.details.circuitLength }} km
@@ -36,14 +38,14 @@
             </div>
           </v-col>
           <v-col cols="12" sm="6">
-            <div class="gp-info-item">
+            <div class="gp-info-item text-center text-sm-left">
               <div class="gp-info-item-title">Number Of<br />Laps</div>
               <div class="gp-info-item-value">
                 {{ schedule.circuit.details.numberOfLaps.toFixed(1) }}
               </div>
             </div>
 
-            <div class="gp-info-item">
+            <div class="gp-info-item text-center text-sm-left">
               <div class="gp-info-item-title">Race<br />Distance</div>
               <div class="gp-info-item-value">
                 {{ schedule.circuit.details.raceDistance.toFixed(1) }} km
@@ -54,16 +56,19 @@
 
         <div class="d-none d-lg-block">
           <sector-time-display
+            :is-loading="isLoading"
             :sector-number="1"
             :sector-time="sectorTimes.sector1"
             class="my-5"
           />
           <sector-time-display
+            :is-loading="isLoading"
             :sector-number="2"
             :sector-time="sectorTimes.sector2"
             class="my-5"
           />
           <sector-time-display
+            :is-loading="isLoading"
             :sector-number="3"
             :sector-time="sectorTimes.sector3"
             class="my-5"
@@ -72,9 +77,10 @@
       </v-col>
     </v-row>
 
-    <v-row justify="space-between" class="d-flex d-lg-none">
+    <v-row class="d-flex d-lg-none" justify="space-between">
       <v-col cols="12" sm="4">
         <sector-time-display
+          :is-loading="isLoading"
           :sector-number="1"
           :sector-time="sectorTimes.sector1"
           class="my-5"
@@ -82,6 +88,7 @@
       </v-col>
       <v-col cols="12" sm="4">
         <sector-time-display
+          :is-loading="isLoading"
           :sector-number="2"
           :sector-time="sectorTimes.sector2"
           class="my-5"
@@ -89,6 +96,7 @@
       </v-col>
       <v-col cols="12" sm="4">
         <sector-time-display
+          :is-loading="isLoading"
           :sector-number="3"
           :sector-time="sectorTimes.sector3"
           class="my-5"
@@ -122,6 +130,7 @@ export default {
     },
   },
   data: () => ({
+    isLoading: false,
     sectorTimes: {
       sector1: new SectorTime(),
       sector2: new SectorTime(),
@@ -129,23 +138,14 @@ export default {
     },
   }),
   mounted() {
-    getFastestSessionsInWeekend(this.schedule.round).then((result) => {
-      this.sectorTimes = result;
-      // {
-      //   "sector1": {
-      //   "driver": "GIO",
-      //     "time": 33.827
-      // },
-      //   "sector2": {
-      //   "driver": "RAI",
-      //     "time": 59.206
-      // },
-      //   "sector3": {
-      //   "driver": "RIC",
-      //     "time": 29.274
-      // }
-      // }
-    });
+    this.isLoading = true;
+    getFastestSessionsInWeekend(this.schedule.round)
+      .then((result) => {
+        this.sectorTimes = result;
+      })
+      .finally(() => {
+        this.isLoading = false;
+      });
   },
   computed: {
     circuit() {
