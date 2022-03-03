@@ -15,7 +15,9 @@
     </v-card>
 
     <v-tabs-items v-model="tabs" class="mt-5">
-      <v-tab-item>fp1</v-tab-item>
+      <v-tab-item>
+        <session-results />
+      </v-tab-item>
       <v-tab-item>fp2</v-tab-item>
       <v-tab-item>fp3</v-tab-item>
       <v-tab-item>Qualifying</v-tab-item>
@@ -33,15 +35,16 @@ import CircuitInfos from "@/components/schedule/weekend/circuit-infos";
 import LoadingIndicator from "@/components/loading-indicator";
 import ScheduleItem from "@/classes/ScheduleItem";
 import WeekendBanner from "@/components/schedule/weekend/weekend-banner";
+import SessionResults from "@/components/schedule/weekend/session-results";
 
 export default {
   name: "Weekend",
-  components: { WeekendBanner, LoadingIndicator, CircuitInfos },
+  components: { SessionResults, WeekendBanner, LoadingIndicator, CircuitInfos },
   data: () => ({
     isLoading: false,
     round: null,
     schedule: new ScheduleItem(),
-    tabs: 5
+    tabs: null,
   }),
   mounted() {
     this.isLoading = true;
@@ -64,7 +67,7 @@ export default {
       .finally(() => {
         this.isLoading = false;
       });
-  }
+  },
 };
 </script>
 
