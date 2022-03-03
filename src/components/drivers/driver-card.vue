@@ -66,6 +66,7 @@
 <script>
 import CardBackground from "@/components/card-background";
 import Driver from "@/classes/Driver";
+import getDriverImage from "@/helpers/getDriverImage";
 
 export default {
   name: "driver-card",
@@ -86,11 +87,7 @@ export default {
       return this.driver.driver;
     },
     driverImage() {
-      try {
-        return require(`@/assets/images/drivers/${this.driverInfos.driverId}.png`);
-      } catch (e) {
-        return require(`@/assets/images/drivers/no-driver-image.png`);
-      }
+      return getDriverImage(this.driverInfos.driverId);
     },
   },
 };

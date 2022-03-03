@@ -1,45 +1,161 @@
 <template>
-  <router-link to="/">
-    <div :class="{ 'result-podium': position <= 3 }" class="result-card">
-      <div class="corner-image-container">
-        <img
-          class="corner-image"
-          src="@/assets/images/session-result-card-corner.svg"
-        />
+  <div
+    :class="{ 'result-podium': result.position <= 3 }"
+    class="result-card"
+    @click="open = !open"
+  >
+    <div class="corner-image-container">
+      <img
+        class="corner-image"
+        src="@/assets/images/session-result-card-corner.svg"
+      />
 
-        <div class="position-text">{{ position }}{{ positionTextSuffix }}</div>
-      </div>
-
-      <div class="text-container d-flex align-center justify-space-between">
-        <div>
-          <div class="driver-name">Valteri Bottas</div>
-          <div class="constructor-name mt-n4">Mercedes</div>
-        </div>
-
-        <div class="points">265<span>pt</span></div>
-      </div>
-
-      <div class="driver-image-container">
-        <img
-          alt="Bottas"
-          class="driver-image"
-          src="@/assets/images/drivers/bottas.png"
-        />
+      <div class="position-text">
+        {{ result.position }}{{ positionTextSuffix }}
       </div>
     </div>
-  </router-link>
+
+    <div
+      class="text-container d-flex flex-column flex-md-row align-center justify-space-between"
+    >
+      <div class="text-right text-md-left fill-width">
+        <div class="driver-name">
+          {{ result.fullName }}
+        </div>
+        <div class="constructor-name mt-md-n4">
+          {{ result.team }}
+        </div>
+      </div>
+
+      <div class="text-center text-md-right mt-3 mt-sm-0">
+        <div class="time">{{ result.lapTime.toStringFormatted(true) }}</div>
+        <div class="delta-difference mt-n4 text-center text-md-right">
+          <br v-if="result.position === 1" />
+          <span v-else>
+            +{{ result.lapTimeDelta.toStringFormatted(true) }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="driver-image-container d-none d-md-flex">
+      <img :alt="result.driverCode" :src="driverImage" class="driver-image" />
+    </div>
+
+    <div :class="{ 'card-body-open': open }" class="card-body">
+      <div class="pa-4 fill-width fill-height">
+        <v-row>
+          <v-col cols="12" sm="4">
+            <div class="details-item">
+              <div class="details-item-title">Sector 1</div>
+              <div class="details-item-value">
+                {{ result.sector1Time.toStringFormatted(true) }}
+              </div>
+            </div>
+          </v-col>
+          <v-col cols="12" sm="4">
+            <div class="details-item">
+              <div class="details-item-title">Sector 2</div>
+              <div class="details-item-value">
+                {{ result.sector3Time.toStringFormatted(true) }}
+              </div>
+            </div>
+          </v-col>
+          <v-col cols="12" sm="4">
+            <div class="details-item">
+              <div class="details-item-title">Sector 3</div>
+              <div class="details-item-value">
+                {{ result.sector2Time.toStringFormatted(true) }}
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-row class="mt-3">
+          <v-col cols="12" md="3" sm="6">
+            <div class="details-item">
+              <div class="details-item-title">Sector 1<br />speed trap</div>
+              <div v-if="!result.speedI1" class="details-item-value">
+                No data
+              </div>
+              <div v-else class="details-item-value">
+                {{ result.speedI1 }}<span class="kmh">km/h</span>
+              </div>
+            </div>
+          </v-col>
+          <v-col cols="12" md="3" sm="6">
+            <div class="details-item">
+              <div class="details-item-title">Sector 2<br />speed trap</div>
+              <div v-if="!result.speedI2" class="details-item-value">
+                No data
+              </div>
+              <div v-else class="details-item-value">
+                {{ result.speedI2 }}<span class="kmh">km/h</span>
+              </div>
+            </div>
+          </v-col>
+          <v-col cols="12" md="3" sm="6">
+            <div class="details-item">
+              <div class="details-item-title">Speed at finish line</div>
+              <div v-if="!result.speedFl" class="details-item-value">
+                No data
+              </div>
+              <div v-else class="details-item-value">
+                {{ result.speedFl }}<span class="kmh">km/h</span>
+              </div>
+            </div>
+          </v-col>
+          <v-col cols="12" md="3" sm="6">
+            <div class="details-item">
+              <div class="details-item-title">Speed at longest straight</div>
+              <div v-if="!result.speedSt" class="details-item-value">
+                No data
+              </div>
+              <div v-else class="details-item-value">
+                {{ result.speedSt }}<span class="kmh">km/h</span>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+
+        <div class="mt-5">
+          <div class="details-item d-flex justify-center align-center">
+            <div class="details-item-title">Tire used:</div>
+            <img
+              :alt="result.compound.toLowerCase()"
+              :src="
+                require(`@/assets/images/tires/${result.compound.toLowerCase()}.svg`)
+              "
+              class="tire-used-image ml-5"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import SessionResult from "@/classes/SessionResult";
+import getDriverImage from "@/helpers/getDriverImage";
+
 export default {
   name: "session-result-card",
+  props: {
+    result: {
+      type: SessionResult,
+      default() {
+        return new SessionResult();
+      },
+    },
+  },
   data: () => ({
-    position: 1,
+    open: false,
   }),
   computed: {
     positionTextSuffix() {
-      const j = this.position % 10;
-      const k = this.position % 100;
+      const j = this.result.position % 10;
+      const k = this.result.position % 100;
       if (j === 1 && k !== 11) {
         return "st";
       }
@@ -51,6 +167,9 @@ export default {
       }
       return "th";
     },
+    driverImage() {
+      return getDriverImage(this.result.driverId);
+    },
   },
 };
 </script>
@@ -61,9 +180,10 @@ export default {
   width: 100%;
   background-color: white;
   border-radius: 10px;
-  height: 150px;
+  min-height: 150px;
   box-shadow: $base-shadow;
   transition: all 0.3s ease-out;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.05);
@@ -73,7 +193,8 @@ export default {
     }
 
     .driver-image-container {
-      height: 145%;
+      height: 250px;
+      top: -100px;
     }
   }
 
@@ -83,9 +204,6 @@ export default {
     left: -20px;
     transition: all 0.3s ease-out;
     transition-delay: 0.1s;
-
-    .corner-image {
-    }
 
     .position-text {
       color: white;
@@ -99,47 +217,115 @@ export default {
 
   .text-container {
     height: 100%;
-    padding: 0 20% 0 12%;
-    min-height: 100px;
+    padding: 0 20% 0 10%;
+    min-height: 150px;
     color: $dark-blue;
+
+    @media #{map-get($display-breakpoints, 'md-and-down')} {
+      padding: 0 15% 0 115px;
+    }
+
+    @media #{map-get($display-breakpoints, 'sm-and-down')} {
+      padding: 0 20px 0 115px;
+    }
 
     .driver-name {
       font-weight: bold;
-      font-size: 45px;
+      font-size: 38px;
+
+      @media #{map-get($display-breakpoints, 'md-only')} {
+        font-size: 32px;
+      }
+
+      @media #{map-get($display-breakpoints, 'xs-only')} {
+        direction: rtl;
+        font-size: 25px;
+      }
     }
 
+    .delta-difference,
     .constructor-name {
       font-size: 25px;
+
+      @media #{map-get($display-breakpoints, 'xs-only')} {
+        direction: rtl;
+        font-size: 20px;
+      }
+
+      @media #{map-get($display-breakpoints, 'md-only')} {
+        font-size: 22px;
+      }
     }
 
-    .points {
-      font-size: 50px;
+    .time {
+      font-size: 40px;
       font-weight: bold;
 
-      span {
-        font-size: 30px;
+      @media #{map-get($display-breakpoints, 'sm-and-down')} {
+        margin-left: -115px;
+      }
+    }
+
+    .delta-difference {
+      @media #{map-get($display-breakpoints, 'sm-and-down')} {
+        margin-left: -115px;
       }
     }
   }
 
   .driver-image-container {
-    height: 130%;
+    height: 200px;
     width: 100%;
     position: absolute;
-    bottom: 0;
+    top: -50px;
     left: 0;
     display: flex;
     justify-content: end;
     align-items: end;
     overflow-x: hidden;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
     pointer-events: none;
     transition: all 0.3s ease-out;
     transition-delay: 0.1s;
+    transform-origin: top center;
 
     .driver-image {
       height: 100%;
       margin-right: -50px;
+    }
+  }
+
+  .card-body-open {
+    height: 355px !important;
+  }
+
+  .card-body {
+    border-top: 2px solid $dark-blue;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+
+    .details-item {
+      color: $dark-blue;
+
+      .details-item-title {
+        font-weight: bold;
+        font-size: 22px;
+        border-bottom: 1px solid $dark-blue;
+        margin-bottom: 5px;
+      }
+
+      .details-item-value {
+        font-size: 18px;
+
+        .kmh {
+          font-size: 15px;
+        }
+      }
+
+      .tire-used-image {
+        width: 75px;
+      }
     }
   }
 }
@@ -149,6 +335,18 @@ export default {
 
   .text-container {
     color: white !important;
+  }
+
+  .card-body {
+    border-top-color: white !important;
+
+    .details-item {
+      color: white;
+
+      .details-item-title {
+        border-bottom-color: white !important;
+      }
+    }
   }
 }
 </style>

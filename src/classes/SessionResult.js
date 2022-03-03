@@ -4,6 +4,7 @@ import msToTime from "@/helpers/msToTime";
 export default class SessionResult {
   constructor(item) {
     if (!item) {
+      this.position = 1;
       this.time = new Timing();
       this.driverNumber = 0;
       this.lapTime = new Timing();
@@ -27,10 +28,13 @@ export default class SessionResult {
       this.driverCode = "";
       this.trackStatus = 1;
       this.lapTimeDelta = 0;
+      this.fullName = "";
+      this.driverId = "";
 
       return;
     }
 
+    this.position = parseInt(item.Position) + 1;
     this.time = msToTime(item.Time);
     this.driverNumber = parseInt(item.DriverNumber);
     this.lapTime = msToTime(item.LapTime);
@@ -54,5 +58,7 @@ export default class SessionResult {
     this.driverCode = item.Driver;
     this.trackStatus = parseInt(item.TrackStatus);
     this.lapTimeDelta = msToTime(item.LapTimeDelta);
+    this.fullName = item.DriverFullName;
+    this.driverId = item.DriverId;
   }
 }

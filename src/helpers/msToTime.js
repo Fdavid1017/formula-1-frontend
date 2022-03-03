@@ -9,6 +9,4 @@ export default function (s) {
   const hrs = (s - mins) / 60;
 
   return new Timing({ hrs, mins, secs, ms });
-
-  // return hrs + ":" + mins + ":" + secs + "." + ms;
 }

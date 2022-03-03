@@ -22,6 +22,7 @@ export async function getSessionResults(gp, session) {
 
   for (const key in Object.keys(data.Driver)) {
     const item = {
+      Position: key,
       Time: data.Time[key],
       DriverNumber: data.DriverNumber[key],
       LapTime: data.LapTime[key],
@@ -45,6 +46,8 @@ export async function getSessionResults(gp, session) {
       Driver: data.Driver[key],
       TrackStatus: data.TrackStatus[key],
       LapTimeDelta: data.LapTimeDelta[key],
+      DriverFullName: data.DriverFullName[key],
+      DriverId: data.DriverId[key],
     };
 
     results.push(new SessionResult(item));

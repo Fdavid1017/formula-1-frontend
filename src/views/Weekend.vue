@@ -16,12 +16,35 @@
 
     <v-tabs-items v-model="tabs" class="mt-5">
       <v-tab-item>
-        <session-results />
+        <session-results
+          :round="schedule.circuit.location.country"
+          session="FP1"
+        />
       </v-tab-item>
-      <v-tab-item>fp2</v-tab-item>
-      <v-tab-item>fp3</v-tab-item>
-      <v-tab-item>Qualifying</v-tab-item>
-      <v-tab-item>Race</v-tab-item>
+      <v-tab-item>
+        <session-results
+          :round="schedule.circuit.location.country"
+          session="FP2"
+        />
+      </v-tab-item>
+      <v-tab-item>
+        <session-results
+          :round="schedule.circuit.location.country"
+          session="FP3"
+        />
+      </v-tab-item>
+      <v-tab-item>
+        <session-results
+          :round="schedule.circuit.location.country"
+          session="Q"
+        />
+      </v-tab-item>
+      <v-tab-item>
+        <session-results
+          :round="schedule.circuit.location.country"
+          session="R"
+        />
+      </v-tab-item>
       <v-tab-item>
         <circuit-infos :schedule="schedule" />
       </v-tab-item>
