@@ -28,7 +28,9 @@
           </v-col>
         </v-row>
       </v-tab-item>
-      <v-tab-item> result chart</v-tab-item>
+      <v-tab-item>
+        <race-results-chart :results="sessionResults" />
+      </v-tab-item>
     </v-tabs-items>
   </v-container>
 
@@ -42,20 +44,21 @@ import { getRaceResult } from "@/services/session-results-service";
 import LoadingIndicator from "@/components/loading-indicator";
 import RaceResult from "@/classes/RaceResult";
 import RaceResultCard from "@/components/schedule/weekend/race-result-card";
+import RaceResultsChart from "@/components/schedule/weekend/race-results-chart";
 
 export default {
   name: "race-results",
-  components: { RaceResultCard, LoadingIndicator },
+  components: { RaceResultsChart, RaceResultCard, LoadingIndicator },
   props: {
     round: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   data: () => ({
     isLoading: false,
     sessionResults: Array[RaceResult],
-    tabs: null
+    tabs: null,
   }),
   async mounted() {
     this.isLoading = true;
@@ -66,7 +69,7 @@ export default {
       .finally(() => {
         this.isLoading = false;
       });
-  }
+  },
 };
 </script>
 

@@ -13,6 +13,7 @@ export default class RaceResult {
         rank: 0,
       };
       this.time = new Timing();
+      this.timeMillis = 0;
       this.grid = 0;
       this.laps = 0;
       this.points = 0;
@@ -41,6 +42,7 @@ export default class RaceResult {
     }
 
     this.time = item.Time ? msToTime(item.Time.millis) : null;
+    this.timeMillis = item.Time ? item.Time.millis : 0;
     this.grid = parseInt(item.grid);
     this.laps = parseInt(item.laps);
     this.points = parseInt(item.points);
