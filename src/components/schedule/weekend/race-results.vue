@@ -49,13 +49,13 @@ export default {
   props: {
     round: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   data: () => ({
     isLoading: false,
     sessionResults: Array[RaceResult],
-    tabs: null,
+    tabs: null
   }),
   async mounted() {
     this.isLoading = true;
@@ -66,7 +66,7 @@ export default {
       .finally(() => {
         this.isLoading = false;
       });
-  },
+  }
 };
 </script>
 

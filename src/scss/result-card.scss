@@ -119,16 +119,14 @@
     }
   }
 
-  .card-body-open {
-    height: 355px !important;
-  }
-
   .card-body {
     border-top: 2px solid $dark-blue;
-    height: 0;
     overflow: hidden;
     transition: all 0.3s ease-out;
-    color: $dark-blue;
+
+    * {
+      color: $dark-blue;
+    }
 
     .details-item-title {
       font-weight: bold;

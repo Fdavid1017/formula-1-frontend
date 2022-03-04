@@ -6,7 +6,7 @@
       'fastest-lap': result.fastestLap.rank === 1,
     }"
     class="result-card"
-    @click="open = !open"
+    @click="openTab"
   >
     <div class="corner-image-container">
       <img
@@ -55,78 +55,81 @@
       />
     </div>
 
-    <div
-      v-if="!isDnf(result.status)"
-      :class="{ 'card-body-open': open }"
-      class="card-body"
+    <v-expansion-panels
+      v-model="open"
+      accordion
+      class="elevation-0 rounded-0 card-body"
+      color="transparent"
     >
-      <div class="px-3 py-2">
-        <div v-if="result.fastestLap">
-          <div class="font-weight-bold text-center" style="font-size: 28px">
-            Fastest lap
+      <v-expansion-panel style="background-color: transparent">
+        <v-expansion-panel-content class="pt-4" color="transparent">
+          <div v-if="result.fastestLap">
+            <div class="font-weight-bold text-center" style="font-size: 28px">
+              Fastest lap
+            </div>
+
+            <v-row>
+              <v-col cols="12" md="4">
+                <div class="details-item">
+                  <div class="details-item-title">Average speed</div>
+                  <div class="details-item-value">
+                    {{ result.fastestLap.averageSpeed }}
+                    <span class="kmh">km/h</span>
+                  </div>
+                </div>
+              </v-col>
+              <v-col cols="12" md="4">
+                <div class="details-item">
+                  <div class="details-item-title">Time</div>
+                  <div class="details-item-value">
+                    {{ result.fastestLap.time.toStringFormatted(true) }}
+                  </div>
+                </div>
+              </v-col>
+              <v-col cols="12" md="4">
+                <div class="details-item">
+                  <div class="details-item-title">Rank</div>
+                  <div class="details-item-value">
+                    {{ result.fastestLap.rank }}
+                  </div>
+                </div>
+              </v-col>
+            </v-row>
           </div>
 
-          <v-row>
-            <v-col cols="12" md="4">
+          <v-row class="mt-5">
+            <v-col cols="12" md="3" sm="6">
               <div class="details-item">
-                <div class="details-item-title">Average speed</div>
+                <div class="details-item-title">Grid position</div>
                 <div class="details-item-value">
-                  {{ result.fastestLap.averageSpeed }}
-                  <span class="kmh">km/h</span>
+                  {{ result.grid }}
                 </div>
               </div>
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="3" sm="6">
               <div class="details-item">
-                <div class="details-item-title">Time</div>
+                <div class="details-item-title">Laps</div>
                 <div class="details-item-value">
-                  {{ result.fastestLap.time.toStringFormatted(true) }}
+                  {{ result.laps }}
                 </div>
               </div>
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="3" sm="6">
               <div class="details-item">
-                <div class="details-item-title">Rank</div>
-                <div class="details-item-value">
-                  {{ result.fastestLap.rank }}
-                </div>
+                <div class="details-item-title">Points</div>
+                <div class="details-item-value">+ {{ result.points }}</div>
+              </div>
+            </v-col>
+            <v-col cols="12" md="3" sm="6">
+              <div class="details-item">
+                <div class="details-item-title">Status</div>
+                <div class="details-item-value">{{ result.status }}</div>
               </div>
             </v-col>
           </v-row>
-        </div>
-
-        <v-row class="mt-5">
-          <v-col cols="12" md="3" sm="6">
-            <div class="details-item">
-              <div class="details-item-title">Grid position</div>
-              <div class="details-item-value">
-                {{ result.grid }}
-              </div>
-            </div>
-          </v-col>
-          <v-col cols="12" md="3" sm="6">
-            <div class="details-item">
-              <div class="details-item-title">Laps</div>
-              <div class="details-item-value">
-                {{ result.laps }}
-              </div>
-            </div>
-          </v-col>
-          <v-col cols="12" md="3" sm="6">
-            <div class="details-item">
-              <div class="details-item-title">Points</div>
-              <div class="details-item-value">+ {{ result.points }}</div>
-            </div>
-          </v-col>
-          <v-col cols="12" md="3" sm="6">
-            <div class="details-item">
-              <div class="details-item-title">Status</div>
-              <div class="details-item-value">{{ result.status }}</div>
-            </div>
-          </v-col>
-        </v-row>
-      </div>
-    </div>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </div>
 </template>
 
@@ -143,14 +146,17 @@ export default {
       type: RaceResult,
       default() {
         return new RaceResult();
-      },
-    },
+      }
+    }
   },
   data: () => ({
-    open: true,
+    open: null
   }),
   methods: {
     isDnf,
+    openTab() {
+      this.open = this.open === null ? 0 : null;
+    }
   },
   computed: {
     positionTextSuffix() {
@@ -162,8 +168,8 @@ export default {
     positionFromStart() {
       const gain = this.result.grid - this.result.position;
       return gain;
-    },
-  },
+    }
+  }
 };
 </script>
 

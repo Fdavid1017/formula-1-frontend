@@ -5,7 +5,7 @@
       'result-dnf': result.lapTimeBase === null,
     }"
     class="result-card"
-    @click="open = !open"
+    @click="openTab"
   >
     <div class="corner-image-container">
       <img
@@ -52,100 +52,104 @@
       <img :alt="result.driverCode" :src="driverImage" class="driver-image" />
     </div>
 
-    <div
+    <v-expansion-panels
       v-if="result.lapTimeBase !== null"
-      :class="{ 'card-body-open': open }"
-      class="card-body"
+      v-model="open"
+      accordion
+      class="elevation-0 rounded-0 card-body"
+      color="transparent"
     >
-      <div class="pa-4 fill-width fill-height">
-        <v-row>
-          <v-col cols="12" sm="4">
-            <div class="details-item">
-              <div class="details-item-title">Sector 1</div>
-              <div class="details-item-value">
-                {{ result.sector1Time.toStringFormatted(true) }}
+      <v-expansion-panel style="background-color: transparent">
+        <v-expansion-panel-content class="pt-4" color="transparent">
+          <v-row>
+            <v-col cols="12" sm="4">
+              <div class="details-item">
+                <div class="details-item-title">Sector 1</div>
+                <div class="details-item-value">
+                  {{ result.sector1Time.toStringFormatted(true) }}
+                </div>
               </div>
-            </div>
-          </v-col>
-          <v-col cols="12" sm="4">
-            <div class="details-item">
-              <div class="details-item-title">Sector 2</div>
-              <div class="details-item-value">
-                {{ result.sector3Time.toStringFormatted(true) }}
+            </v-col>
+            <v-col cols="12" sm="4">
+              <div class="details-item">
+                <div class="details-item-title">Sector 2</div>
+                <div class="details-item-value">
+                  {{ result.sector3Time.toStringFormatted(true) }}
+                </div>
               </div>
-            </div>
-          </v-col>
-          <v-col cols="12" sm="4">
-            <div class="details-item">
-              <div class="details-item-title">Sector 3</div>
-              <div class="details-item-value">
-                {{ result.sector2Time.toStringFormatted(true) }}
+            </v-col>
+            <v-col cols="12" sm="4">
+              <div class="details-item">
+                <div class="details-item-title">Sector 3</div>
+                <div class="details-item-value">
+                  {{ result.sector2Time.toStringFormatted(true) }}
+                </div>
               </div>
-            </div>
-          </v-col>
-        </v-row>
+            </v-col>
+          </v-row>
 
-        <v-row class="mt-3">
-          <v-col cols="12" md="3" sm="6">
-            <div class="details-item">
-              <div class="details-item-title">Sector 1<br />speed trap</div>
-              <div v-if="!result.speedI1" class="details-item-value">
-                No data
+          <v-row class="mt-3">
+            <v-col cols="12" md="3" sm="6">
+              <div class="details-item">
+                <div class="details-item-title">Sector 1<br />speed trap</div>
+                <div v-if="!result.speedI1" class="details-item-value">
+                  No data
+                </div>
+                <div v-else class="details-item-value">
+                  {{ result.speedI1 }}<span class="kmh">km/h</span>
+                </div>
               </div>
-              <div v-else class="details-item-value">
-                {{ result.speedI1 }}<span class="kmh">km/h</span>
+            </v-col>
+            <v-col cols="12" md="3" sm="6">
+              <div class="details-item">
+                <div class="details-item-title">Sector 2<br />speed trap</div>
+                <div v-if="!result.speedI2" class="details-item-value">
+                  No data
+                </div>
+                <div v-else class="details-item-value">
+                  {{ result.speedI2 }}<span class="kmh">km/h</span>
+                </div>
               </div>
-            </div>
-          </v-col>
-          <v-col cols="12" md="3" sm="6">
-            <div class="details-item">
-              <div class="details-item-title">Sector 2<br />speed trap</div>
-              <div v-if="!result.speedI2" class="details-item-value">
-                No data
+            </v-col>
+            <v-col cols="12" md="3" sm="6">
+              <div class="details-item">
+                <div class="details-item-title">Speed at finish line</div>
+                <div v-if="!result.speedFl" class="details-item-value">
+                  No data
+                </div>
+                <div v-else class="details-item-value">
+                  {{ result.speedFl }}<span class="kmh">km/h</span>
+                </div>
               </div>
-              <div v-else class="details-item-value">
-                {{ result.speedI2 }}<span class="kmh">km/h</span>
+            </v-col>
+            <v-col cols="12" md="3" sm="6">
+              <div class="details-item">
+                <div class="details-item-title">Speed at longest straight</div>
+                <div v-if="!result.speedSt" class="details-item-value">
+                  No data
+                </div>
+                <div v-else class="details-item-value">
+                  {{ result.speedSt }}<span class="kmh">km/h</span>
+                </div>
               </div>
-            </div>
-          </v-col>
-          <v-col cols="12" md="3" sm="6">
-            <div class="details-item">
-              <div class="details-item-title">Speed at finish line</div>
-              <div v-if="!result.speedFl" class="details-item-value">
-                No data
-              </div>
-              <div v-else class="details-item-value">
-                {{ result.speedFl }}<span class="kmh">km/h</span>
-              </div>
-            </div>
-          </v-col>
-          <v-col cols="12" md="3" sm="6">
-            <div class="details-item">
-              <div class="details-item-title">Speed at longest straight</div>
-              <div v-if="!result.speedSt" class="details-item-value">
-                No data
-              </div>
-              <div v-else class="details-item-value">
-                {{ result.speedSt }}<span class="kmh">km/h</span>
-              </div>
-            </div>
-          </v-col>
-        </v-row>
+            </v-col>
+          </v-row>
 
-        <div class="mt-5">
-          <div class="details-item d-flex justify-center align-center">
-            <div class="details-item-title">Tire used:</div>
-            <img
-              v-if="compoundImage"
-              :alt="result.compound.toLowerCase()"
-              :src="compoundImage"
-              class="tire-used-image ml-5"
-            />
-            <div v-else class="ml-5 details-item-value">No data</div>
+          <div class="mt-5">
+            <div class="details-item d-flex justify-center align-center">
+              <div class="details-item-title">Tire used:</div>
+              <img
+                v-if="compoundImage"
+                :alt="result.compound.toLowerCase()"
+                :src="compoundImage"
+                class="tire-used-image ml-5"
+              />
+              <div v-else class="ml-5 details-item-value">No data</div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </div>
 </template>
 
@@ -162,12 +166,17 @@ export default {
       type: SessionResult,
       default() {
         return new SessionResult();
-      },
-    },
+      }
+    }
   },
   data: () => ({
-    open: false,
+    open: null
   }),
+  methods: {
+    openTab() {
+      this.open = this.open === null ? 0 : null;
+    }
+  },
   computed: {
     positionTextSuffix() {
       return getNumberTextSuffux(this.result.position);
@@ -177,8 +186,8 @@ export default {
     },
     compoundImage() {
       return getTireCompoundImage(this.result.compound);
-    },
-  },
+    }
+  }
 };
 </script>
 

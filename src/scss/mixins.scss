@@ -60,6 +60,10 @@
 }
 
 @mixin setResultCardToWhite {
+  * {
+    color: white !important;
+  }
+
   .text-container {
     color: white !important;
   }
