@@ -5,21 +5,24 @@
       <v-tab>Constructors</v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tabs">
+    <v-tabs-items v-model="tabs" class="overflow-visible">
       <v-tab-item>
         <driver-standings />
       </v-tab-item>
-      <v-tab-item> constructors</v-tab-item>
+      <v-tab-item>
+        <constructors-standings />
+      </v-tab-item>
     </v-tabs-items>
   </v-container>
 </template>
 
 <script>
 import DriverStandings from "@/components/standings/driver-standings";
+import ConstructorsStandings from "@/components/standings/constructors-standings";
 
 export default {
   name: "Standings",
-  components: { DriverStandings },
+  components: { ConstructorsStandings, DriverStandings },
   data: () => ({
     tabs: null
   })
