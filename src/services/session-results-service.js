@@ -14,9 +14,21 @@ export async function getSessionResults(gp, session) {
   await axios({
     url: `session-results/${gp}/${session}/${store.getters.currentSeasonYear}`,
     method: "GET",
-  }).then((response) => {
-    data = response.data;
-  });
+  })
+    .then((response) => {
+      data = response.data;
+    })
+    .catch((error) => {
+      switch (error.response.status) {
+        case 404:
+          data = [];
+          break;
+      }
+    });
+
+  if (data.length === 0) {
+    return data;
+  }
 
   const results = [];
 

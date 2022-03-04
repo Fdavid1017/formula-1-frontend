@@ -1,6 +1,9 @@
 <template>
   <div
-    :class="{ 'result-podium': result.position <= 3 }"
+    :class="{
+      'result-podium': result.position <= 3,
+      'result-dnf': result.lapTimeBase === null,
+    }"
     class="result-card"
     @click="open = !open"
   >
@@ -28,13 +31,20 @@
       </div>
 
       <div class="text-center text-md-right mt-3 mt-sm-0">
-        <div class="time">{{ result.lapTime.toStringFormatted(true) }}</div>
-        <div class="delta-difference mt-n4 text-center text-md-right">
+        <div v-if="result.lapTimeBase !== null" class="time">
+          {{ result.lapTime.toStringFormatted(true) }}
+        </div>
+        <div
+          v-if="result.lapTimeBase !== null"
+          class="delta-difference mt-n4 text-center text-md-right"
+        >
           <br v-if="result.position === 1" />
           <span v-else>
             +{{ result.lapTimeDelta.toStringFormatted(true) }}
           </span>
         </div>
+
+        <div v-else class="time">DNF</div>
       </div>
     </div>
 
@@ -42,7 +52,11 @@
       <img :alt="result.driverCode" :src="driverImage" class="driver-image" />
     </div>
 
-    <div :class="{ 'card-body-open': open }" class="card-body">
+    <div
+      v-if="result.lapTimeBase !== null"
+      :class="{ 'card-body-open': open }"
+      class="card-body"
+    >
       <div class="pa-4 fill-width fill-height">
         <v-row>
           <v-col cols="12" sm="4">
@@ -122,10 +136,12 @@
           <div class="details-item d-flex justify-center align-center">
             <div class="details-item-title">Tire used:</div>
             <img
+              v-if="compoundImage"
               :alt="result.compound.toLowerCase()"
               :src="compoundImage"
               class="tire-used-image ml-5"
             />
+            <div v-else class="ml-5 details-item-value">No data</div>
           </div>
         </div>
       </div>
@@ -136,6 +152,7 @@
 <script>
 import SessionResult from "@/classes/SessionResult";
 import getDriverImage from "@/helpers/getDriverImage";
+import getTireCompoundImage from "@/helpers/getTireCompoundImage";
 
 export default {
   name: "session-result-card",
@@ -169,11 +186,7 @@ export default {
       return getDriverImage(this.result.driverId);
     },
     compoundImage() {
-      try {
-        return require(`@/assets/images/tires/${this.result.compound.toLowerCase()}.svg`);
-      } catch (e) {
-        return null;
-      }
+      return getTireCompoundImage(this.result.compound);
     },
   },
 };

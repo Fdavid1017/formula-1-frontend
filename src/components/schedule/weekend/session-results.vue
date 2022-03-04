@@ -1,9 +1,12 @@
 <template>
   <loading-indicator v-if="isLoading" />
 
-  <v-container v-else class="session-results">
+  <v-container
+    v-else-if="sessionResults !== undefined && sessionResults.length > 0"
+    class="session-results"
+  >
     <div class="flex flex-row flex-sm-column align-center justify-start">
-      <v-btn color="primary">See telemetry</v-btn>
+      <v-btn color="primary">Telemetry</v-btn>
       <v-btn class="ml-5" color="primary">Live replay</v-btn>
     </div>
 
@@ -12,7 +15,7 @@
       <v-tab>Chart</v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tabs" class="">
+    <v-tabs-items v-model="tabs" class="py-5">
       <v-tab-item>
         <v-row
           v-for="result in sessionResults"
@@ -29,6 +32,10 @@
         <session-result-chart :results="sessionResults" class="mt-10" />
       </v-tab-item>
     </v-tabs-items>
+  </v-container>
+
+  <v-container v-else>
+    <h2 class="text-center">No data found for this session</h2>
   </v-container>
 </template>
 
