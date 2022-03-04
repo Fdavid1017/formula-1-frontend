@@ -82,6 +82,32 @@ export default {
     this.$store.commit("setBackButtonState", true);
 
     this.round = this.$route.params.round;
+
+    const tabParam = this.$route.query.tab?.toLowerCase();
+
+    if (tabParam) {
+      switch (tabParam) {
+        case "fp1":
+          this.tabs = 0;
+          break;
+        case "fp2":
+          this.tabs = 1;
+          break;
+        case "fp3":
+          this.tabs = 2;
+          break;
+        case "qualifying":
+          this.tabs = 3;
+          break;
+        case "race":
+          this.tabs = 4;
+          break;
+        case "circuit":
+          this.tabs = 5;
+          break;
+      }
+    }
+
     getScheduledRoundInformation(this.round)
       .then((response) => {
         this.schedule = response;
@@ -94,6 +120,32 @@ export default {
       .finally(() => {
         this.isLoading = false;
       });
+  },
+  methods: {
+    tabIndexToName(index) {
+      switch (index) {
+        case 0:
+          return "fp1";
+        case 1:
+          return "fp2";
+        case 2:
+          return "fp3";
+        case 3:
+          return "qualifying";
+        case 4:
+          return "race";
+        case 5:
+          return "circuit";
+      }
+    },
+  },
+  watch: {
+    tabs() {
+      let tabName = this.tabIndexToName(this.tabs);
+      let queries = JSON.parse(JSON.stringify(this.$route.query));
+      queries.tab = tabName;
+      this.$router.replace({ query: queries });
+    },
   },
 };
 </script>

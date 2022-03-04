@@ -43,7 +43,7 @@
           <router-link to="/constructors"> Constructors</router-link>
         </v-col>
         <v-col class="d-none d-md-block" cols="2">
-          <router-link to="/"> Standings</router-link>
+          <router-link to="/standings">Standings</router-link>
         </v-col>
 
         <v-col class="d-md-none" cols="2">
@@ -119,6 +119,7 @@ export default {
     }
   }
 
+  .menu-item,
   a {
     color: black;
     font-weight: bold;
@@ -138,8 +139,14 @@ export default {
       transition: all 0.3s ease-in;
     }
 
-    &:hover:after {
-      width: 100%;
+    &:hover {
+      &:after {
+        width: 100%;
+      }
+
+      &:before {
+        content: none;
+      }
     }
   }
 

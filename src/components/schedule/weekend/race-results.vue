@@ -6,7 +6,7 @@
     class="session-results"
   >
     <div class="flex flex-row flex-sm-column align-center justify-start">
-      <v-btn color="primary">Telemetry</v-btn>
+      <v-btn :to="telemetryPath" color="primary">Telemetry</v-btn>
       <v-btn class="ml-5" color="primary">Live replay</v-btn>
     </div>
 
@@ -69,6 +69,11 @@ export default {
       .finally(() => {
         this.isLoading = false;
       });
+  },
+  computed: {
+    telemetryPath() {
+      return `/schedule/${this.round}/R/telemetry`;
+    },
   },
 };
 </script>

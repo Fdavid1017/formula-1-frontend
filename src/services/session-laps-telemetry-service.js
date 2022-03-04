@@ -1,10 +1,9 @@
 import axios from "axios";
 import store from "@/store";
-import RaceResult from "@/classes/RaceResult";
 import { sessionNames } from "@/helpers/sessionNames";
 import convertSessionObjectToSessionResult from "@/helpers/convertSessionObjectToSessionResult";
 
-export async function getSessionResults(gp, session) {
+export async function getSessionLapsTelemetry(gp, session) {
   session = session.toUpperCase();
   if (!sessionNames.includes(session)) {
     throw Error("Invalid session name");
@@ -12,7 +11,7 @@ export async function getSessionResults(gp, session) {
 
   let data = null;
   await axios({
-    url: `session-results/${gp}/${session}/${store.getters.currentSeasonYear}`,
+    url: `all-lap-data/${gp}/${session}/${store.getters.currentSeasonYear}`,
     method: "GET",
   })
     .then((response) => {
@@ -31,28 +30,11 @@ export async function getSessionResults(gp, session) {
   }
 
   const results = [];
-
-  for (const key in Object.keys(data.Driver)) {
-    results.push(convertSessionObjectToSessionResult(data, key));
+  for (const dataKey in data) {
+    for (const key in Object.keys(data[dataKey].Driver)) {
+      results.push(convertSessionObjectToSessionResult(data[dataKey], key));
+    }
   }
-
-  return results;
-}
-
-export async function getRaceResult(round) {
-  let data = null;
-  await axios({
-    url: `race-results/${round}/${store.getters.currentSeasonYear}`,
-    method: "GET",
-  }).then((response) => {
-    data = response.data;
-  });
-
-  const results = [];
-
-  data.forEach((r) => {
-    results.push(new RaceResult(r));
-  });
 
   return results;
 }

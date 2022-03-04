@@ -11,6 +11,7 @@ import Schedule from "@/views/Schedule";
 
 import store from "../store";
 import Weekend from "@/views/Weekend";
+import Standings from "@/views/Standings";
 
 Vue.use(VueRouter);
 
@@ -77,6 +78,14 @@ const routes = [
     component: Weekend,
     meta: {
       title: "Weekend",
+    },
+  },
+  {
+    path: "/standings",
+    name: "Standings",
+    component: Standings,
+    meta: {
+      title: "Standings",
     },
   },
   {
