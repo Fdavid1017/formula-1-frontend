@@ -12,7 +12,13 @@ import VueApexCharts from "vue-apexcharts";
 
 //Font awesome
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faChevronLeft, faLaptop } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faMinus,
+  faLaptop,
+  faSortDown,
+  faSortUp,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookSquare,
   faInstagramSquare,
@@ -35,7 +41,10 @@ library.add(
   faTwitterSquare,
   faInstagramSquare,
   faYoutubeSquare,
-  faChevronLeft
+  faChevronLeft,
+  faSortUp,
+  faSortDown,
+  faMinus
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

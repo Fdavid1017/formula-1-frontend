@@ -40,10 +40,7 @@
         />
       </v-tab-item>
       <v-tab-item>
-        <session-results
-          :round="schedule.circuit.location.country"
-          session="R"
-        />
+        <race-results :round="schedule.round" />
       </v-tab-item>
       <v-tab-item>
         <circuit-infos :schedule="schedule" />
@@ -59,10 +56,17 @@ import LoadingIndicator from "@/components/loading-indicator";
 import ScheduleItem from "@/classes/ScheduleItem";
 import WeekendBanner from "@/components/schedule/weekend/weekend-banner";
 import SessionResults from "@/components/schedule/weekend/session-results";
+import RaceResults from "@/components/schedule/weekend/race-results";
 
 export default {
   name: "Weekend",
-  components: { SessionResults, WeekendBanner, LoadingIndicator, CircuitInfos },
+  components: {
+    RaceResults,
+    SessionResults,
+    WeekendBanner,
+    LoadingIndicator,
+    CircuitInfos,
+  },
   data: () => ({
     isLoading: false,
     round: null,

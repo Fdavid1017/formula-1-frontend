@@ -38,4 +38,8 @@ export default class Driver {
     this.positionText = item.positionText;
     this.wins = parseInt(item.wins);
   }
+
+  fullName() {
+    return `${this.driver.givenName} ${this.driver.familyName}`;
+  }
 }

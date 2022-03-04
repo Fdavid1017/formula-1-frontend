@@ -1,6 +1,7 @@
 import axios from "axios";
 import store from "@/store";
 import SessionResult from "@/classes/SessionResult";
+import RaceResult from "@/classes/RaceResult";
 
 export async function getSessionResults(gp, session) {
   session = session.toUpperCase();
@@ -65,6 +66,24 @@ export async function getSessionResults(gp, session) {
 
     results.push(new SessionResult(item));
   }
+
+  return results;
+}
+
+export async function getRaceResult(round) {
+  let data = null;
+  await axios({
+    url: `race-results/${round}/${store.getters.currentSeasonYear}`,
+    method: "GET",
+  }).then((response) => {
+    data = response.data;
+  });
+
+  const results = [];
+
+  data.forEach((r) => {
+    results.push(new RaceResult(r));
+  });
 
   return results;
 }
