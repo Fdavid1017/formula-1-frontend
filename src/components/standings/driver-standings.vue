@@ -6,7 +6,7 @@
       :key="item.driver.driverId"
       class="mt-16"
     >
-      <v-col cols="12" md="10">
+      <v-col cols="10" md="8">
         <driver-standing-card :driver="item" />
       </v-col>
     </v-row>

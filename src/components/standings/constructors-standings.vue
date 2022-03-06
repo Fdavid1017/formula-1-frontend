@@ -6,8 +6,7 @@
       class="mt-16"
       justify="center"
     >
-      <v-col cols="12" md="10">
-        <!--        <driver-standing-card :driver="item" />-->
+      <v-col cols="10" md="8">
         <constructor-standing-card :team="item" />
       </v-col>
     </v-row>
@@ -24,7 +23,7 @@ export default {
   components: { ConstructorStandingCard },
   data: () => ({
     isLOading: false,
-    standings: Array[Constructor]
+    standings: Array[Constructor],
   }),
   mounted() {
     this.isLoading = true;
@@ -35,7 +34,7 @@ export default {
       .finally(() => {
         this.isLoading = false;
       });
-  }
+  },
 };
 </script>
 

@@ -24,8 +24,8 @@ export default {
   name: "Standings",
   components: { ConstructorsStandings, DriverStandings },
   data: () => ({
-    tabs: null
-  })
+    tabs: null,
+  }),
 };
 </script>
 
