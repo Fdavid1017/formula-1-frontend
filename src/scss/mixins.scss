@@ -1,3 +1,41 @@
+@mixin navbar-text{
+  .router-link-exact-active {
+    &:after {
+      width: 100% !important;
+    }
+  }
+
+  a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    position: relative;
+
+    $line-height: 3px;
+
+    &:after {
+      content: " ";
+      position: absolute;
+      left: 0;
+      bottom: -$line-height;
+      width: 0;
+      height: $line-height;
+      background-color: $f1-red;
+      transition: all 0.3s ease-in;
+    }
+
+    &:hover {
+      &:after {
+        width: 100%;
+      }
+
+      &:before {
+        content: none;
+      }
+    }
+  }
+}
+
 @mixin home-panel-text($color) {
   color: $color;
   font-family: Poppins;
