@@ -54,9 +54,7 @@
     </div>
 
     <img
-      :src="
-        require(`@/assets/images/cars/${team.team.constructorId}.png`)
-      "
+      :src="require(`@/assets/images/cars/${team.team.constructorId}.png`)"
       alt="Car"
       class="car-image"
     />

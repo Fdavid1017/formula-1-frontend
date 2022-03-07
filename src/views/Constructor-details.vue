@@ -399,7 +399,7 @@ export default {
         z-index: 1;
         width: 100%;
         transform: scaleY(-1);
-        margin-top: -7px;
+        margin-top: -17px;
         transition: all 0.3s ease;
         mask-image: linear-gradient(
           to top,

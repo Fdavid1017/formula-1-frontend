@@ -14,8 +14,8 @@ import VueApexCharts from "vue-apexcharts";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faChevronLeft,
-  faMinus,
   faLaptop,
+  faMinus,
   faSortDown,
   faSortUp,
 } from "@fortawesome/free-solid-svg-icons";
