@@ -45,8 +45,11 @@ export default class SessionResult {
     this.lapNumber = item.LapNumber;
     this.stint = item.Stint;
     this.sector1Time = msToTime(item.Sector1Time);
+    this.sector1TimeBase = item.Sector1Time;
     this.sector2Time = msToTime(item.Sector2Time);
+    this.sector2TimeBase = item.Sector2Time;
     this.sector3Time = msToTime(item.Sector3Time);
+    this.sector3TimeBase = item.Sector3Time;
     this.sector1SessionTime = msToTime(item.Sector1SessionTime);
     this.sector2SessionTime = msToTime(item.Sector2SessionTime);
     this.sector3SessionTime = msToTime(item.Sector3SessionTime);

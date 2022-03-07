@@ -79,7 +79,7 @@ export default {
     this.results.forEach((result) => {
       seriesValues.push(result.lapTimeDeltaBase);
       categories.push(result.driverCode);
-      colors.push(result.color);
+      colors.push(result.color === "#ffffff" ? "#d4d4d4" : result.color);
     });
 
     this.series = [

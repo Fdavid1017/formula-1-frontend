@@ -29,10 +29,25 @@ export async function getSessionLapsTelemetry(gp, session) {
     return data;
   }
 
-  const results = [];
-  for (const dataKey in data) {
-    for (const key in Object.keys(data[dataKey].Driver)) {
-      results.push(convertSessionObjectToSessionResult(data[dataKey], key));
+  const results = {};
+  for (const i in data) {
+    const driverResults = data[i];
+    const driverLaps = [];
+    let driverId;
+    const driverObjectKeys = Object.keys(driverResults.Driver);
+
+    for (const i in driverObjectKeys) {
+      const index = driverObjectKeys[i];
+      const lapResult = convertSessionObjectToSessionResult(
+        driverResults,
+        index
+      );
+      driverLaps.push(lapResult);
+      driverId = lapResult.driverId;
+    }
+
+    if (driverId) {
+      results[driverId] = driverLaps;
     }
   }
 

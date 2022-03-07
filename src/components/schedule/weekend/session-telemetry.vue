@@ -1,37 +1,67 @@
 <template>
   <div class="session-telemetry">
-    <v-tabs v-model="tabs" centered color="secondary" fixed-tabs>
-      <v-tab>Charts</v-tab>
-      <v-tab>Gear shifts visualization</v-tab>
-      <v-tab>Speed visualization</v-tab>
-    </v-tabs>
+    <v-row class="mb-5">
+      <v-col class="d-flex justify-center align-center" cols="12" md="4">
+        <v-select
+          v-model="displayMode"
+          :items="displayModeSelectItems"
+          dense
+          hide-details
+          item-text="text"
+          item-value="value"
+          label="Display mode"
+          outlined
+        />
+      </v-col>
+      <v-col
+        v-if="displayMode === 'charts'"
+        class="d-flex justify-center align-center"
+        cols="12"
+        md="4"
+      >
+        <switch-button
+          v-model="lapByLapData"
+          class="mt-1"
+          left-value="Full session"
+          right-value="Lap by lap"
+        />
+      </v-col>
+      <v-col
+        v-if="displayMode === 'charts'"
+        class="d-flex justify-center align-center"
+        cols="12"
+        md="4"
+      >
+        <v-select
+          v-if="displayMode === 'charts' && !lapByLapData"
+          v-model="chartMode"
+          :items="chartModeSelectItems"
+          dense
+          hide-details
+          item-text="text"
+          item-value="value"
+          label="Chart display"
+          outlined
+        />
+      </v-col>
+    </v-row>
 
-    <v-tabs-items v-model="tabs" class="">
-      <v-tab-item>
-        <v-tabs v-model="chartTabs" centered color="secondary" fixed-tabs>
-          <v-tab>Full race</v-tab>
-          <v-tab>Single lap</v-tab>
-        </v-tabs>
-
-        <v-tabs-items v-model="chartTabs" class="">
-          <v-tab-item>
-            <full-race-chart :round="round" :session="session" />
-          </v-tab-item>
-          <v-tab-item>lap</v-tab-item>
-        </v-tabs-items>
-      </v-tab-item>
-      <v-tab-item> gear</v-tab-item>
-      <v-tab-item> speed</v-tab-item>
-    </v-tabs-items>
+    <full-session-chart
+      v-if="displayMode === 'charts' && !lapByLapData"
+      :chart-mode="chartMode"
+      :round="round"
+      :session="session"
+    />
   </div>
 </template>
 
 <script>
-import FullRaceChart from "@/components/schedule/weekend/telemetry/full-race-chart";
+import SwitchButton from "@/components/switch-button";
+import FullSessionChart from "@/components/schedule/weekend/telemetry/full-session-chart";
 
 export default {
   name: "session-telemetry",
-  components: { FullRaceChart },
+  components: { FullSessionChart, SwitchButton },
   props: {
     round: {
       type: String,
@@ -43,8 +73,22 @@ export default {
     },
   },
   data: () => ({
-    tabs: null,
-    chartTabs: null,
+    displayMode: "charts",
+    displayModeSelectItems: [
+      { text: "Charts", value: "charts" },
+      { text: "Gear Shifts Visualization", value: "gearShifts" },
+      { text: "Speed Visualization", value: "speed" },
+    ],
+    lapByLapData: false,
+    chartModeSelectItems: [
+      { text: "Lap time", value: "lapTime" },
+      { text: "Sector 1 time", value: "sector1" },
+      { text: "Sector 2 time", value: "sector2" },
+      { text: "Sector 3 time", value: "sector3" },
+      { text: "Sector 1 speed trap", value: "s1SpeedTrap" },
+      { text: "Sector 2 speed trap", value: "s2SpeedTrap" },
+    ],
+    chartMode: "lapTime",
   }),
 };
 </script>
