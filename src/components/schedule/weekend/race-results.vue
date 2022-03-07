@@ -6,13 +6,13 @@
     class="session-results"
   >
     <div class="flex flex-row flex-sm-column align-center justify-start">
-      <v-btn :to="telemetryPath" color="primary">Telemetry</v-btn>
       <v-btn class="ml-5" color="primary">Live replay</v-btn>
     </div>
 
-    <v-tabs v-model="tabs" centered>
-      <v-tab>Cards</v-tab>
+    <v-tabs v-model="tabs" centered fixed-tabs>
+      <v-tab>Result</v-tab>
       <v-tab>Chart</v-tab>
+      <v-tab>Telemetry</v-tab>
     </v-tabs>
 
     <v-tabs-items v-model="tabs" class="py-5">
@@ -31,6 +31,9 @@
       <v-tab-item>
         <race-results-chart :results="sessionResults" />
       </v-tab-item>
+      <v-tab-item>
+        <session-telemetry :round="round" session="R" />
+      </v-tab-item>
     </v-tabs-items>
   </v-container>
 
@@ -45,10 +48,16 @@ import LoadingIndicator from "@/components/loading-indicator";
 import RaceResult from "@/classes/RaceResult";
 import RaceResultCard from "@/components/schedule/weekend/race-result-card";
 import RaceResultsChart from "@/components/schedule/weekend/race-results-chart";
+import SessionTelemetry from "@/components/schedule/weekend/session-telemetry";
 
 export default {
   name: "race-results",
-  components: { RaceResultsChart, RaceResultCard, LoadingIndicator },
+  components: {
+    SessionTelemetry,
+    RaceResultsChart,
+    RaceResultCard,
+    LoadingIndicator,
+  },
   props: {
     round: {
       type: Number,

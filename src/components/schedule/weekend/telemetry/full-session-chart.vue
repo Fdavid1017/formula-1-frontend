@@ -7,7 +7,7 @@
           ref="sessionChart"
           :options="chartOptions"
           :series="series"
-          height="600"
+          height="800"
           type="line"
           width="100%"
         />

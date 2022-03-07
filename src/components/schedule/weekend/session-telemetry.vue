@@ -27,15 +27,31 @@
         />
       </v-col>
       <v-col
-        v-if="displayMode === 'charts'"
+        v-if="displayMode === 'charts' && !lapByLapData"
         class="d-flex justify-center align-center"
         cols="12"
         md="4"
       >
         <v-select
-          v-if="displayMode === 'charts' && !lapByLapData"
           v-model="chartMode"
           :items="chartModeSelectItems"
+          dense
+          hide-details
+          item-text="text"
+          item-value="value"
+          label="Chart display"
+          outlined
+        />
+      </v-col>
+      <v-col
+        v-else-if="displayMode === 'charts' && lapByLapData"
+        class="d-flex justify-center align-center"
+        cols="12"
+        md="4"
+      >
+        <v-select
+          v-model="lapByLapChartMode"
+          :items="lapByLapChartModeSelectItems"
           dense
           hide-details
           item-text="text"
@@ -52,44 +68,61 @@
       :round="round"
       :session="session"
     />
+
+    <lap-telemetry-chart
+      v-if="displayMode === 'charts' && lapByLapData"
+      :chart-mode="chartMode"
+      :round="round"
+      :session="session"
+    />
   </div>
 </template>
 
 <script>
 import SwitchButton from "@/components/switch-button";
 import FullSessionChart from "@/components/schedule/weekend/telemetry/full-session-chart";
+import LapTelemetryChart from "@/components/schedule/weekend/telemetry/lap-telemetry-chart";
 
 export default {
   name: "session-telemetry",
-  components: { FullSessionChart, SwitchButton },
+  components: { LapTelemetryChart, FullSessionChart, SwitchButton },
   props: {
     round: {
       type: String,
-      default: "",
+      default: ""
     },
     session: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
   data: () => ({
     displayMode: "charts",
     displayModeSelectItems: [
       { text: "Charts", value: "charts" },
       { text: "Gear Shifts Visualization", value: "gearShifts" },
-      { text: "Speed Visualization", value: "speed" },
+      { text: "Speed Visualization", value: "speed" }
     ],
-    lapByLapData: false,
+    lapByLapData: true,
     chartModeSelectItems: [
       { text: "Lap time", value: "lapTime" },
       { text: "Sector 1 time", value: "sector1" },
       { text: "Sector 2 time", value: "sector2" },
       { text: "Sector 3 time", value: "sector3" },
       { text: "Sector 1 speed trap", value: "s1SpeedTrap" },
-      { text: "Sector 2 speed trap", value: "s2SpeedTrap" },
+      { text: "Sector 2 speed trap", value: "s2SpeedTrap" }
     ],
-    chartMode: "lapTime",
-  }),
+    lapByLapChartMode: "speed",
+    lapByLapChartModeSelectItems: [
+      { text: "Speed", value: "speed" },
+      { text: "Throttle", value: "throttle" },
+      { text: "Brake", value: "brake" },
+      { text: "RPM", value: "rpm" },
+      { text: "Gear", value: "nGear" },
+      { text: "DRS", value: "drs" }
+    ],
+    chartMode: "lapTime"
+  })
 };
 </script>
 

@@ -10,7 +10,7 @@
     </div>
 
     <v-tabs v-model="tabs" centered fixed-tabs>
-      <v-tab>Cards</v-tab>
+      <v-tab>Result</v-tab>
       <v-tab>Chart</v-tab>
       <v-tab>Telemetry</v-tab>
     </v-tabs>
