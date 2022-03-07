@@ -1,6 +1,7 @@
 import axios from "axios";
 import store from "@/store";
 import { sessionNames } from "@/helpers/sessionNames";
+import CarData from "@/classes/CarData";
 
 export async function sessionLapDetailedTelemetryService(gp, session, lap) {
   session = session.toUpperCase();
@@ -28,27 +29,11 @@ export async function sessionLapDetailedTelemetryService(gp, session, lap) {
     return data;
   }
 
-  // const results = {};
-  // for (const i in data) {
-  //   const driverResults = data[i];
-  //   const driverLaps = [];
-  //   let driverId;
-  //   const driverObjectKeys = Object.keys(driverResults.Driver);
-  //
-  //   for (const i in driverObjectKeys) {
-  //     const index = driverObjectKeys[i];
-  //     const lapResult = convertSessionObjectToSessionResult(
-  //       driverResults,
-  //       index
-  //     );
-  //     driverLaps.push(lapResult);
-  //     driverId = lapResult.driverId;
-  //   }
-  //
-  //   if (driverId) {
-  //     results[driverId] = driverLaps;
-  //   }
-  // }
+  const results = {};
+  for (const i in data) {
+    const result = data[i];
+    results[result.driverId] = new CarData(result);
+  }
 
-  return data;
+  return results;
 }

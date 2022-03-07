@@ -43,23 +43,6 @@
           outlined
         />
       </v-col>
-      <v-col
-        v-else-if="displayMode === 'charts' && lapByLapData"
-        class="d-flex justify-center align-center"
-        cols="12"
-        md="4"
-      >
-        <v-select
-          v-model="lapByLapChartMode"
-          :items="lapByLapChartModeSelectItems"
-          dense
-          hide-details
-          item-text="text"
-          item-value="value"
-          label="Chart display"
-          outlined
-        />
-      </v-col>
     </v-row>
 
     <full-session-chart
@@ -89,19 +72,19 @@ export default {
   props: {
     round: {
       type: String,
-      default: ""
+      default: "",
     },
     session: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   data: () => ({
     displayMode: "charts",
     displayModeSelectItems: [
       { text: "Charts", value: "charts" },
       { text: "Gear Shifts Visualization", value: "gearShifts" },
-      { text: "Speed Visualization", value: "speed" }
+      { text: "Speed Visualization", value: "speed" },
     ],
     lapByLapData: true,
     chartModeSelectItems: [
@@ -110,19 +93,10 @@ export default {
       { text: "Sector 2 time", value: "sector2" },
       { text: "Sector 3 time", value: "sector3" },
       { text: "Sector 1 speed trap", value: "s1SpeedTrap" },
-      { text: "Sector 2 speed trap", value: "s2SpeedTrap" }
+      { text: "Sector 2 speed trap", value: "s2SpeedTrap" },
     ],
-    lapByLapChartMode: "speed",
-    lapByLapChartModeSelectItems: [
-      { text: "Speed", value: "speed" },
-      { text: "Throttle", value: "throttle" },
-      { text: "Brake", value: "brake" },
-      { text: "RPM", value: "rpm" },
-      { text: "Gear", value: "nGear" },
-      { text: "DRS", value: "drs" }
-    ],
-    chartMode: "lapTime"
-  })
+    chartMode: "lapTime",
+  }),
 };
 </script>
 
