@@ -67,7 +67,7 @@ export default {
   data: () => ({
     isLoading: false,
     sessionResults: Array[SessionResult],
-    tabs: 2,
+    tabs: 0,
   }),
   async mounted() {
     this.isLoading = true;
