@@ -1,14 +1,8 @@
 import axios from "axios";
 import store from "@/store";
 import { sessionNames } from "@/helpers/sessionNames";
-import CarData from "@/classes/CarData";
 
-export async function sessionLapDetailedTelemetryService(
-  gp,
-  session,
-  lap,
-  drivers = []
-) {
+export async function sessionDriversService(gp, session) {
   session = session.toUpperCase();
   if (!sessionNames.includes(session)) {
     throw Error("Invalid session name");
@@ -16,9 +10,7 @@ export async function sessionLapDetailedTelemetryService(
 
   let data = null;
   await axios({
-    url: `all-car-data/${gp}/${session}/${
-      store.getters.currentSeasonYear
-    }/${lap}/${drivers.join(",")}`,
+    url: `session-drivers/${gp}/${session}/${store.getters.currentSeasonYear}`,
     method: "GET",
   })
     .then((response) => {
@@ -32,15 +24,5 @@ export async function sessionLapDetailedTelemetryService(
       }
     });
 
-  if (data.length === 0) {
-    return data;
-  }
-
-  const results = {};
-  for (const i in data) {
-    const result = data[i];
-    results[result.driverId] = new CarData(result);
-  }
-
-  return results;
+  return data;
 }

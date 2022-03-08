@@ -1,21 +1,59 @@
 <template>
-  <loading-indicator v-if="isLoading" />
-  <div v-else class="mt-10 relative" style="z-index: 0">
+  <div class="mt-10 relative" style="z-index: 0">
     <v-row justify="center">
-      <v-col cols="12" md="10">
+      <v-col class="d-flex align-center" cols="12" md="8">
         <v-slider
+          v-model="lap"
+          :disabled="isLoading"
+          :label="`Lap ${lap}`"
+          :loading="isLoading"
           :max="maxLap"
-          track-color="gray"
           color="primary"
           hide-details
-          :label="`Lap ${lap}`"
           min="1"
-          v-model="lap"
           thumb-label
+          track-color="gray"
         />
       </v-col>
+      <v-col class="d-flex align-center" cols="12" md="4">
+        <v-autocomplete
+          v-model="selectedDrivers"
+          :disabled="isLoading"
+          :items="drivers"
+          :loading="isLoading"
+          chips
+          dense
+          hide-details
+          hide-selected
+          item-text="code"
+          label="Drivers"
+          multiple
+          outlined
+          return-object
+        >
+          <template slot="item" slot-scope="{ item }">
+            <div
+              :style="{ color: mapTeamColor(item.color) }"
+              class="text-center font-weight-bold"
+            >
+              {{ item.code }}
+            </div>
+          </template>
+          <template slot="selection" slot-scope="{ item }">
+            <v-chip
+              :color="mapTeamColor(item.color)"
+              class="font-weight-bold"
+              small
+              text-color="white"
+            >
+              {{ item.code }}
+            </v-chip>
+          </template>
+        </v-autocomplete>
+      </v-col>
     </v-row>
-    <v-row justify="center">
+    <loading-indicator v-if="isLoading" />
+    <v-row v-else justify="center">
       <v-col cols="12">
         <apexchart
           ref="speedChart"
@@ -75,6 +113,7 @@ import LoadingIndicator from "@/components/loading-indicator";
 import SessionResult from "@/classes/SessionResult";
 import { sessionLapDetailedTelemetryService } from "@/services/session-lap-detailed-telemetry-service";
 import { largestLapNumberService } from "@/services/largest-lap-number-service";
+import { sessionDriversService } from "@/services/session-drivers-service";
 
 export default {
   name: "lap-telemetry-chart",
@@ -137,6 +176,8 @@ export default {
     lap: 1,
     maxLap: 1,
     lapLoadingDebounce: null,
+    drivers: [],
+    selectedDrivers: [],
   }),
   async mounted() {
     this.isLoading = true;
@@ -145,7 +186,25 @@ export default {
       this.maxLap = response.largestLapNumber;
     });
 
-    this.loadLapData();
+    await sessionDriversService(this.round, this.session).then((response) => {
+      response.sort((a, b) => {
+        const aTeam = a.team;
+        const bTeam = b.team;
+
+        if (aTeam === bTeam) {
+          const aName = a.fullName;
+          const bName = b.fullName;
+
+          return aName > bName ? 1 : -1;
+        }
+
+        return aTeam > bTeam ? 1 : -1;
+      });
+
+      this.drivers = response;
+    });
+
+    await this.loadLapData();
   },
   methods: {
     setSeries() {
@@ -201,7 +260,7 @@ export default {
         const item = this.results[key];
 
         // this.results[key].forEach((item) => {
-        const nth = 3;
+        const nth = 2;
         speedSeriesValues = Object.values(item.carData.speed).filter(
           (e, i) => i % nth === nth - 1
         );
@@ -224,9 +283,9 @@ export default {
         color = item.color;
         driverName = item.fullName;
         //
-        //   if (!categories.includes(i)) {
-        //     categories.push(i);
-        //   }
+        // if (!categories.includes(Object.values(item.carData.distance))) {
+        //   categories.concat(Object.values(item.carData.distance));
+        // }
         //   i++;
         // });
 
@@ -257,7 +316,7 @@ export default {
           data: drsSeriesValues,
         });
 
-        colors.push(color === "#ffffff" ? "#d4d4d4" : color);
+        colors.push(this.mapTeamColor(color));
 
         if (speedSeries.length > maxLength) {
           maxLength = speedSeries.length;
@@ -290,7 +349,8 @@ export default {
       await sessionLapDetailedTelemetryService(
         this.round,
         this.session,
-        this.lap
+        this.lap,
+        this.selectedDrivers.map((x) => x.code)
       )
         .then((result) => {
           this.results = result;
@@ -315,13 +375,9 @@ export default {
 
           const xAxisOptions = {
             categories: categories,
-            labelsOptions: {
+            labels: {
               show: false,
             },
-          };
-
-          const yAxisLabel = {
-            minWidth: 40,
           };
 
           const dataLabelsOptions = {
@@ -329,7 +385,7 @@ export default {
           };
 
           const legendOptions = {
-            show: true,
+            show: false,
             showForSingleSeries: false,
             position: "left",
             fontFamily: "Poppins",
@@ -339,7 +395,14 @@ export default {
             chart: chartOptions,
             xaxis: xAxisOptions,
             yaxis: {
-              labels: yAxisLabel,
+              labels: {
+                formatter: function (val) {
+                  return `${val} km/h`;
+                },
+              },
+              title: {
+                text: "Speed (km/h)",
+              },
             },
             colors: colors,
             stroke: {
@@ -353,8 +416,15 @@ export default {
             chart: chartOptions,
             xaxis: xAxisOptions,
             yaxis: {
-              labels: yAxisLabel,
+              labels: {
+                formatter: function (val) {
+                  return `${val} %`;
+                },
+              },
               max: 100,
+              title: {
+                text: "Throttle %",
+              },
             },
             colors: colors,
             stroke: {
@@ -368,8 +438,15 @@ export default {
             chart: chartOptions,
             xaxis: xAxisOptions,
             yaxis: {
-              labels: yAxisLabel,
+              labels: {
+                formatter: function (val) {
+                  return `${val} %`;
+                },
+              },
               max: 100,
+              title: {
+                text: "Brake %",
+              },
             },
             colors: colors,
             stroke: {
@@ -382,6 +459,16 @@ export default {
           this.rpmChartOptions = {
             chart: chartOptions,
             xaxis: xAxisOptions,
+            yaxis: {
+              labels: {
+                formatter: function (val) {
+                  return `${val} RPM`;
+                },
+              },
+              title: {
+                text: "RPM",
+              },
+            },
             colors: colors,
             stroke: {
               curve: "smooth",
@@ -395,8 +482,15 @@ export default {
             xaxis: xAxisOptions,
             colors: colors,
             yaxis: {
-              labels: yAxisLabel,
+              labels: {
+                formatter: function (val) {
+                  return val;
+                },
+              },
               max: 8,
+              title: {
+                text: "Gear",
+              },
             },
             stroke: {
               curve: "stepline",
@@ -408,6 +502,16 @@ export default {
           this.drsChartOptions = {
             chart: chartOptions,
             xaxis: xAxisOptions,
+            yaxis: {
+              labels: {
+                formatter: function (val) {
+                  return val <= 8 ? "OFF" : "ON";
+                },
+              },
+              title: {
+                text: "DRS",
+              },
+            },
             colors: colors,
             stroke: {
               curve: "stepline",
@@ -420,6 +524,9 @@ export default {
           this.isLoading = false;
         });
     },
+    mapTeamColor(color) {
+      return color === "#ffffff" ? "#d4d4d4" : color;
+    },
   },
   watch: {
     lap() {
@@ -428,69 +535,8 @@ export default {
         this.loadLapData();
       }, 1000);
     },
-    chartMode() {
-      // const [colors, categories] = this.setSeries();
-      //
-      // let title;
-      // let formatter;
-      // switch (this.chartMode) {
-      //   case "sector1":
-      //     title = "Time";
-      //     formatter = function (val) {
-      //       return msToTime(val).toStringFormatted(true);
-      //     };
-      //     break;
-      //   case "sector2":
-      //     title = "Time";
-      //     formatter = function (val) {
-      //       return msToTime(val).toStringFormatted(true);
-      //     };
-      //     break;
-      //   case "sector3":
-      //     title = "Time";
-      //     formatter = function (val) {
-      //       return msToTime(val).toStringFormatted(true);
-      //     };
-      //     break;
-      //   case "s1SpeedTrap":
-      //     title = "Speed (km/h)";
-      //     formatter = function (val) {
-      //       return `${val} km/h`;
-      //     };
-      //     break;
-      //   case "s2SpeedTrap":
-      //     title = "Speed (km/h)";
-      //     formatter = function (val) {
-      //       return `${val} km/h`;
-      //     };
-      //     break;
-      //   default:
-      //     title = "Time";
-      //     formatter = function (val) {
-      //       return msToTime(val).toStringFormatted(true);
-      //     };
-      //     break;
-      // }
-      //
-      // this.chartOptions = {
-      //   xaxis: {
-      //     categories: categories,
-      //   },
-      //   yaxis: {
-      //     title: {
-      //       text: title,
-      //     },
-      //     labels: {
-      //       formatter: formatter,
-      //     },
-      //   },
-      //   tooltip: {
-      //     y: {
-      //       formatter: formatter,
-      //     },
-      //   },
-      //   colors: colors,
-      // };
+    selectedDrivers() {
+      this.loadLapData();
     },
   },
 };

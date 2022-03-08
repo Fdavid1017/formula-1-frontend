@@ -13,6 +13,7 @@ export default class CarData {
         speed: "",
         throttle: "",
         gear: "",
+        distance: "",
       };
       return;
     }
@@ -29,17 +30,7 @@ export default class CarData {
       speed: item.carData.Speed,
       throttle: item.carData.Throttle,
       gear: item.carData.nGear,
+      distance: item.carData.Distance,
     };
   }
 }
-// carData:Object
-// Brake:Object
-// DRS:Object
-// RPM:Object
-// SessionTime:Object
-// Speed:Object
-// Throttle:Object
-// nGear:Object
-// color:"#0600ef"
-// driverId:"max_verstappen"
-// fullName:"Max Verstappen"
