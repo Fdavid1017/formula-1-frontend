@@ -1,6 +1,8 @@
 <template>
   <div class="session-telemetry">
-    <div class="note mb-5 ml-1">Note: some data may be inaccurate / incorrect.</div>
+    <div class="note mb-5 ml-1">
+      Note: some data may be inaccurate / incorrect.
+    </div>
     <v-row class="mb-5">
       <v-col class="d-flex justify-center align-center" cols="12" md="4">
         <v-select
@@ -55,7 +57,12 @@
 
     <lap-telemetry-chart
       v-if="displayMode === 'charts' && lapByLapData"
-      :chart-mode="chartMode"
+      :round="round"
+      :session="session"
+    />
+
+    <gear-shifts
+      v-if="displayMode === 'gearShifts'"
       :round="round"
       :session="session"
     />
@@ -66,10 +73,11 @@
 import SwitchButton from "@/components/switch-button";
 import FullSessionChart from "@/components/schedule/weekend/telemetry/full-session-chart";
 import LapTelemetryChart from "@/components/schedule/weekend/telemetry/lap-telemetry-chart";
+import GearShifts from "@/components/schedule/weekend/telemetry/gear-shifts";
 
 export default {
   name: "session-telemetry",
-  components: { LapTelemetryChart, FullSessionChart, SwitchButton },
+  components: { GearShifts, LapTelemetryChart, FullSessionChart, SwitchButton },
   props: {
     round: {
       type: String,
@@ -81,13 +89,13 @@ export default {
     },
   },
   data: () => ({
-    displayMode: "charts",
+    displayMode: "gearShifts",
     displayModeSelectItems: [
       { text: "Charts", value: "charts" },
       { text: "Gear Shifts Visualization", value: "gearShifts" },
       { text: "Speed Visualization", value: "speed" },
     ],
-    lapByLapData: true,
+    lapByLapData: false,
     chartModeSelectItems: [
       { text: "Lap time", value: "lapTime" },
       { text: "Sector 1 time", value: "sector1" },

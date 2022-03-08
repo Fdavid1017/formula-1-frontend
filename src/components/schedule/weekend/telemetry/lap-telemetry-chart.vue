@@ -118,6 +118,7 @@ import { sessionLapDetailedTelemetryService } from "@/services/session-lap-detai
 import { largestLapNumberService } from "@/services/largest-lap-number-service";
 import { sessionDriversService } from "@/services/session-drivers-service";
 import lightenDarkenColor from "@/helpers/lightenDarkenColor";
+import mapTeamColor from "@/helpers/mapTeamColor";
 
 export default {
   name: "lap-telemetry-chart",
@@ -560,9 +561,7 @@ export default {
           this.isLoading = false;
         });
     },
-    mapTeamColor(color) {
-      return color === "#ffffff" ? "#d4d4d4" : color;
-    },
+    mapTeamColor,
   },
   watch: {
     lap() {
