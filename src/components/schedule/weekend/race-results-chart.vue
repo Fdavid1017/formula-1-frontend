@@ -1,6 +1,7 @@
 <template>
   <v-row justify="center">
     <v-col cols="12" md="10">
+      <div class="note">Lapped/DNF cars will not appear.</div>
       <apexchart
         :options="chartOptions"
         :series="series"
@@ -76,10 +77,15 @@ export default {
     const seriesValues = [];
     const categories = [];
     const colors = [];
+
+    const fastest = this.results[0].timeMillis;
+
     this.results.forEach((result) => {
-      seriesValues.push(result.timeMillis);
-      categories.push(result.driver.driver.driverId);
-      colors.push(result.driver.team.color.primary);
+      if (result.timeMillis > 0) {
+        seriesValues.push(result.timeMillis - fastest);
+        categories.push(result.driver.driver.driverId);
+        colors.push(result.driver.team.color.primary);
+      }
     });
 
     this.series = [
@@ -117,4 +123,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped></style>

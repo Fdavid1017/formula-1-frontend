@@ -147,6 +147,16 @@ export default {
             position: "left",
             fontFamily: "Poppins",
           },
+          responsive: [
+            {
+              breakpoint: 960,
+              options: {
+                legend: {
+                  position: "bottom",
+                },
+              },
+            },
+          ],
         };
       })
       .finally(() => {

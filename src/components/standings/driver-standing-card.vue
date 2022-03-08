@@ -14,7 +14,7 @@
     <div
       class="text-container d-flex flex-column flex-md-row align-center justify-space-between"
     >
-      <div class="text-right text-md-left">
+      <div class="text-right text-md-left fill-width">
         <div class="driver-name">
           {{ driver.fullName() }}
         </div>

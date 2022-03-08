@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <v-row class="mb-10" justify="center">
-      <v-col class="d-flex align-center" cols="12" md="8">
+      <v-col class="d-flex align-center" cols="12" md="8" sm="6">
         <v-slider
           v-model="lap"
           :disabled="isLoading"
@@ -15,7 +15,7 @@
           track-color="gray"
         />
       </v-col>
-      <v-col class="d-flex align-center" cols="12" md="4">
+      <v-col class="d-flex align-center" cols="12" md="4" sm="6">
         <v-autocomplete
           v-model="selectedDriver"
           :disabled="isLoading"
@@ -58,7 +58,7 @@
           v-if="imageData"
           :lazy-src="require('@/assets/images/gear-map-placeholder.png')"
           :src="imageData"
-          max-width="100%"
+          width="100%"
         >
           <template v-slot:placeholder>
             <v-row align="center" class="fill-height ma-0" justify="center">
@@ -88,12 +88,12 @@ export default {
   props: {
     round: {
       type: String,
-      default: "",
+      default: ""
     },
     session: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
   data: () => ({
     isLoading: false,
@@ -103,7 +103,7 @@ export default {
     drivers: [],
     selectedDriver: null,
     imageData: null,
-    message: "Select a driver",
+    message: "Select a driver"
   }),
   async mounted() {
     this.isLoading = true;
@@ -157,7 +157,7 @@ export default {
         .finally(() => {
           this.isLoading = false;
         });
-    },
+    }
   },
   watch: {
     lap() {
@@ -173,8 +173,8 @@ export default {
       }
 
       this.loadGearShiftsImage();
-    },
-  },
+    }
+  }
 };
 </script>
 

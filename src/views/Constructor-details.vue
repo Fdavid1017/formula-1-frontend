@@ -255,7 +255,7 @@ export default {
           top: -63.8,
           position: "left-align",
           title: "Rear wing + DRS",
-          text: "The rear wings direct airflow upwards, but they are also designed to send flow outwards, leaving the ‘dirty air’ sitting there for the following car to drive through. The shape and position of the 2022 car’s rear wing creates a rotational airflow that collects the rear wheel wake and rolls it into the flow exiting the diffuser.<br><b style='display: contents'>Drs (Drag Reduction System):</b> the DRS opens an adjustable flap on the rear wing of the car, in order to reduce drag, thus giving a pursuing car an overtaking advantage.The device can only be used during a race after two racing laps have been completed, and when the pursuing car enters a designated activation zone defined by the FIA.",
+          text: "The rear wings direct airflow upwards, but they are also designed to send flow outwards, leaving the ‘dirty air’ sitting there for the following car to drive through. The shape and position of the 2022 car’s rear wing creates a rotational airflow that collects the rear wheel wake and rolls it into the flow exiting the diffuser.<br><b style='display: contents'>DRS (Drag Reduction System):</b> the DRS opens an adjustable flap on the rear wing of the car, in order to reduce drag, thus giving a pursuing car an overtaking advantage.The device can only be used during a race after two racing laps have been completed, and when the pursuing car enters a designated activation zone defined by the FIA.",
         },
       ];
     },
@@ -298,6 +298,11 @@ export default {
     h2 {
       font-size: 100px;
       line-height: 80px;
+
+      @media #{map-get($display-breakpoints, 'xs-only')} {
+        font-size: 24vw;
+        line-height: 100%;
+      }
     }
 
     .name-second-part {

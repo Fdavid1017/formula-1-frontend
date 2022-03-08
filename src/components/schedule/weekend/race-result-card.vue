@@ -20,10 +20,10 @@
     </div>
 
     <div
-      class="text-container d-flex flex-column flex-md-row align-center justify-space-between"
+      class="text-container d-flex flex-column flex-md-row align-end align-md-center justify-space-between"
     >
       <div class="text-right text-md-left">
-        <div class="driver-name">
+        <div class="driver-name fill-width">
           {{ result.driver.fullName() }}
         </div>
         <div class="constructor-name mt-md-n4">
@@ -146,17 +146,17 @@ export default {
       type: RaceResult,
       default() {
         return new RaceResult();
-      }
-    }
+      },
+    },
   },
   data: () => ({
-    open: null
+    open: null,
   }),
   methods: {
     isDnf,
     openTab() {
       this.open = this.open === null ? 0 : null;
-    }
+    },
   },
   computed: {
     positionTextSuffix() {
@@ -168,8 +168,8 @@ export default {
     positionFromStart() {
       const gain = this.result.grid - this.result.position;
       return gain;
-    }
-  }
+    },
+  },
 };
 </script>
 

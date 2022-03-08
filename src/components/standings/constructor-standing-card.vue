@@ -14,7 +14,7 @@
     <div
       class="text-container d-flex flex-column flex-md-row align-center justify-space-between"
     >
-      <div class="text-right text-md-left">
+      <div class="text-right text-md-left fill-width">
         <div class="driver-name">
           {{ team.nameExtended.shortName }}
         </div>
@@ -89,7 +89,7 @@ export default {
     .driver-image {
       filter: none;
       transition: all 0.3s;
-      transition-delay: 0.1s;
+      transition-delay: 0.1fs;
     }
   }
 
