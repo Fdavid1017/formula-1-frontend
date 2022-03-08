@@ -125,51 +125,51 @@ export default {
   props: {
     round: {
       type: String,
-      default: "",
+      default: ""
     },
     session: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
   data: () => ({
     isLoading: false,
     results: Array[SessionResult],
     speedChartOptions: {
       chart: {
-        id: "speed-chart",
-        group: "telemetry",
-      },
+        id: "speed",
+        group: "telemetry"
+      }
     },
     throttleChartOptions: {
       chart: {
-        id: "throttle-chart",
-        group: "telemetry",
-      },
+        id: "throttle",
+        group: "telemetry"
+      }
     },
     brakeChartOptions: {
       chart: {
-        id: "brake-chart",
-        group: "telemetry",
-      },
+        id: "brake",
+        group: "telemetry"
+      }
     },
     rpmChartOptions: {
       chart: {
-        id: "rpm-chart",
-        group: "telemetry",
-      },
+        id: "rpm",
+        group: "telemetry"
+      }
     },
     gearChartOptions: {
       chart: {
-        id: "gear-chart",
-        group: "telemetry",
-      },
+        id: "gear",
+        group: "telemetry"
+      }
     },
     drsChartOptions: {
       chart: {
-        id: "drs-chart",
-        group: "telemetry",
-      },
+        id: "drs",
+        group: "telemetry"
+      }
     },
     speedSeries: [],
     throttleSeries: [],
@@ -181,7 +181,7 @@ export default {
     maxLap: 1,
     lapLoadingDebounce: null,
     drivers: [],
-    selectedDrivers: [],
+    selectedDrivers: []
   }),
   async mounted() {
     this.isLoading = true;
@@ -268,27 +268,27 @@ export default {
         for (let i = 0; i < distanceKeys.length; i += nth) {
           speedSeriesValues.push([
             carData.distance[i],
-            carData.speed[distanceKeys[i]],
+            carData.speed[distanceKeys[i]]
           ]);
           throttleSeriesValues.push([
             carData.distance[i],
-            carData.throttle[distanceKeys[i]],
+            carData.throttle[distanceKeys[i]]
           ]);
           brakeSeriesValues.push([
             carData.distance[i],
-            carData.brake[distanceKeys[i]],
+            carData.brake[distanceKeys[i]]
           ]);
           rpmSeriesValues.push([
             carData.distance[i],
-            carData.rpm[distanceKeys[i]],
+            carData.rpm[distanceKeys[i]]
           ]);
           gearSeriesValues.push([
             carData.distance[i],
-            carData.gear[distanceKeys[i]],
+            carData.gear[distanceKeys[i]]
           ]);
           drsSeriesValues.push([
             carData.distance[i],
-            carData.drs[distanceKeys[i]],
+            carData.drs[distanceKeys[i]]
           ]);
 
           if (!categories.includes(carData.distance[i])) {
@@ -301,32 +301,32 @@ export default {
         const name = driverName ? driverName : key;
         speedSeries.push({
           name: name,
-          data: speedSeriesValues,
+          data: speedSeriesValues
         });
         throttleSeries.push({
           name: name,
-          data: throttleSeriesValues,
+          data: throttleSeriesValues
         });
         brakeSeries.push({
           name: name,
-          data: brakeSeriesValues,
+          data: brakeSeriesValues
         });
         rpmSeries.push({
           name: name,
-          data: rpmSeriesValues,
+          data: rpmSeriesValues
         });
         gearSeries.push({
           name: name,
-          data: gearSeriesValues,
+          data: gearSeriesValues
         });
         drsSeries.push({
           name: name,
-          data: drsSeriesValues,
+          data: drsSeriesValues
         });
 
         const teamColor = this.mapTeamColor(color);
         if (colors.includes(teamColor)) {
-          const t = lightenDarkenColor( teamColor,20);
+          const t = lightenDarkenColor(teamColor, 20);
           colors.push(t);
         } else {
           colors.push(teamColor);
@@ -362,166 +362,187 @@ export default {
           this.setSeries();
           const [colors, categories] = this.setSeries();
 
-          const chartOptions = {
-            animations: {
-              enabled: true,
-              easing: "easeout",
-              speed: 300,
-              animateGradually: {
-                enabled: false,
-              },
-              dynamicAnimation: {
-                enabled: false,
-              },
+          const chartAnimationOptions = {
+            enabled: true,
+            easing: "easeout",
+            speed: 300,
+            animateGradually: {
+              enabled: false
             },
-            group: "telemetry",
+            dynamicAnimation: {
+              enabled: false
+            }
           };
 
           const xAxisOptions = {
             categories: categories,
             labels: {
-              show: false,
-            },
+              show: false
+            }
           };
 
           const dataLabelsOptions = {
-            enabled: false,
+            enabled: false
           };
 
           const legendOptions = {
             show: false,
             showForSingleSeries: false,
             position: "left",
-            fontFamily: "Poppins",
+            fontFamily: "Poppins"
           };
 
           this.speedChartOptions = {
-            chart: chartOptions,
+            chart: {
+              id: "speed-chart",
+              group: "telemetry",
+              animations: chartAnimationOptions
+            },
             xaxis: xAxisOptions,
             yaxis: {
               labels: {
-                formatter: function (val) {
+                formatter: function(val) {
                   return `${val} km/h`;
-                },
+                }
               },
               title: {
-                text: "Speed (km/h)",
-              },
+                text: "Speed (km/h)"
+              }
             },
             colors: colors,
             stroke: {
-              curve: "smooth",
+              curve: "smooth"
             },
             dataLabels: dataLabelsOptions,
-            legend: legendOptions,
+            legend: legendOptions
           };
 
           this.throttleChartOptions = {
-            chart: chartOptions,
+            chart: {
+              id: "throttle-chart",
+              group: "telemetry",
+              animations: chartAnimationOptions
+            },
             xaxis: xAxisOptions,
             yaxis: {
               labels: {
-                formatter: function (val) {
+                formatter: function(val) {
                   return `${val} %`;
-                },
+                }
               },
               max: 100,
               title: {
-                text: "Throttle %",
-              },
+                text: "Throttle %"
+              }
             },
             colors: colors,
             stroke: {
-              curve: "smooth",
+              curve: "smooth"
             },
             dataLabels: dataLabelsOptions,
-            legend: legendOptions,
+            legend: legendOptions
           };
 
           this.brakeChartOptions = {
-            chart: chartOptions,
+            chart: {
+              id: "break-chart",
+              group: "telemetry",
+              animations: chartAnimationOptions
+            },
             xaxis: xAxisOptions,
             yaxis: {
               labels: {
-                formatter: function (val) {
+                formatter: function(val) {
                   return `${val} %`;
-                },
+                }
               },
               max: 100,
               title: {
-                text: "Brake %",
-              },
+                text: "Brake %"
+              }
             },
             colors: colors,
             stroke: {
-              curve: "stepline",
+              curve: "stepline"
             },
             dataLabels: dataLabelsOptions,
-            legend: legendOptions,
+            legend: legendOptions
           };
 
           this.rpmChartOptions = {
-            chart: chartOptions,
+            chart: {
+              id: "rpm-chart",
+              group: "telemetry",
+              animations: chartAnimationOptions
+            },
             xaxis: xAxisOptions,
             yaxis: {
               labels: {
-                formatter: function (val) {
+                formatter: function(val) {
                   return `${val} RPM`;
-                },
+                }
               },
               title: {
-                text: "RPM",
-              },
+                text: "RPM"
+              }
             },
             colors: colors,
             stroke: {
-              curve: "smooth",
+              curve: "smooth"
             },
             dataLabels: dataLabelsOptions,
-            legend: legendOptions,
+            legend: legendOptions
           };
 
           this.gearChartOptions = {
-            chart: chartOptions,
+            chart: {
+              id: "gear-chart",
+              group: "telemetry",
+              animations: chartAnimationOptions
+            },
             xaxis: xAxisOptions,
             colors: colors,
             yaxis: {
               labels: {
-                formatter: function (val) {
+                formatter: function(val) {
                   return val;
-                },
+                }
               },
               max: 8,
               title: {
-                text: "Gear",
-              },
+                text: "Gear"
+              }
             },
             stroke: {
-              curve: "stepline",
+              curve: "stepline"
             },
             dataLabels: dataLabelsOptions,
-            legend: legendOptions,
+            legend: legendOptions
           };
 
           this.drsChartOptions = {
-            chart: chartOptions,
+            chart: {
+              id: "drs-chart",
+              group: "telemetry",
+              animations: chartAnimationOptions
+            },
             xaxis: xAxisOptions,
             yaxis: {
               labels: {
-                formatter: function (val) {
+                formatter: function(val) {
                   return val <= 8 ? "OFF" : "ON";
-                },
+                }
               },
               title: {
-                text: "DRS",
-              },
+                text: "DRS"
+              }
             },
             colors: colors,
             stroke: {
-              curve: "stepline",
+              curve: "stepline"
             },
             dataLabels: dataLabelsOptions,
-            legend: legendOptions,
+            legend: legendOptions
           };
         })
         .finally(() => {
@@ -530,7 +551,7 @@ export default {
     },
     mapTeamColor(color) {
       return color === "#ffffff" ? "#d4d4d4" : color;
-    },
+    }
   },
   watch: {
     lap() {
@@ -541,8 +562,8 @@ export default {
     },
     selectedDrivers() {
       this.loadLapData();
-    },
-  },
+    }
+  }
 };
 </script>
 
