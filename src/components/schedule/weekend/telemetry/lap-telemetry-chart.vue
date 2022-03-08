@@ -1,6 +1,6 @@
 <template>
   <div class="mt-10 relative" style="z-index: 0">
-    <v-row justify="center">
+    <v-row class="mb-10" justify="center">
       <v-col class="d-flex align-center" cols="12" md="8">
         <v-slider
           v-model="lap"
@@ -53,6 +53,9 @@
       </v-col>
     </v-row>
     <loading-indicator v-if="isLoading" />
+    <div v-else-if="selectedDrivers.length === 0" class="text-center text-h4">
+      Please select a driver
+    </div>
     <v-row v-else justify="center">
       <v-col cols="12">
         <apexchart
@@ -114,6 +117,7 @@ import SessionResult from "@/classes/SessionResult";
 import { sessionLapDetailedTelemetryService } from "@/services/session-lap-detailed-telemetry-service";
 import { largestLapNumberService } from "@/services/largest-lap-number-service";
 import { sessionDriversService } from "@/services/session-drivers-service";
+import lightenDarkenColor from "@/helpers/lightenDarkenColor";
 
 export default {
   name: "lap-telemetry-chart",
@@ -208,14 +212,13 @@ export default {
   },
   methods: {
     setSeries() {
-      const startTime = performance.now();
       const speedSeries = [];
       const throttleSeries = [];
       const brakeSeries = [];
       const rpmSeries = [];
       const gearSeries = [];
       const drsSeries = [];
-      const categories = [];
+      let categories = [];
       const colors = [];
       let maxLength = 0;
 
@@ -255,42 +258,47 @@ export default {
         let drsSeriesValues = [];
         let color;
         let driverName;
-        // let i = 1;
 
         const item = this.results[key];
 
-        // this.results[key].forEach((item) => {
         const nth = 2;
-        speedSeriesValues = Object.values(item.carData.speed).filter(
-          (e, i) => i % nth === nth - 1
-        );
-        throttleSeriesValues = Object.values(item.carData.throttle).filter(
-          (e, i) => i % nth === nth - 1
-        );
-        brakeSeriesValues = Object.values(item.carData.brake).filter(
-          (e, i) => i % nth === nth - 1
-        );
-        rpmSeriesValues = Object.values(item.carData.rpm).filter(
-          (e, i) => i % nth === nth - 1
-        );
-        gearSeriesValues = Object.values(item.carData.gear).filter(
-          (e, i) => i % nth === nth - 1
-        );
-        drsSeriesValues = Object.values(item.carData.drs).filter(
-          (e, i) => i % nth === nth - 1
-        );
-        //
+
+        const carData = item.carData;
+        const distanceKeys = Object.keys(carData.distance);
+        for (let i = 0; i < distanceKeys.length; i += nth) {
+          speedSeriesValues.push([
+            carData.distance[i],
+            carData.speed[distanceKeys[i]],
+          ]);
+          throttleSeriesValues.push([
+            carData.distance[i],
+            carData.throttle[distanceKeys[i]],
+          ]);
+          brakeSeriesValues.push([
+            carData.distance[i],
+            carData.brake[distanceKeys[i]],
+          ]);
+          rpmSeriesValues.push([
+            carData.distance[i],
+            carData.rpm[distanceKeys[i]],
+          ]);
+          gearSeriesValues.push([
+            carData.distance[i],
+            carData.gear[distanceKeys[i]],
+          ]);
+          drsSeriesValues.push([
+            carData.distance[i],
+            carData.drs[distanceKeys[i]],
+          ]);
+
+          if (!categories.includes(carData.distance[i])) {
+            categories.push(carData.distance[i]);
+          }
+        }
         color = item.color;
         driverName = item.fullName;
-        //
-        // if (!categories.includes(Object.values(item.carData.distance))) {
-        //   categories.concat(Object.values(item.carData.distance));
-        // }
-        //   i++;
-        // });
 
         const name = driverName ? driverName : key;
-
         speedSeries.push({
           name: name,
           data: speedSeriesValues,
@@ -316,20 +324,18 @@ export default {
           data: drsSeriesValues,
         });
 
-        colors.push(this.mapTeamColor(color));
+        const teamColor = this.mapTeamColor(color);
+        if (colors.includes(teamColor)) {
+          const t = lightenDarkenColor( teamColor,20);
+          colors.push(t);
+        } else {
+          colors.push(teamColor);
+        }
 
         if (speedSeries.length > maxLength) {
           maxLength = speedSeries.length;
         }
       });
-
-      // for (let i = 0; i < series.length; i++) {
-      //   while (series[i].data.length < maxLength) {
-      //     series[i].data.push(null);
-      //   }
-      // }
-
-      console.log(speedSeries);
 
       this.speedSeries = speedSeries;
       this.throttleSeries = throttleSeries;
@@ -338,15 +344,13 @@ export default {
       this.gearSeries = gearSeries;
       this.drsSeries = drsSeries;
 
-      const endTime = performance.now();
-
-      console.log(`Call took ${endTime - startTime}`);
+      categories.sort();
 
       return [colors, categories];
     },
     async loadLapData() {
       this.isLoading = true;
-      await sessionLapDetailedTelemetryService(
+      sessionLapDetailedTelemetryService(
         this.round,
         this.session,
         this.lap,
@@ -542,4 +546,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped></style>

@@ -5,10 +5,6 @@
     v-else-if="sessionResults !== undefined && sessionResults.length > 0"
     class="session-results"
   >
-    <div class="flex flex-row flex-sm-column align-center justify-start">
-      <v-btn class="ml-5" color="primary">Live replay</v-btn>
-    </div>
-
     <v-tabs v-model="tabs" centered fixed-tabs>
       <v-tab>Result</v-tab>
       <v-tab>Chart</v-tab>

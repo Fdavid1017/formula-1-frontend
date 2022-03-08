@@ -1,5 +1,6 @@
 <template>
   <div class="session-telemetry">
+    <div class="note mb-5 ml-1">Note: some data may be inaccurate / incorrect.</div>
     <v-row class="mb-5">
       <v-col class="d-flex justify-center align-center" cols="12" md="4">
         <v-select
@@ -100,4 +101,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.note {
+  color: gray;
+  font-size: 13px;
+}
+</style>
