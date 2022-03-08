@@ -56,7 +56,9 @@
       <v-col cols="12" md="10">
         <v-img
           v-if="imageData"
-          :lazy-src="require('@/assets/images/gear-map-placeholder.png')"
+          :lazy-src="
+            require('@/assets/images/speed-visualization-placeholder.png')
+          "
           :src="imageData"
           max-width="100%"
         >
@@ -81,10 +83,10 @@
 import { largestLapNumberService } from "@/services/largest-lap-number-service";
 import { sessionDriversService } from "@/services/session-drivers-service";
 import mapTeamColor from "@/helpers/mapTeamColor";
-import { getGearshifts } from "@/services/gearshifts-service";
+import { getSpeedOnLap } from "@/services/speed-service";
 
 export default {
-  name: "gear-shifts",
+  name: "speed-visualization",
   props: {
     round: {
       type: String,
@@ -134,13 +136,13 @@ export default {
   },
   methods: {
     mapTeamColor,
-    loadGearShiftsImage() {
+    loadSpeedImage() {
       if (!this.selectedDriver) {
         return;
       }
 
       this.isLoading = true;
-      getGearshifts(
+      getSpeedOnLap(
         this.round,
         this.session,
         this.lap,
@@ -163,7 +165,7 @@ export default {
     lap() {
       clearTimeout(this.lapLoadingDebounce);
       this.lapLoadingDebounce = setTimeout(() => {
-        this.loadGearShiftsImage();
+        this.loadSpeedImage();
       }, 1000);
     },
     selectedDriver(val) {
@@ -172,13 +174,10 @@ export default {
         return;
       }
 
-      this.loadGearShiftsImage();
+      this.loadSpeedImage();
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.gearshifts-image {
-}
-</style>
+<style scoped></style>

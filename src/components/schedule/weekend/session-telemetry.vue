@@ -66,6 +66,12 @@
       :round="round"
       :session="session"
     />
+
+    <speed-visualization
+      v-if="displayMode === 'speed'"
+      :round="round"
+      :session="session"
+    />
   </div>
 </template>
 
@@ -74,10 +80,17 @@ import SwitchButton from "@/components/switch-button";
 import FullSessionChart from "@/components/schedule/weekend/telemetry/full-session-chart";
 import LapTelemetryChart from "@/components/schedule/weekend/telemetry/lap-telemetry-chart";
 import GearShifts from "@/components/schedule/weekend/telemetry/gear-shifts";
+import SpeedVisualization from "@/components/schedule/weekend/telemetry/speed-visualization";
 
 export default {
   name: "session-telemetry",
-  components: { GearShifts, LapTelemetryChart, FullSessionChart, SwitchButton },
+  components: {
+    SpeedVisualization,
+    GearShifts,
+    LapTelemetryChart,
+    FullSessionChart,
+    SwitchButton,
+  },
   props: {
     round: {
       type: String,
@@ -89,7 +102,7 @@ export default {
     },
   },
   data: () => ({
-    displayMode: "gearShifts",
+    displayMode: "charts",
     displayModeSelectItems: [
       { text: "Charts", value: "charts" },
       { text: "Gear Shifts Visualization", value: "gearShifts" },
