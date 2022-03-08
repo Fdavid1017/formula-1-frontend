@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app class="z-top navbar" elevate-on-scroll>
+  <v-app-bar app class="z-top navbar" color="white" elevate-on-scroll>
     <v-toolbar-title>
       <router-link to="/">
         <v-img
@@ -32,23 +32,23 @@
       <router-link
         v-for="link in routerLinks"
         :key="link.url"
-        class="mx-3"
         :to="link.url"
+        class="mx-3"
       >
         {{ link.text }}
       </router-link>
     </div>
 
     <open-close-button
-      class="d-md-none mr-n6"
       :opened="drawer"
+      class="d-md-none mr-n6"
       @click="drawer = !drawer"
     />
 
     <mobile-menu
-      class="d-md-none"
-      :links="routerLinks"
       v-model="drawer"
+      :links="routerLinks"
+      class="d-md-none"
       @item-click="itemClick"
     />
   </v-app-bar>

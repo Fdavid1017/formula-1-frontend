@@ -9,7 +9,7 @@
           </p>
 
           <div class="d-flex align-start justify-center justify-md-start">
-            <router-link to="/" class="standings-button">
+            <router-link to="/standings" class="standings-button">
               Current standings
             </router-link>
           </div>
