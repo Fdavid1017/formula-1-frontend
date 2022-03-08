@@ -60,8 +60,8 @@ export default {
 <style lang="scss" scoped>
 .standings {
   background-color: $dark-blue;
-  padding-top: 175px;
-  padding-bottom: 30%;
+  padding-top: 100px;
+  padding-bottom: 40%;
   position: relative;
   z-index: 1;
 

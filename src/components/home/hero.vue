@@ -14,8 +14,8 @@
       </v-row>
     </v-container>
 
-    <div :style="{ marginTop: `-${heroHeight}px` }" class="background">
-      <v-row :style="{ height: `${heroHeight + 50}px` }" class="pa-0 ma-0">
+    <div :style="{ marginTop: `-${heroHeight + 54}px` }" class="background">
+      <v-row :style="{ height: `${heroHeight + 108}px` }" class="pa-0 ma-0">
         <v-col class="pa-0 ma-0" cols="12" md="9">
           <div class="gradient">
             <div />

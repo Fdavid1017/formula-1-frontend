@@ -200,7 +200,16 @@ export default {
     color: rgba(255, 255, 255, 0.5);
     font-weight: 200;
     letter-spacing: 1px;
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
+
+    &:after {
+      content: " ";
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.5);
+      height: 1px;
+      width: 100%;
+      left: 0;
+      bottom: 79px;
+    }
   }
 }
 </style>
