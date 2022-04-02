@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import { latLng } from "leaflet";
-import { LGeoJson, LMap, LTileLayer } from "vue2-leaflet";
+import {latLng} from 'leaflet'
+import {LGeoJson, LMap, LTileLayer} from 'vue2-leaflet'
 
 export default {
   name: "geo-map",
@@ -38,8 +38,7 @@ export default {
     marker: latLng(47.41322, -1.219482),
   }),
   async created() {
-    const data = require(`@/helpers/gjson_data/${this.geojsonFileName}`);
-    this.geojson = data;
+    this.geojson = require(`@/helpers/gjson_data/${this.geojsonFileName}`);
 
     const center = [
       this.geojson.features[0].geometry.coordinates[0][0],

@@ -166,16 +166,16 @@ export default {
       type: SessionResult,
       default() {
         return new SessionResult();
-      }
-    }
+      },
+    },
   },
   data: () => ({
-    open: null
+    open: null,
   }),
   methods: {
     openTab() {
       this.open = this.open === null ? 0 : null;
-    }
+    },
   },
   computed: {
     positionTextSuffix() {
@@ -186,8 +186,8 @@ export default {
     },
     compoundImage() {
       return getTireCompoundImage(this.result.compound);
-    }
-  }
+    },
+  },
 };
 </script>
 

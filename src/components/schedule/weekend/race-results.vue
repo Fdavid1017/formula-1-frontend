@@ -28,7 +28,7 @@
         <race-results-chart :results="sessionResults" />
       </v-tab-item>
       <v-tab-item>
-        <session-telemetry :round="round" session="R" />
+        <session-telemetry :round="round.toString()" session="R" />
       </v-tab-item>
     </v-tabs-items>
   </v-container>

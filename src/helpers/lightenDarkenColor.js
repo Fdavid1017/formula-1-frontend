@@ -1,6 +1,6 @@
 export default function (color, percent) {
   {
-    var num = parseInt(color.replace("#", ""), 16),
+    const num = parseInt(color.replace("#", ""), 16),
       amt = Math.round(2.55 * percent),
       R = (num >> 16) + amt,
       B = ((num >> 8) & 0x00ff) + amt,

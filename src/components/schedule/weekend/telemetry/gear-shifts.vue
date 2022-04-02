@@ -88,12 +88,12 @@ export default {
   props: {
     round: {
       type: String,
-      default: ""
+      default: "",
     },
     session: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   data: () => ({
     isLoading: false,
@@ -103,7 +103,7 @@ export default {
     drivers: [],
     selectedDriver: null,
     imageData: null,
-    message: "Select a driver"
+    message: "Select a driver",
   }),
   async mounted() {
     this.isLoading = true;
@@ -157,7 +157,7 @@ export default {
         .finally(() => {
           this.isLoading = false;
         });
-    }
+    },
   },
   watch: {
     lap() {
@@ -173,8 +173,8 @@ export default {
       }
 
       this.loadGearShiftsImage();
-    }
-  }
+    },
+  },
 };
 </script>
 

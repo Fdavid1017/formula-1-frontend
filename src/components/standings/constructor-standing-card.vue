@@ -49,8 +49,8 @@ export default {
       type: Constructor,
       default() {
         return new Constructor();
-      }
-    }
+      },
+    },
   },
   computed: {
     positionTextSuffix() {
@@ -58,11 +58,11 @@ export default {
     },
     constructorImage() {
       return require(`@/assets/images/logos/${this.team.team.constructorId}.svg`);
-    }
+    },
   },
   methods: {
-    getConstructorNameSecondPart
-  }
+    getConstructorNameSecondPart,
+  },
 };
 </script>
 
@@ -89,7 +89,7 @@ export default {
     .driver-image {
       filter: none;
       transition: all 0.3s;
-      transition-delay: 0.1fs;
+      transition-delay: 0.1s;
     }
   }
 

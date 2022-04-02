@@ -5,7 +5,7 @@
     v-else-if="sessionResults !== undefined && sessionResults.length > 0"
     class="session-results"
   >
-  <v-tabs v-model="tabs" centered fixed-tabs>
+    <v-tabs v-model="tabs" centered fixed-tabs>
       <v-tab>Result</v-tab>
       <v-tab>Chart</v-tab>
       <v-tab>Telemetry</v-tab>

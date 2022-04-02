@@ -134,10 +134,10 @@
 </template>
 
 <script>
-import RaceResult from "@/classes/RaceResult";
-import getDriverImage from "@/helpers/getDriverImage";
-import getNumberTextSuffux from "@/helpers/getNumberTextSuffux";
-import isDnf from "@/helpers/isDnf";
+import RaceResult from '@/classes/RaceResult'
+import getDriverImage from '@/helpers/getDriverImage'
+import getNumberTextSuffux from '@/helpers/getNumberTextSuffux'
+import isDnf from '@/helpers/isDnf'
 
 export default {
   name: "race-result-card",
@@ -166,8 +166,7 @@ export default {
       return getDriverImage(this.result.driver.driver.driverId);
     },
     positionFromStart() {
-      const gain = this.result.grid - this.result.position;
-      return gain;
+      return this.result.grid - this.result.position;
     },
   },
 };

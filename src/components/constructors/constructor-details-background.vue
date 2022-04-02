@@ -277,7 +277,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 svg {
   filter: drop-shadow(10px -10px 15px rgba(0, 0, 0, 0.15));
 }

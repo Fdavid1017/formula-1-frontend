@@ -45,7 +45,7 @@ export default {
   data: () => ({
     isLoading: false,
     searchText: "",
-    schedule: Array[ScheduleItem]
+    schedule: Array[ScheduleItem],
   }),
   mounted() {
     this.isLoading = true;
@@ -72,8 +72,8 @@ export default {
           item.round === parseInt(queryText)
         );
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
