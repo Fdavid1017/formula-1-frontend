@@ -40,7 +40,9 @@
         <div
           class="d-flex align-center justify-center justify-lg-end fill-width"
         >
-          <router-link class="show-more-btn" to="/schedule">Show more</router-link>
+          <router-link class="show-more-btn" to="/schedule"
+            >Show more
+          </router-link>
         </div>
       </v-col>
     </v-row>
@@ -48,7 +50,7 @@
 </template>
 
 <script>
-import { getCurrentSchedule } from "@/services/schedule-service";
+import { getUpcomingRace } from "@/services/schedule-service";
 
 export default {
   name: "next-race",
@@ -63,23 +65,8 @@ export default {
     },
   }),
   async mounted() {
-    getCurrentSchedule().then((result) => {
-      const today = new Date();
-      let next = null;
-
-      result.forEach((item) => {
-        const date = new Date(`${item["date"]} ${item["time"]}`);
-        if (date > today) {
-          next = item;
-          return;
-        }
-      });
-
-      if (next === null) {
-        next = result.pop();
-      }
-
-      this.nextRace = next;
+    getUpcomingRace().then((response) => {
+      this.nextRace = response;
       this.setTimeRemaining();
       this.countDownTimeOut();
     });

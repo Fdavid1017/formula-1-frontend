@@ -30,3 +30,15 @@ export async function getScheduledRoundInformation(round) {
 
   return new ScheduleItem(data);
 }
+
+export async function getUpcomingRace() {
+  let data = null;
+  await axios({
+    url: `upcoming-race`,
+    method: "GET",
+  }).then((response) => {
+    data = response.data;
+  });
+
+  return new ScheduleItem(data);
+}
