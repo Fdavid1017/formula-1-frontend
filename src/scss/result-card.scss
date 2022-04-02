@@ -16,6 +16,7 @@
       left: -30px;
     }
 
+    .team-logo-container,
     .driver-image-container {
       height: 250px;
       top: -100px;
@@ -97,6 +98,7 @@
     }
   }
 
+  .team-logo-container,
   .driver-image-container {
     height: 200px;
     width: 100%;
@@ -113,6 +115,7 @@
     transition-delay: 0.1s;
     transform-origin: top center;
 
+    .team-logo,
     .driver-image {
       height: 100%;
       margin-right: -50px;

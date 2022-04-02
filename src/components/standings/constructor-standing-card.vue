@@ -1,40 +1,42 @@
 <template>
-  <div :class="{ 'result-podium': team.position <= 3 }" class="result-card">
-    <div class="corner-image-container">
-      <img
-        class="corner-image"
-        src="@/assets/images/session-result-card-corner.svg"
-      />
+  <router-link :to="`constructors/${team.team.constructorId}`">
+    <div :class="{ 'result-podium': team.position <= 3 }" class="result-card">
+      <div class="corner-image-container">
+        <img
+          class="corner-image"
+          src="@/assets/images/session-result-card-corner.svg"
+        />
 
-      <div class="position-text">
-        {{ team.position }}{{ positionTextSuffix }}
-      </div>
-    </div>
-
-    <div
-      class="text-container d-flex flex-column flex-md-row align-center justify-space-between"
-    >
-      <div class="text-right text-md-left fill-width">
-        <div class="driver-name">
-          {{ team.nameExtended.shortName }}
-        </div>
-        <div class="constructor-name mt-md-n4">
-          {{ getConstructorNameSecondPart(team.nameExtended.fullName) }}
+        <div class="position-text">
+          {{ team.position }}{{ positionTextSuffix }}
         </div>
       </div>
 
-      <div class="text-center text-md-right mt-3 mt-sm-0">
-        <div class="time">{{ team.points }} pt</div>
-        <div class="delta-difference mt-n1 text-center text-md-right">
-          {{ team.wins }} win
+      <div
+        class="text-container d-flex flex-column flex-md-row align-center justify-space-between"
+      >
+        <div class="text-right text-md-left">
+          <div class="driver-name">
+            {{ team.nameExtended.shortName }}
+          </div>
+          <div class="constructor-name mt-md-n4">
+            {{ getConstructorNameSecondPart(team.nameExtended.fullName) }}
+          </div>
+        </div>
+
+        <div class="text-center text-md-right mt-3 mt-sm-0">
+          <div class="time">{{ team.points }} pt</div>
+          <div class="delta-difference mt-n1 text-center text-md-right">
+            {{ team.wins }} win
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="driver-image-container d-none d-md-flex">
-      <img :alt="team.team.name" :src="constructorImage" class="driver-image" />
+      <div class="team-logo-container d-none d-md-flex">
+        <img :alt="team.team.name" :src="constructorImage" class="team-logo" />
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -70,13 +72,11 @@ export default {
 @import "src/scss/result-card";
 
 .result-card {
-  cursor: default;
-
-  .driver-image-container {
+  .team-logo-container {
     height: 100%;
     top: 0;
 
-    .driver-image {
+    .team-logo {
       margin-right: 0;
       max-width: 15%;
       filter: invert(100%);
@@ -85,8 +85,8 @@ export default {
 }
 
 .result-podium {
-  .driver-image-container {
-    .driver-image {
+  .team-logo-container {
+    .team-logo {
       filter: none;
       transition: all 0.3s;
       transition-delay: 0.1s;
@@ -94,8 +94,8 @@ export default {
   }
 
   &:hover {
-    .driver-image-container {
-      .driver-image {
+    .team-logo-container {
+      .team-logo {
         filter: invert(100%);
       }
     }

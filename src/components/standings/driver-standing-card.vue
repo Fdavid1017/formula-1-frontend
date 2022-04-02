@@ -1,40 +1,46 @@
 <template>
-  <div :class="{ 'result-podium': driver.position <= 3 }" class="result-card">
-    <div class="corner-image-container">
-      <img
-        class="corner-image"
-        src="@/assets/images/session-result-card-corner.svg"
-      />
+  <router-link :to="`drivers/${driver.driver.driverId}`">
+    <div :class="{ 'result-podium': driver.position <= 3 }" class="result-card">
+      <div class="corner-image-container">
+        <img
+          class="corner-image"
+          src="@/assets/images/session-result-card-corner.svg"
+        />
 
-      <div class="position-text">
-        {{ driver.position }}{{ positionTextSuffix }}
-      </div>
-    </div>
-
-    <div
-      class="text-container d-flex flex-column flex-md-row align-center justify-space-between"
-    >
-      <div class="text-right text-md-left fill-width">
-        <div class="driver-name">
-          {{ driver.fullName() }}
-        </div>
-        <div class="constructor-name mt-md-n4">
-          {{ driver.team.team.name }}
+        <div class="position-text">
+          {{ driver.position }}{{ positionTextSuffix }}
         </div>
       </div>
 
-      <div class="text-center text-md-right mt-3 mt-sm-0">
-        <div class="time">{{ driver.points }} pt</div>
-        <div class="delta-difference mt-n1 text-center text-md-right">
-          {{ driver.wins }} win
+      <div
+        class="text-container d-flex flex-column flex-md-row align-center justify-space-between"
+      >
+        <div class="text-right text-md-left">
+          <div class="driver-name">
+            {{ driver.fullName() }}
+          </div>
+          <div class="constructor-name mt-md-n4">
+            {{ driver.team.team.name }}
+          </div>
+        </div>
+
+        <div class="text-center text-md-right mt-3 mt-sm-0">
+          <div class="time">{{ driver.points }} pt</div>
+          <div class="delta-difference mt-n1 text-center text-md-right">
+            {{ driver.wins }} win
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="driver-image-container d-none d-md-flex">
-      <img :alt="driver.driver.code" :src="driverImage" class="driver-image" />
+      <div class="driver-image-container d-none d-md-flex">
+        <img
+          :alt="driver.driver.code"
+          :src="driverImage"
+          class="driver-image"
+        />
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -65,8 +71,4 @@ export default {
 
 <style lang="scss" scoped>
 @import "src/scss/result-card";
-
-.result-card {
-  cursor: default;
-}
 </style>
