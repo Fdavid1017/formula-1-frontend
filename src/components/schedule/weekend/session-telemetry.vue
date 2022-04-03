@@ -4,23 +4,10 @@
       Note: some data may be inaccurate / incorrect.
     </div>
     <v-row class="mb-5">
-      <v-col class="d-flex justify-center align-center" cols="12" md="4">
-        <v-select
-          v-model="displayMode"
-          :items="displayModeSelectItems"
-          dense
-          hide-details
-          item-text="text"
-          item-value="value"
-          label="Display mode"
-          outlined
-        />
-      </v-col>
       <v-col
-        v-if="displayMode === 'charts'"
-        class="d-flex justify-center align-center"
-        cols="12"
-        md="4"
+          class="d-flex justify-center align-center"
+          cols="12"
+          md="6"
       >
         <switch-button
           v-model="lapByLapData"
@@ -30,10 +17,10 @@
         />
       </v-col>
       <v-col
-        v-if="displayMode === 'charts' && !lapByLapData"
-        class="d-flex justify-center align-center"
-        cols="12"
-        md="4"
+          v-if="!lapByLapData"
+          class="d-flex justify-center align-center"
+          cols="12"
+          md="6"
       >
         <v-select
           v-model="chartMode"
@@ -49,47 +36,31 @@
     </v-row>
 
     <full-session-chart
-      v-if="displayMode === 'charts' && !lapByLapData"
-      :chart-mode="chartMode"
-      :round="round"
-      :session="session"
+        v-if="!lapByLapData"
+        :chart-mode="chartMode"
+        :round="round"
+        :session="session"
     />
 
     <lap-telemetry-chart
-      v-if="displayMode === 'charts' && lapByLapData"
-      :round="round"
-      :session="session"
-    />
-
-    <gear-shifts
-      v-if="displayMode === 'gearShifts'"
-      :round="round"
-      :session="session"
-    />
-
-    <speed-visualization
-      v-if="displayMode === 'speed'"
-      :round="round"
-      :session="session"
+        v-else
+        :round="round"
+        :session="session"
     />
   </div>
 </template>
 
 <script>
-import SwitchButton from "@/components/switch-button";
-import FullSessionChart from "@/components/schedule/weekend/telemetry/full-session-chart";
-import LapTelemetryChart from "@/components/schedule/weekend/telemetry/lap-telemetry-chart";
-import GearShifts from "@/components/schedule/weekend/telemetry/gear-shifts";
-import SpeedVisualization from "@/components/schedule/weekend/telemetry/speed-visualization";
+import SwitchButton from '@/components/switch-button'
+import FullSessionChart from '@/components/schedule/weekend/telemetry/full-session-chart'
+import LapTelemetryChart from '@/components/schedule/weekend/telemetry/lap-telemetry-chart'
 
 export default {
-  name: "session-telemetry",
+  name: 'session-telemetry',
   components: {
-    SpeedVisualization,
-    GearShifts,
     LapTelemetryChart,
     FullSessionChart,
-    SwitchButton,
+    SwitchButton
   },
   props: {
     round: {
@@ -102,12 +73,6 @@ export default {
     },
   },
   data: () => ({
-    displayMode: "charts",
-    displayModeSelectItems: [
-      { text: "Charts", value: "charts" },
-      { text: "Gear Shifts Visualization", value: "gearShifts" },
-      { text: "Speed Visualization", value: "speed" },
-    ],
     lapByLapData: false,
     chartModeSelectItems: [
       { text: "Lap time", value: "lapTime" },
