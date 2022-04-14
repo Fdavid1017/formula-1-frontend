@@ -26,9 +26,7 @@
       <div class="overlay">
         <img
           :alt="weekend.circuit.circuitName"
-          :src="
-            require(`@/assets/images/circuit-photos/${this.weekend.circuit.circuitId}.jpg`)
-          "
+          :src="coverImage"
           class="circuit-photo"
         />
 
@@ -80,7 +78,15 @@ export default {
       try {
         return require(`@/assets/images/circuit-layout-minimal/${this.weekend.circuit.circuitId}.png`);
       } catch (e) {
-        console.log(this.weekend.circuit.circuitId);
+        console.log(`Error getting ${this.weekend.circuit.circuitId}.png`);
+        return null;
+      }
+    },
+    coverImage() {
+      try {
+        return require(`@/assets/images/circuit-photos/${this.weekend.circuit.circuitId}.jpg`);
+      } catch (e) {
+        console.log(`Error getting ${this.weekend.circuit.circuitId}.png`);
         return null;
       }
     },

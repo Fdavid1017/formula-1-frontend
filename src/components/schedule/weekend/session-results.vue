@@ -2,16 +2,22 @@
   <loading-indicator v-if="isLoading" />
 
   <v-container
-      v-else-if="sessionResults !== undefined && sessionResults.length > 0"
-      class="session-results"
+    v-else-if="sessionResults !== undefined && sessionResults.length > 0"
+    class="session-results"
   >
     <v-row class="justify-center">
       <v-col cols="12" sm="5" md="3" class="mt-0 mt-md-16">
         <left-side-panel
-            :session-name="sessionName"
-            :active-item="tabs"
-            :options="['Result','Chart','Telemetry Chats','Gearshifts','Speed']"
-            @itemSelect="tabs=arguments[0]"
+          :session-name="sessionName"
+          :active-item="tabs"
+          :options="[
+            'Result',
+            'Chart',
+            'Telemetry Chats',
+            'Gearshifts',
+            'Speed',
+          ]"
+          @itemSelect="tabs = arguments[0]"
         />
       </v-col>
 
@@ -19,10 +25,10 @@
         <v-tabs-items v-model="tabs" class="py-5">
           <v-tab-item>
             <v-row
-                v-for="result in sessionResults"
-                :key="result.Driver"
-                class="mt-16"
-                justify="center"
+              v-for="result in sessionResults"
+              :key="result.Driver"
+              class="mt-16"
+              justify="center"
             >
               <v-col cols="10" lg="10">
                 <session-result-card :result="result" />
@@ -36,16 +42,10 @@
             <session-telemetry :round="round" :session="session" />
           </v-tab-item>
           <v-tab-item>
-            <gear-shifts
-                :round="round"
-                :session="session"
-            />
+            <gear-shifts :round="round" :session="session" />
           </v-tab-item>
           <v-tab-item>
-            <speed-visualization
-                :round="round"
-                :session="session"
-            />
+            <speed-visualization :round="round" :session="session" />
           </v-tab-item>
         </v-tabs-items>
       </v-col>
@@ -58,18 +58,18 @@
 </template>
 
 <script>
-import SessionResultCard from '@/components/schedule/weekend/session-result-card'
-import SessionResult from '@/classes/SessionResult'
-import LoadingIndicator from '@/components/loading-indicator'
-import {getSessionResults} from '@/services/session-results-service'
-import SessionResultChart from '@/components/schedule/weekend/session-result-chart'
-import SessionTelemetry from '@/components/schedule/weekend/session-telemetry'
-import LeftSidePanel from '@/components/schedule/weekend/left-side-panel'
-import GearShifts from '@/components/schedule/weekend/telemetry/gear-shifts'
-import SpeedVisualization from '@/components/schedule/weekend/telemetry/speed-visualization'
+import SessionResultCard from "@/components/schedule/weekend/session-result-card";
+import SessionResult from "@/classes/SessionResult";
+import LoadingIndicator from "@/components/loading-indicator";
+import { getSessionResults } from "@/services/session-results-service";
+import SessionResultChart from "@/components/schedule/weekend/session-result-chart";
+import SessionTelemetry from "@/components/schedule/weekend/session-telemetry";
+import LeftSidePanel from "@/components/schedule/weekend/left-side-panel";
+import GearShifts from "@/components/schedule/weekend/telemetry/gear-shifts";
+import SpeedVisualization from "@/components/schedule/weekend/telemetry/speed-visualization";
 
 export default {
-  name: 'session-results',
+  name: "session-results",
   components: {
     SpeedVisualization,
     GearShifts,
@@ -77,7 +77,7 @@ export default {
     SessionTelemetry,
     SessionResultChart,
     LoadingIndicator,
-    SessionResultCard
+    SessionResultCard,
   },
   props: {
     round: {
@@ -106,15 +106,15 @@ export default {
   },
   computed: {
     telemetryPath() {
-      return `/schedule/${this.round}/${this.session}/telemetry`
+      return `/schedule/${this.round}/${this.session}/telemetry`;
     },
     sessionName() {
-      if (this.session === 'Q') {
-        return 'Quali'
+      if (this.session === "Q") {
+        return "Quali";
       }
 
-      return this.sessionName()
-    }
+      return this.sessionName();
+    },
   },
 };
 </script>
