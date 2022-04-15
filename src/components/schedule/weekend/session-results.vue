@@ -113,7 +113,7 @@ export default {
         return "Quali";
       }
 
-      return this.sessionName();
+      return this.session;
     },
   },
 };
