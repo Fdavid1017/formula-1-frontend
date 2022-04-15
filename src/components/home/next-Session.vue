@@ -3,7 +3,12 @@
     <v-row>
       <v-col class="d-flex align-center justify-center" cols="12" lg="6">
         <div class="next-race-countdown">
-          <h2 class="">{{ nextRace === null ? "" : nextRace["raceName"] }}</h2>
+          <h2 class="mb-2">
+            {{ nextRace === null ? "" : nextRace["raceName"] }}
+          </h2>
+          <div class="text-center time-label mb-4">
+            {{ nextSession.session }}
+          </div>
           <v-row justify="center">
             <v-col cols="6" md="3">
               <div class="time">{{ Math.abs(timeRemaining.days) }}</div>
@@ -23,7 +28,10 @@
             </v-col>
           </v-row>
 
-          <div v-if="new Date() > nextRaceDate" class="text-center time-label">
+          <div
+            v-if="new Date() > nextSession.dateTime"
+            class="text-center time-label"
+          >
             AGO
           </div>
         </div>
@@ -53,7 +61,7 @@
 import { getUpcomingRace } from "@/services/schedule-service";
 
 export default {
-  name: "next-race",
+  name: "nextSession",
   data: () => ({
     nextRace: null,
     timeRemaining: {
@@ -72,17 +80,83 @@ export default {
     });
   },
   computed: {
-    nextRaceDate() {
+    nextSession() {
       if (this.nextRace === null) {
         return new Date();
       }
 
-      return new Date(`${this.nextRace["date"]} ${this.nextRace["time"]}`);
+      const sessionTimes = [];
+
+      if (this.nextRace.firstPractice) {
+        sessionTimes.push({
+          session: "FP1",
+          dateTime: new Date(
+            `${this.nextRace.firstPractice.date}T${this.nextRace.firstPractice.time}`
+          ),
+        });
+      }
+
+      if (this.nextRace.secondPractice) {
+        sessionTimes.push({
+          session: "FP2",
+          dateTime: new Date(
+            `${this.nextRace.secondPractice.date}T${this.nextRace.secondPractice.time}`
+          ),
+        });
+      }
+
+      if (this.nextRace.thirdPractice) {
+        sessionTimes.push({
+          session: "FP3",
+          dateTime: new Date(
+            `${this.nextRace.thirdPractice.date}T${this.nextRace.thirdPractice.time}`
+          ),
+        });
+      }
+
+      if (this.nextRace.qualifying) {
+        sessionTimes.push({
+          session: "Qualifying",
+          dateTime: new Date(
+            `${this.nextRace.qualifying.date}T${this.nextRace.qualifying.time}`
+          ),
+        });
+      }
+
+      if (this.nextRace.sprint) {
+        sessionTimes.push({
+          session: "Sprint",
+          dateTime: new Date(
+            `${this.nextRace.sprint.date}T${this.nextRace.sprint.time}`
+          ),
+        });
+      }
+
+      sessionTimes.push({
+        session: "Race",
+        dateTime: new Date(`${this.nextRace.date}T${this.nextRace.time}`),
+      });
+
+      let closest = null;
+
+      const today = new Date();
+
+      for (let i = 0; i < sessionTimes.length; i++) {
+        if (
+          today.getTime() < sessionTimes[i].dateTime.getTime() &&
+          (!closest ||
+            sessionTimes[i].dateTime.getTime() < closest.dateTime.getTime())
+        ) {
+          closest = sessionTimes[i];
+        }
+      }
+
+      return closest;
     },
   },
   methods: {
     setTimeRemaining() {
-      const total = this.nextRaceDate - new Date();
+      const total = this.nextSession.dateTime - new Date();
       const seconds = Math.floor((total / 1000) % 60);
       const minutes = Math.floor((total / 1000 / 60) % 60);
       const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
@@ -143,7 +217,6 @@ export default {
 
     .time-label {
       font-size: 25px;
-      line-height: 49px;
     }
   }
 }

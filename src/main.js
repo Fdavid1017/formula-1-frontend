@@ -9,23 +9,8 @@ import FlagIcon from "vue-flag-icon";
 import { LMap, LMarker, LTileLayer } from "vue2-leaflet";
 import "leaflet/dist/leaflet.css";
 import VueApexCharts from "vue-apexcharts";
-
-//Font awesome
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faChevronLeft,
-  faLaptop,
-  faMinus,
-  faSortDown,
-  faSortUp,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  faFacebookSquare,
-  faInstagramSquare,
-  faTwitterSquare,
-  faYoutubeSquare,
-} from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import fontawesome from "@/plugins/fontawesome";
 
 Vue.config.productionTip = false;
 
@@ -35,17 +20,7 @@ Vue.use(FlagIcon);
 Vue.use(VueApexCharts);
 Vue.component("apexchart", VueApexCharts);
 
-library.add(
-  faLaptop,
-  faFacebookSquare,
-  faTwitterSquare,
-  faInstagramSquare,
-  faYoutubeSquare,
-  faChevronLeft,
-  faSortUp,
-  faSortDown,
-  faMinus
-);
+fontawesome();
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.component("l-map", LMap);

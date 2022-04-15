@@ -29,6 +29,22 @@ export default class ScheduleItem {
       this.round = 0;
       this.season = 0;
       this.url = "";
+      this.firstPractice = {
+        date: "",
+        time: "",
+      };
+      this.secondPractice = {
+        date: "",
+        time: "",
+      };
+      this.thirdPractice = {
+        date: "",
+        time: "",
+      };
+      this.qualifying = {
+        date: "",
+        time: "",
+      };
 
       return;
     }
@@ -66,5 +82,16 @@ export default class ScheduleItem {
     this.round = parseInt(item.round);
     this.season = parseInt(item.season);
     this.url = item.url;
+    this.firstPractice = item.FirstPractice;
+    this.secondPractice = item.SecondPractice;
+    this.qualifying = item.Qualifying;
+
+    if (item.ThirdPractice) {
+      this.thirdPractice = item.ThirdPractice;
+    }
+
+    if (item.Sprint) {
+      this.sprint = item.Sprint;
+    }
   }
 }

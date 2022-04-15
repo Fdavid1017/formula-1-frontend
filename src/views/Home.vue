@@ -1,7 +1,7 @@
 <template>
   <div>
     <hero />
-    <next-race />
+    <next-session />
     <div ref="standingsPanel" class="standings-panel">
       <standings />
     </div>
@@ -12,14 +12,14 @@
 
 <script>
 import Hero from "@/components/home/hero";
-import NextRace from "@/components/home/next-race";
+import nextSession from "@/components/home/next-Session";
 import Standings from "@/components/home/standings";
 import Telemetry from "@/components/home/telemetry";
 import NewsPanel from "@/components/home/news-panel";
 
 export default {
   name: "Home",
-  components: { NewsPanel, Telemetry, Standings, NextRace, Hero },
+  components: { NewsPanel, Telemetry, Standings, nextSession, Hero },
   data: () => ({
     standingsHeight: 0,
   }),
