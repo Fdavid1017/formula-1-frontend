@@ -10,6 +10,7 @@
         <left-side-panel
           :session-name="sessionName"
           :active-item="tabs"
+          :session-date="sessionDate"
           :options="[
             'Result',
             'Chart',
@@ -87,6 +88,10 @@ export default {
     session: {
       type: String,
       default: "",
+    },
+    sessionDate: {
+      type: Date,
+      default: () => new Date(),
     },
   },
   data: () => ({

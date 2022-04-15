@@ -9,7 +9,7 @@ export default new Vuex.Store({
       show: false,
       backButtonClick: null,
     },
-    currentSeasonYear: "current",
+    currentSeasonYear: new Date().getFullYear(),
   },
   mutations: {
     addBackButtonAction(state, action) {

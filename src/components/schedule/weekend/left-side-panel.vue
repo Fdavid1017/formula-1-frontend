@@ -2,17 +2,32 @@
   <div class="f1-panel fill-width py-2 ps-2">
     <div class="panel-inside">
       <div class="panel-content pa-1">
-        <div class="fill-width d-flex align-center logo-container mb-2">
-          <img class="logo me-3" alt="logo" src="@/assets/logo-white.svg" />
-          {{ sessionName }}
+        <div class="fill-width logo-container mb-2">
+          <div class="d-flex align-center">
+            <img class="logo me-3" alt="logo" src="@/assets/logo-white.svg" />
+            {{ sessionName }}
+          </div>
+
+          <div class="session-date text-center pb-1">
+            {{
+              sessionDate.toLocaleString("en-US", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                hour12: false,
+                minute: "2-digit",
+              })
+            }}
+          </div>
         </div>
 
         <div
-            v-for="(option,index) in options"
-            class="option-item"
-            :key="option"
-            :class="{'font-weight-bold':activeItem===index}"
-            @click="$emit('itemSelect',index)"
+          v-for="(option, index) in options"
+          class="option-item"
+          :key="option"
+          :class="{ 'font-weight-bold': activeItem === index }"
+          @click="$emit('itemSelect', index)"
         >
           {{ option }}
         </div>
@@ -23,22 +38,26 @@
 
 <script>
 export default {
-  name: 'left-side-panel',
+  name: "left-side-panel",
   props: {
     sessionName: {
       type: String,
-      default: ''
+      default: "",
+    },
+    sessionDate: {
+      type: Date,
+      default: () => new Date(),
     },
     options: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     activeItem: {
       type: Number,
-      default: 0
-    }
-  }
-}
+      default: 0,
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -70,6 +89,11 @@ export default {
           height: 100px;
           margin-top: -10%;
           margin-bottom: -10%;
+        }
+
+        .session-date {
+          font-size: 18px;
+          font-weight: normal;
         }
       }
 

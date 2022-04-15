@@ -10,6 +10,7 @@
         <left-side-panel
           session-name="Race"
           :active-item="tabs"
+          :session-date="sessionDate"
           :options="[
             'Result',
             'Chart',
@@ -83,6 +84,10 @@ export default {
     round: {
       type: Number,
       default: 0,
+    },
+    sessionDate: {
+      type: Date,
+      default: () => new Date(),
     },
   },
   data: () => ({

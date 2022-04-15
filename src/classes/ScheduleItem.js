@@ -94,4 +94,52 @@ export default class ScheduleItem {
       this.sprint = item.Sprint;
     }
   }
+
+  getFirstPracticeDate() {
+    if (!this.firstPractice) {
+      return null;
+    }
+
+    return new Date(`${this.firstPractice.date}T${this.firstPractice.time}`);
+  }
+
+  getSecondPracticeDate() {
+    if (!this.secondPractice) {
+      return null;
+    }
+
+    return new Date(`${this.secondPractice.date}T${this.secondPractice.time}`);
+  }
+
+  getThirdPracticeDate() {
+    if (!this.thirdPractice) {
+      return null;
+    }
+
+    return new Date(`${this.thirdPractice.date}T${this.thirdPractice.time}`);
+  }
+
+  getSprintDate() {
+    if (!this.sprint) {
+      return null;
+    }
+
+    return new Date(`${this.sprint.date}T${this.sprint.time}`);
+  }
+
+  getQualifyingDate() {
+    if (!this.qualifying) {
+      return null;
+    }
+
+    return new Date(`${this.qualifying.date}T${this.qualifying.time}`);
+  }
+
+  getRaceDate() {
+    if (!this.qualifying) {
+      return null;
+    }
+
+    return new Date(`${this.date}T${this.time}`);
+  }
 }

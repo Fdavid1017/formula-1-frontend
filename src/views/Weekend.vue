@@ -18,29 +18,36 @@
       <v-tab-item>
         <session-results
           :round="schedule.circuit.location.country"
+          :session-date="schedule.getFirstPracticeDate()"
           session="FP1"
         />
       </v-tab-item>
       <v-tab-item>
         <session-results
           :round="schedule.circuit.location.country"
+          :session-date="schedule.getSecondPracticeDate()"
           session="FP2"
         />
       </v-tab-item>
       <v-tab-item>
         <session-results
           :round="schedule.circuit.location.country"
+          :session-date="schedule.getThirdPracticeDate()"
           session="FP3"
         />
       </v-tab-item>
       <v-tab-item>
         <session-results
           :round="schedule.circuit.location.country"
+          :session-date="schedule.getQualifyingDate()"
           session="Q"
         />
       </v-tab-item>
       <v-tab-item>
-        <race-results :round="schedule.round" />
+        <race-results
+          :round="schedule.round"
+          :session-date="schedule.getRaceDate()"
+        />
       </v-tab-item>
       <v-tab-item>
         <circuit-infos :schedule="schedule" />
