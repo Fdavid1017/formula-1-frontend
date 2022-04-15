@@ -91,13 +91,21 @@ export default {
       }
     },
     weekendDates() {
-      const race = new Date(this.weekend.date);
-      const start = new Date(race);
-      start.setDate(start.getDate() - 2);
+      const fp1 = this.weekend.getFirstPracticeDate();
+      const race = this.weekend.getRaceDate();
 
-      return `${start.toLocaleString("en-US", {
+      return `${fp1.toLocaleString("en-US", {
         month: "short",
-      })} ${start.getDate()} - ${race.getDate()}`;
+      })} ${fp1.toLocaleString("en-US", { day: "2-digit" })} - ${
+        fp1.getMonth() !== race.getMonth()
+          ? race.toLocaleString("en-US", { month: "short" })
+          : ""
+      } ${race.toLocaleString("en-US", { day: "2-digit" })}`;
+
+      //
+      // return `${start.toLocaleString("en-US", {
+      //   month: "short",
+      // })} ${start.getDate()} - ${race.getDate()}`;
     },
     flagComponent() {
       switch (this.weekend.circuit.location.country.toLowerCase()) {
