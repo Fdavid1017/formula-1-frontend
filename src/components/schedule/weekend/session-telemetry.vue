@@ -4,11 +4,7 @@
       Note: some data may be inaccurate / incorrect.
     </div>
     <v-row class="mb-5">
-      <v-col
-          class="d-flex justify-center align-center"
-          cols="12"
-          md="6"
-      >
+      <v-col class="d-flex justify-center align-center" cols="12" md="6">
         <switch-button
           v-model="lapByLapData"
           class="mt-1"
@@ -17,10 +13,10 @@
         />
       </v-col>
       <v-col
-          v-if="!lapByLapData"
-          class="d-flex justify-center align-center"
-          cols="12"
-          md="6"
+        v-if="!lapByLapData"
+        class="d-flex justify-center align-center"
+        cols="12"
+        md="6"
       >
         <v-select
           v-model="chartMode"
@@ -36,31 +32,27 @@
     </v-row>
 
     <full-session-chart
-        v-if="!lapByLapData"
-        :chart-mode="chartMode"
-        :round="round"
-        :session="session"
+      v-if="!lapByLapData"
+      :chart-mode="chartMode"
+      :round="round"
+      :session="session"
     />
 
-    <lap-telemetry-chart
-        v-else
-        :round="round"
-        :session="session"
-    />
+    <lap-telemetry-chart v-else :round="round" :session="session" />
   </div>
 </template>
 
 <script>
-import SwitchButton from '@/components/switch-button'
-import FullSessionChart from '@/components/schedule/weekend/telemetry/full-session-chart'
-import LapTelemetryChart from '@/components/schedule/weekend/telemetry/lap-telemetry-chart'
+import SwitchButton from "@/components/switch-button";
+import FullSessionChart from "@/components/schedule/weekend/telemetry/full-session-chart";
+import LapTelemetryChart from "@/components/schedule/weekend/telemetry/lap-telemetry-chart";
 
 export default {
-  name: 'session-telemetry',
+  name: "session-telemetry",
   components: {
     LapTelemetryChart,
     FullSessionChart,
-    SwitchButton
+    SwitchButton,
   },
   props: {
     round: {
