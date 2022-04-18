@@ -17,13 +17,14 @@
             'Telemetry Chats',
             'Gearshifts',
             'Speed',
+            'Tyre Strategies',
           ]"
           @itemSelect="tabs = arguments[0]"
         />
       </v-col>
 
       <v-col cols="12" md="9">
-        <v-tabs-items v-model="tabs" class="py-5">
+        <v-tabs-items v-model="tabs" class="py-5 fill-height">
           <v-tab-item>
             <v-row
               v-for="result in sessionResults"
@@ -48,6 +49,9 @@
           <v-tab-item>
             <speed-visualization :round="round" :session="session" />
           </v-tab-item>
+          <v-tab-item>
+            <tyre-strategies-chart :round="round" :session="session" />
+          </v-tab-item>
         </v-tabs-items>
       </v-col>
     </v-row>
@@ -68,10 +72,12 @@ import SessionTelemetry from "@/components/schedule/weekend/session-telemetry";
 import LeftSidePanel from "@/components/schedule/weekend/left-side-panel";
 import GearShifts from "@/components/schedule/weekend/telemetry/gear-shifts";
 import SpeedVisualization from "@/components/schedule/weekend/telemetry/speed-visualization";
+import TyreStrategiesChart from "./telemetry/tyre-strategies-chart";
 
 export default {
   name: "session-results",
   components: {
+    TyreStrategiesChart,
     SpeedVisualization,
     GearShifts,
     LeftSidePanel,
