@@ -57,7 +57,7 @@
             >
               <img
                 :alt="driverInfos.code"
-                :src="driverImage"
+                :src="getDriverImage(driverInfos.driverId)"
                 class="driver-image mb-n3"
               />
             </v-col>
@@ -66,7 +66,7 @@
         <v-col class="pb-0 align-end justify-center d-none d-md-flex" cols="6">
           <img
             :alt="driverInfos.code"
-            :src="driverImage"
+            :src="getDriverImage(driverInfos.driverId)"
             class="driver-image ml-n16"
           />
         </v-col>
@@ -89,6 +89,7 @@
 import { getDriverDetails } from "@/services/drivers-service";
 import DriverBackground from "@/components/driver-background";
 import LoadingIndicator from "@/components/loading-indicator";
+import getDriverImage from "../helpers/getDriverImage";
 
 export default {
   name: "Driver-details",
@@ -157,19 +158,15 @@ export default {
         this.isLoading = false;
       });
   },
+  methods: {
+    getDriverImage,
+  },
   computed: {
     driverInfos() {
       return this.driver.Driver;
     },
     constructorInfos() {
       return this.driver.Constructors;
-    },
-    driverImage() {
-      try {
-        return require(`@/assets/images/drivers/${this.driverInfos.driverId}.png`);
-      } catch (e) {
-        return require(`@/assets/images/drivers/no-driver-image.png`);
-      }
     },
   },
 };

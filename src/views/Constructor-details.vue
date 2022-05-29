@@ -139,18 +139,14 @@
             <router-link :to="`/drivers/${team.drivers[0].id}`">
               <img
                 :alt="team.drivers[0]"
-                :src="
-                  require(`@/assets/images/drivers/${team.drivers[0].id}.png`)
-                "
+                :src="getDriverImage(team.drivers[0].id)"
                 class="driver-image"
               />
             </router-link>
             <router-link :to="`/drivers/${team.drivers[1].id}`">
               <img
                 :alt="team.drivers[1]"
-                :src="
-                  require(`@/assets/images/drivers/${team.drivers[1].id}.png`)
-                "
+                :src="getDriverImage(team.drivers[1].id)"
                 class="driver-image"
               />
             </router-link>
@@ -168,6 +164,7 @@ import getConstructorNameSecondPart from "@/helpers/getConstructorNameSecondPart
 import ConstructorDetailsBackground from "@/components/constructors/constructor-details-background";
 import HotspotGroup from "@/components/constructors/hotspot-group";
 import Constructor from "@/classes/Constructor";
+import getDriverImage from "../helpers/getDriverImage";
 
 export default {
   name: "Constructor-details",
@@ -204,6 +201,7 @@ export default {
   },
   methods: {
     getConstructorNameSecondPart,
+    getDriverImage,
     backClick() {
       if (this.showCarDetails) {
         this.showCarDetails = false;

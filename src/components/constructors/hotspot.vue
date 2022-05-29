@@ -84,6 +84,7 @@ $width: 350px;
     left: calc(#{$hotspot-size} + 5px);
     top: 0;
     font-size: 25px;
+    line-height: 24px;
     font-weight: bolder;
     text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75);
     opacity: 1;
